@@ -1,0 +1,3 @@
+version=3
+
+http://nim-lang.org/download.html download/nim-(.*)\.zip

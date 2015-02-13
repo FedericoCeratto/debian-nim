@@ -1,0 +1,5 @@
+nim (0.10.2-1) unstable; urgency=low
+
+  * Initial release (Closes: #778330)
+
+ -- Federico Ceratto <federico.ceratto@gmail.com>  Fri, 13 Feb 2015 16:49:15 +0000

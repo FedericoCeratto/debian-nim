@@ -1,0 +1,34 @@
+Description: Avoid inlining remote resources in HTML documentation.
+ Fixes lintian E privacy-breach-donation
+Author: Ximin Luo <infinity0@pwned.gg>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/web/community.txt
++++ b/web/community.txt
+@@ -93,22 +93,6 @@
+   Contributions of any quantity are greatly appreciated and will contribute to
+   making Nim even better!
+ 
+-  Gittip
+-    .. raw:: html
+-
+-      <iframe style="border: 0; margin: 0; padding: 0;"
+-               src="https://www.gittip.com/Araq/widget.html"
+-               width="64pt" height="22pt"></iframe>
+-
+-  Paypal
+-    .. raw:: html
+-
+-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+-      <input type="hidden" name="cmd" value="_s-xclick">
+-      <input type="hidden" name="hosted_button_id" value="ZQC6CVEEYNTLN">
+-      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+-      <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+-      </form>
+-
+-  Bitcoin
+-    Bitcoin address: 1BXfuKM2uvoD6mbx4g5xM3eQhLzkCK77tJ
++  - `Gittip <https://www.gittip.com/Araq/>`_
++  - `Paypal <https://www.paypal.com/us/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZQC6CVEEYNTLN>`_
++  - Bitcoin address: 1BXfuKM2uvoD6mbx4g5xM3eQhLzkCK77tJ

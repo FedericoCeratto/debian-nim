@@ -36,3 +36,5 @@ override_dh_auto_clean:
 		-not -name 'koch_icon.o' \
 		-delete
 
+override_dh_installdocs:
+	dh_installdocs -Xcopying.txt

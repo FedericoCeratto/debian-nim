@@ -27,6 +27,7 @@ override_dh_auto_install:
 	cp -a web/upload debian/html
 	find debian/html -name '*.idx' \
 		-delete
+	ln -s overview.html debian/html/index.html
 
 override_dh_auto_clean:
 	rm -f ./koch tools/nimweb tools/niminst/niminst

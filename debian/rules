@@ -45,6 +45,9 @@ override_dh_auto_clean:
 	find doc \( -name '*.idx' -o -name '*.html' \) \
 		-delete
 
+override_dh_installdocs:
+	dh_installdocs -Xcopying.txt
+
 override_dh_clean:
 	dh_clean
 	rm -rf debian/html

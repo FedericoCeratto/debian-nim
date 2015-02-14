@@ -21,24 +21,33 @@ DEB_VERSION := $(shell dpkg-parsechangelog -S Version)
 
 override_dh_auto_build:
 	sh build.sh
-	
+
 	# Build docs
-	mkdir debian/html
-	find lib -name '*.nim' -exec ./bin/nim doc "{}" \;
-	find doc -name '*.txt' -exec ./bin/nim rst2html "{}" \;
-	find lib -name '*html' -exec mv "{}" debian/html/ \;
-	find doc -name '*html' -exec mv "{}" debian/html/ \;
-	mv debian/html/docs.html debian/html/index.html
+	./bin/nim c koch
+	PATH=./bin/:$$PATH ./koch web
 	
 	# Generate manpage
 	help2man --name="Nim Language Compiler" -s1 --version-string="$(DEB_VERSION)" \
 		-i debian/nim.h2m -o debian/nim.1 ./bin/nim
 
+override_dh_auto_install:
+	PATH=./bin/:$$PATH ./koch install debian/tmp
+	cp -a web/upload debian/html
+	find debian/html -name '*.idx' \
+		-delete
+
 override_dh_auto_clean:
-	rm bin/ -rf
-	rm debian/html -rf
+	rm -f ./koch tools/nimweb tools/niminst/niminst
+	rm -rf bin/ web/upload/
+	rm -rf ./nimcache tools/nimcache tools/niminst/nimcache
 	find . -name '*.o' \
 		-not -name 'nimrod_icon.o' \
 		-not -name 'koch_icon.o' \
 		-delete
+	find doc \( -name '*.idx' -o -name '*.html' \) \
+		-not -name 'overview.html' \
+		-delete
 
+override_dh_clean:
+	dh_clean
+	rm -rf debian/html

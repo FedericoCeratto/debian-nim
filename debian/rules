@@ -41,11 +41,8 @@ override_dh_auto_clean:
 	rm -rf bin/ web/upload/
 	rm -rf ./nimcache tools/nimcache tools/niminst/nimcache
 	find . -name '*.o' \
-		-not -name 'nimrod_icon.o' \
-		-not -name 'koch_icon.o' \
 		-delete
 	find doc \( -name '*.idx' -o -name '*.html' \) \
-		-not -name 'overview.html' \
 		-delete
 
 override_dh_clean:

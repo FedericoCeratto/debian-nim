@@ -30,5 +30,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -  Bitcoin
 -    Bitcoin address: 1BXfuKM2uvoD6mbx4g5xM3eQhLzkCK77tJ
 +  - `Gittip <https://www.gittip.com/Araq/>`_
-+  - `Paypal <https://www.paypal.com/us/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZQC6CVEEYNTLN>`_
++  - `Paypal <https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZQC6CVEEYNTLN>`_
 +  - Bitcoin address: 1BXfuKM2uvoD6mbx4g5xM3eQhLzkCK77tJ

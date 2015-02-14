@@ -29,10 +29,17 @@ override_dh_auto_install:
 		-delete
 	ln -s overview.html debian/html/index.html
 
+override_dh_auto_test:
+	# Test that the bootstrapping process converges
+	# TODO: not sure if this also checks that c_code also converges, need to verify this
+	# see also https://github.com/nim-lang/csources/issues/12
+	PATH=./bin/:$$PATH ./koch boot -d:release
+	cmp ./bin/nim compiler/nim1
+
 override_dh_auto_clean:
-	rm -f ./koch tools/nimweb tools/niminst/niminst
+	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1
 	rm -rf bin/ web/upload/
-	rm -rf ./nimcache tools/nimcache tools/niminst/nimcache
+	rm -rf ./nimcache tools/nimcache tools/niminst/nimcache compiler/nimcache
 	find . -name '*.o' \
 		-delete
 	find doc \( -name '*.idx' -o -name '*.html' \) \

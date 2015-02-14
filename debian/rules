@@ -4,6 +4,7 @@ export DH_VERBOSE=1
 export DEB_BUILD_HARDENING=1
 
 DEB_VERSION := $(shell dpkg-parsechangelog -S Version)
+DEB_REPRODUCIBLE_TIMESTAMP := $(shell dpkg-parsechangelog --count 1 -SDate)
 
 %:
 	dh $@
@@ -13,9 +14,10 @@ override_dh_auto_build:
 
 	# Build docs
 	./bin/nim c koch
-	PATH=./bin/:$$PATH ./koch web
+	PATH=./bin/:$$PATH faketime "$(DEB_REPRODUCIBLE_TIMESTAMP)" ./koch web
 	
 	# Generate manpage
+	faketime "$(DEB_REPRODUCIBLE_TIMESTAMP)" \
 	help2man --name="Nim Language Compiler" -s1 --version-string="$(DEB_VERSION)" \
 		-i debian/nim.h2m -o debian/nim.1 ./bin/nim
 

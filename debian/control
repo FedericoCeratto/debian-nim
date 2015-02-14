@@ -21,6 +21,7 @@ Description: The Nim programming language - compiler
 Package: nim-doc
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Section: doc
 Description: The Nim programming language - documentation
  Nim is a statically typed, imperative programming language that generates
  native code via compilation to C. It provides non-tracing GC, high level

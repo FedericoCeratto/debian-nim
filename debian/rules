@@ -14,19 +14,25 @@ export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
 # package maintainers to append LDFLAGS
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
+DEB_VERSION := $(shell dpkg-parsechangelog -S Version)
 
 %:
 	dh $@
 
 override_dh_auto_build:
 	sh build.sh
-
+	
+	# Build docs
 	mkdir debian/html
 	find lib -name '*.nim' -exec ./bin/nim doc "{}" \;
 	find doc -name '*.txt' -exec ./bin/nim rst2html "{}" \;
 	find lib -name '*html' -exec mv "{}" debian/html/ \;
 	find doc -name '*html' -exec mv "{}" debian/html/ \;
 	mv debian/html/docs.html debian/html/index.html
+	
+	# Generate manpage
+	help2man --name="Nim Language Compiler" -s1 --version-string="$(DEB_VERSION)" \
+		-i debian/nim.h2m -o debian/nim.1 ./bin/nim
 
 override_dh_auto_clean:
 	rm bin/ -rf
@@ -36,5 +42,3 @@ override_dh_auto_clean:
 		-not -name 'koch_icon.o' \
 		-delete
 
-override_dh_installdocs:
-	dh_installdocs -Xcopying.txt

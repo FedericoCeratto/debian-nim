@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 9), faketime, hardening-wrapper, help2man, zlib1g-d
 Standards-Version: 3.9.6
 Homepage: http://nim-lang.org/
 Vcs-Git: git://anonscm.debian.org/collab-maint/nim.git
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/nim.git;a=summary
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/nim.git
 
 Package: nim
 Architecture: any

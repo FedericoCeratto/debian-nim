@@ -1,5 +1,5 @@
 debian/tmp/nim/bin/*	/usr/bin
-debian/tmp/nim/config/*	/etc/nim
+debian/tmp/nim/config/*	/etc
 debian/tmp/nim/lib/*	/usr/lib/nim
 # mentioned in install.sh but not actually used, maybe uncomment later
 #debian/tmp/nim/data/*	/usr/share/nim

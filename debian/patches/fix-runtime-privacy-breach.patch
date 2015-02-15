@@ -32,3 +32,30 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  - `Gittip <https://www.gittip.com/Araq/>`_
 +  - `Paypal <https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZQC6CVEEYNTLN>`_
 +  - Bitcoin address: 1BXfuKM2uvoD6mbx4g5xM3eQhLzkCK77tJ
+--- a/doc/lib.txt
++++ b/doc/lib.txt
+@@ -613,4 +613,23 @@
+   nimblepkglist.js or have javascript disabled in your browser.</b></div>
+ 
+   <script type="text/javascript" src="nimblepkglist.js"></script>
+-  <script type="text/javascript" src="http://irclogs.nim-lang.org/packages?callback=gotPackageList"></script>
++  <script type="text/javascript" id="remote-loader">
++  window.loaded_remote_libs = false;
++  var load_remote_libs = function() {
++    if (window.loaded_remote_libs) return;
++    var d = document.getElementById("remote-loader");
++    var elem = document.createElement("script");
++    elem.setAttribute("src", "http://irclogs.nim-lang.org/packages?callback=gotPackageList");
++    d.parentNode.insertBefore(elem, d);
++    window.loaded_remote_libs = true;
++  };
++  var set_trigger = function(id, f) {
++    var elem = document.getElementById(id);
++    elem.innerHTML = '<a href="javascript:void(0);">Click to load the list of libraries from a remote insecure resource.</a>';
++    elem.addEventListener("click", f);
++  };
++  if (window.gotPackageList) {
++    set_trigger("officialPkgList", load_remote_libs);
++    set_trigger("unofficialPkgList", load_remote_libs);
++  }
++  </script>

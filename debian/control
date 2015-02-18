@@ -1,8 +1,8 @@
 Source: nim
 Section: devel
 Priority: optional
-Maintainer: Federico Ceratto <federico.ceratto@gmail.com>
-Uploaders: Ximin Luo <infinity0@pwned.gg>
+Maintainer: Ximin Luo <infinity0@pwned.gg>
+Uploaders: Federico Ceratto <federico.ceratto@gmail.com>
 Build-Depends: debhelper (>= 9), faketime, hardening-wrapper, help2man, zlib1g-dev
 Standards-Version: 3.9.6
 Homepage: http://nim-lang.org/

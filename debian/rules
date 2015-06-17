@@ -3,22 +3,20 @@ export DH_VERBOSE=1
 
 export DEB_BUILD_HARDENING=1
 
+# reproducible documentation, see https://wiki.debian.org/ReproducibleBuilds/TimestampsProposal
+export SOURCE_DATE_EPOCH = $(shell date -d "$$(dpkg-parsechangelog --count 1 -SDate)" +%s)
+
 DEB_VERSION := $(shell dpkg-parsechangelog -S Version)
-DEB_REPRODUCIBLE_TIMESTAMP := $(shell date -d "$$(dpkg-parsechangelog --count 1 -SDate)" +'%Y-%m-%d %H:%M:%S')
-DEB_FAKETIME_COMMAND := faketime -f "$(DEB_REPRODUCIBLE_TIMESTAMP)"
 
 %:
 	dh $@
 
 override_dh_auto_build:
 	sh build.sh
-
 	# Build docs
 	./bin/nim c koch
-	PATH=./bin/:$$PATH $(DEB_FAKETIME_COMMAND) ./koch web
-	
+	PATH=./bin/:$$PATH ./koch web
 	# Generate manpage
-	$(DEB_FAKETIME_COMMAND) \
 	help2man --name="Nim Language Compiler" -s1 --version-string="$(DEB_VERSION)" \
 		-i debian/nim.h2m -o debian/nim.1 ./bin/nim
 

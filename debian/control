@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Ximin Luo <infinity0@pwned.gg>
 Uploaders: Federico Ceratto <federico.ceratto@gmail.com>
-Build-Depends: debhelper (>= 9), faketime, hardening-wrapper, help2man, zlib1g-dev
+Build-Depends: debhelper (>= 9), hardening-wrapper, help2man (>= 1.47.1), zlib1g-dev
 Standards-Version: 3.9.6
 Homepage: http://nim-lang.org/
 Vcs-Git: git://anonscm.debian.org/collab-maint/nim.git

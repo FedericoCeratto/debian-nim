@@ -87,10 +87,12 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/nimrtl.nim
   cp lib/prelude.nim $libdir/prelude.nim
   chmod 644 $libdir/prelude.nim
+  cp lib/stdlib.nimble $libdir/stdlib.nimble
+  chmod 644 $libdir/stdlib.nimble
   cp lib/system.nim $libdir/system.nim
   chmod 644 $libdir/system.nim
-  cp lib/nimrtl.nimrod.cfg $libdir/nimrtl.nimrod.cfg
-  chmod 644 $libdir/nimrtl.nimrod.cfg
+  cp lib/nimrtl.nim.cfg $libdir/nimrtl.nim.cfg
+  chmod 644 $libdir/nimrtl.nim.cfg
   cp lib/system/alloc.nim $libdir/system/alloc.nim
   chmod 644 $libdir/system/alloc.nim
   cp lib/system/ansi_c.nim $libdir/system/ansi_c.nim
@@ -281,10 +283,10 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/pegs.nim
   cp lib/pure/poly.nim $libdir/pure/poly.nim
   chmod 644 $libdir/pure/poly.nim
+  cp lib/pure/rationals.nim $libdir/pure/rationals.nim
+  chmod 644 $libdir/pure/rationals.nim
   cp lib/pure/rawsockets.nim $libdir/pure/rawsockets.nim
   chmod 644 $libdir/pure/rawsockets.nim
-  cp lib/pure/rawsockets.pretty.nim $libdir/pure/rawsockets.pretty.nim
-  chmod 644 $libdir/pure/rawsockets.pretty.nim
   cp lib/pure/redis.nim $libdir/pure/redis.nim
   chmod 644 $libdir/pure/redis.nim
   cp lib/pure/romans.nim $libdir/pure/romans.nim
@@ -329,20 +331,22 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/xmltree.nim
   cp lib/pure/actors.nim.cfg $libdir/pure/actors.nim.cfg
   chmod 644 $libdir/pure/actors.nim.cfg
-  cp lib/pure/asyncdispatch.nimrod.cfg $libdir/pure/asyncdispatch.nimrod.cfg
-  chmod 644 $libdir/pure/asyncdispatch.nimrod.cfg
-  cp lib/pure/nimprof.nimrod.cfg $libdir/pure/nimprof.nimrod.cfg
-  chmod 644 $libdir/pure/nimprof.nimrod.cfg
-  cp lib/pure/smtp.nimrod.cfg $libdir/pure/smtp.nimrod.cfg
-  chmod 644 $libdir/pure/smtp.nimrod.cfg
-  cp lib/pure/collections/LockFreeHash.nim $libdir/pure/collections/LockFreeHash.nim
-  chmod 644 $libdir/pure/collections/LockFreeHash.nim
+  cp lib/pure/asyncdispatch.nim.cfg $libdir/pure/asyncdispatch.nim.cfg
+  chmod 644 $libdir/pure/asyncdispatch.nim.cfg
+  cp lib/pure/nimprof.nim.cfg $libdir/pure/nimprof.nim.cfg
+  chmod 644 $libdir/pure/nimprof.nim.cfg
+  cp lib/pure/smtp.nim.cfg $libdir/pure/smtp.nim.cfg
+  chmod 644 $libdir/pure/smtp.nim.cfg
+  cp lib/pure/collections/conc_tables.nim $libdir/pure/collections/conc_tables.nim
+  chmod 644 $libdir/pure/collections/conc_tables.nim
   cp lib/pure/collections/critbits.nim $libdir/pure/collections/critbits.nim
   chmod 644 $libdir/pure/collections/critbits.nim
   cp lib/pure/collections/intsets.nim $libdir/pure/collections/intsets.nim
   chmod 644 $libdir/pure/collections/intsets.nim
   cp lib/pure/collections/lists.nim $libdir/pure/collections/lists.nim
   chmod 644 $libdir/pure/collections/lists.nim
+  cp lib/pure/collections/LockFreeHash.nim $libdir/pure/collections/LockFreeHash.nim
+  chmod 644 $libdir/pure/collections/LockFreeHash.nim
   cp lib/pure/collections/queues.nim $libdir/pure/collections/queues.nim
   chmod 644 $libdir/pure/collections/queues.nim
   cp lib/pure/collections/rtarrays.nim $libdir/pure/collections/rtarrays.nim
@@ -353,6 +357,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/collections/sets.nim
   cp lib/pure/collections/tables.nim $libdir/pure/collections/tables.nim
   chmod 644 $libdir/pure/collections/tables.nim
+  cp lib/pure/concurrency/chans.nim $libdir/pure/concurrency/chans.nim
+  chmod 644 $libdir/pure/concurrency/chans.nim
   cp lib/pure/concurrency/cpuinfo.nim $libdir/pure/concurrency/cpuinfo.nim
   chmod 644 $libdir/pure/concurrency/cpuinfo.nim
   cp lib/pure/concurrency/cpuload.nim $libdir/pure/concurrency/cpuload.nim
@@ -471,6 +477,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/posix/linux.nim
   cp lib/posix/posix.nim $libdir/posix/posix.nim
   chmod 644 $libdir/posix/posix.nim
+  cp lib/posix/termios.nim $libdir/posix/termios.nim
+  chmod 644 $libdir/posix/termios.nim
   cp lib/js/dom.nim $libdir/js/dom.nim
   chmod 644 $libdir/js/dom.nim
   cp lib/packages/docutils/highlite.nim $libdir/packages/docutils/highlite.nim

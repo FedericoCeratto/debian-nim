@@ -12,17 +12,17 @@ if NOT EXIST %BIN_DIR%\nul mkdir %BIN_DIR%
 
 REM call the compiler:
 
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nim.c -o c_code\1_2\nim.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nim.c -o c_code\1_2\nim.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nim.c -o c_code\1_2\nimsrc_nim.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nim.c -o c_code\1_2\nimsrc_nim.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_system.c -o c_code\1_2\stdlib_system.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_system.c -o c_code\1_2\stdlib_system.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\testability.c -o c_code\1_2\testability.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\testability.c -o c_code\1_2\testability.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_testability.c -o c_code\1_2\nimsrc_testability.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_testability.c -o c_code\1_2\nimsrc_testability.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\commands.c -o c_code\1_2\commands.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\commands.c -o c_code\1_2\commands.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_commands.c -o c_code\1_2\nimsrc_commands.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_commands.c -o c_code\1_2\nimsrc_commands.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_os.c -o c_code\1_2\stdlib_os.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_os.c -o c_code\1_2\stdlib_os.o
@@ -39,14 +39,14 @@ IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_winlean.c -o c_code\1_2\stdlib_winlean.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_winlean.c -o c_code\1_2\stdlib_winlean.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\msgs.c -o c_code\1_2\msgs.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\msgs.c -o c_code\1_2\msgs.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_msgs.c -o c_code\1_2\nimsrc_msgs.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_msgs.c -o c_code\1_2\nimsrc_msgs.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\options.c -o c_code\1_2\options.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\options.c -o c_code\1_2\options.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_options.c -o c_code\1_2\nimsrc_options.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_options.c -o c_code\1_2\nimsrc_options.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lists.c -o c_code\1_2\lists.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lists.c -o c_code\1_2\lists.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lists.c -o c_code\1_2\nimsrc_lists.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lists.c -o c_code\1_2\nimsrc_lists.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_strtabs.c -o c_code\1_2\stdlib_strtabs.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_strtabs.c -o c_code\1_2\stdlib_strtabs.o
@@ -72,167 +72,161 @@ IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_tables.c -o c_code\1_2\stdlib_tables.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_tables.c -o c_code\1_2\stdlib_tables.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\ropes.c -o c_code\1_2\ropes.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\ropes.c -o c_code\1_2\ropes.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_ropes.c -o c_code\1_2\nimsrc_ropes.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_ropes.c -o c_code\1_2\nimsrc_ropes.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\platform.c -o c_code\1_2\platform.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\platform.c -o c_code\1_2\platform.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_platform.c -o c_code\1_2\nimsrc_platform.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_platform.c -o c_code\1_2\nimsrc_platform.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\crc.c -o c_code\1_2\crc.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\crc.c -o c_code\1_2\crc.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nversion.c -o c_code\1_2\nimsrc_nversion.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nversion.c -o c_code\1_2\nimsrc_nversion.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_sockets.c -o c_code\1_2\stdlib_sockets.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_sockets.c -o c_code\1_2\stdlib_sockets.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_condsyms.c -o c_code\1_2\nimsrc_condsyms.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_condsyms.c -o c_code\1_2\nimsrc_condsyms.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_unsigned.c -o c_code\1_2\stdlib_unsigned.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_unsigned.c -o c_code\1_2\stdlib_unsigned.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_idents.c -o c_code\1_2\nimsrc_idents.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_idents.c -o c_code\1_2\nimsrc_idents.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nversion.c -o c_code\1_2\nversion.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nversion.c -o c_code\1_2\nversion.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_extccomp.c -o c_code\1_2\nimsrc_extccomp.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_extccomp.c -o c_code\1_2\nimsrc_extccomp.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\condsyms.c -o c_code\1_2\condsyms.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\condsyms.c -o c_code\1_2\condsyms.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_crc.c -o c_code\1_2\nimsrc_crc.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_crc.c -o c_code\1_2\nimsrc_crc.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\idents.c -o c_code\1_2\idents.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\idents.c -o c_code\1_2\idents.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_wordrecg.c -o c_code\1_2\nimsrc_wordrecg.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_wordrecg.c -o c_code\1_2\nimsrc_wordrecg.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\extccomp.c -o c_code\1_2\extccomp.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\extccomp.c -o c_code\1_2\extccomp.o
-IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\wordrecg.c -o c_code\1_2\wordrecg.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\wordrecg.c -o c_code\1_2\wordrecg.o
-IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimblecmd.c -o c_code\1_2\nimblecmd.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimblecmd.c -o c_code\1_2\nimblecmd.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nimblecmd.c -o c_code\1_2\nimsrc_nimblecmd.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nimblecmd.c -o c_code\1_2\nimsrc_nimblecmd.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_parseopt.c -o c_code\1_2\stdlib_parseopt.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_parseopt.c -o c_code\1_2\stdlib_parseopt.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lexer.c -o c_code\1_2\lexer.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lexer.c -o c_code\1_2\lexer.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lexer.c -o c_code\1_2\nimsrc_lexer.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lexer.c -o c_code\1_2\nimsrc_lexer.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimlexbase.c -o c_code\1_2\nimlexbase.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimlexbase.c -o c_code\1_2\nimlexbase.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nimlexbase.c -o c_code\1_2\nimsrc_nimlexbase.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nimlexbase.c -o c_code\1_2\nimsrc_nimlexbase.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\llstream.c -o c_code\1_2\llstream.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\llstream.c -o c_code\1_2\llstream.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_llstream.c -o c_code\1_2\nimsrc_llstream.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_llstream.c -o c_code\1_2\nimsrc_llstream.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimconf.c -o c_code\1_2\nimconf.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimconf.c -o c_code\1_2\nimconf.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nimconf.c -o c_code\1_2\nimsrc_nimconf.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nimconf.c -o c_code\1_2\nimsrc_nimconf.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\main.c -o c_code\1_2\main.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\main.c -o c_code\1_2\main.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_main.c -o c_code\1_2\nimsrc_main.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_main.c -o c_code\1_2\nimsrc_main.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\ast.c -o c_code\1_2\ast.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\ast.c -o c_code\1_2\ast.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_ast.c -o c_code\1_2\nimsrc_ast.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_ast.c -o c_code\1_2\nimsrc_ast.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_intsets.c -o c_code\1_2\stdlib_intsets.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_intsets.c -o c_code\1_2\stdlib_intsets.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\idgen.c -o c_code\1_2\idgen.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\idgen.c -o c_code\1_2\idgen.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_idgen.c -o c_code\1_2\nimsrc_idgen.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_idgen.c -o c_code\1_2\nimsrc_idgen.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\astalgo.c -o c_code\1_2\astalgo.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\astalgo.c -o c_code\1_2\astalgo.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_astalgo.c -o c_code\1_2\nimsrc_astalgo.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_astalgo.c -o c_code\1_2\nimsrc_astalgo.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\rodutils.c -o c_code\1_2\rodutils.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\rodutils.c -o c_code\1_2\rodutils.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_rodutils.c -o c_code\1_2\nimsrc_rodutils.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_rodutils.c -o c_code\1_2\nimsrc_rodutils.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\syntaxes.c -o c_code\1_2\syntaxes.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\syntaxes.c -o c_code\1_2\syntaxes.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_syntaxes.c -o c_code\1_2\nimsrc_syntaxes.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_syntaxes.c -o c_code\1_2\nimsrc_syntaxes.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\parser.c -o c_code\1_2\parser.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\parser.c -o c_code\1_2\parser.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_parser.c -o c_code\1_2\nimsrc_parser.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_parser.c -o c_code\1_2\nimsrc_parser.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\pbraces.c -o c_code\1_2\pbraces.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\pbraces.c -o c_code\1_2\pbraces.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_pbraces.c -o c_code\1_2\nimsrc_pbraces.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_pbraces.c -o c_code\1_2\nimsrc_pbraces.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\filters.c -o c_code\1_2\filters.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\filters.c -o c_code\1_2\filters.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_filters.c -o c_code\1_2\nimsrc_filters.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_filters.c -o c_code\1_2\nimsrc_filters.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\renderer.c -o c_code\1_2\renderer.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\renderer.c -o c_code\1_2\renderer.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_renderer.c -o c_code\1_2\nimsrc_renderer.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_renderer.c -o c_code\1_2\nimsrc_renderer.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\filter_tmpl.c -o c_code\1_2\filter_tmpl.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\filter_tmpl.c -o c_code\1_2\filter_tmpl.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_filter_tmpl.c -o c_code\1_2\nimsrc_filter_tmpl.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_filter_tmpl.c -o c_code\1_2\nimsrc_filter_tmpl.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\rodread.c -o c_code\1_2\rodread.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\rodread.c -o c_code\1_2\rodread.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_rodread.c -o c_code\1_2\nimsrc_rodread.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_rodread.c -o c_code\1_2\nimsrc_rodread.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\types.c -o c_code\1_2\types.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\types.c -o c_code\1_2\types.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_types.c -o c_code\1_2\nimsrc_types.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_types.c -o c_code\1_2\nimsrc_types.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\trees.c -o c_code\1_2\trees.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\trees.c -o c_code\1_2\trees.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_trees.c -o c_code\1_2\nimsrc_trees.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_trees.c -o c_code\1_2\nimsrc_trees.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_memfiles.c -o c_code\1_2\stdlib_memfiles.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_memfiles.c -o c_code\1_2\stdlib_memfiles.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\rodwrite.c -o c_code\1_2\rodwrite.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\rodwrite.c -o c_code\1_2\rodwrite.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_rodwrite.c -o c_code\1_2\nimsrc_rodwrite.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_rodwrite.c -o c_code\1_2\nimsrc_rodwrite.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\passes.c -o c_code\1_2\passes.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\passes.c -o c_code\1_2\passes.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_passes.c -o c_code\1_2\nimsrc_passes.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_passes.c -o c_code\1_2\nimsrc_passes.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\magicsys.c -o c_code\1_2\magicsys.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\magicsys.c -o c_code\1_2\magicsys.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_magicsys.c -o c_code\1_2\nimsrc_magicsys.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_magicsys.c -o c_code\1_2\nimsrc_magicsys.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsets.c -o c_code\1_2\nimsets.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsets.c -o c_code\1_2\nimsets.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nimsets.c -o c_code\1_2\nimsrc_nimsets.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nimsets.c -o c_code\1_2\nimsrc_nimsets.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\bitsets.c -o c_code\1_2\bitsets.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\bitsets.c -o c_code\1_2\bitsets.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_bitsets.c -o c_code\1_2\nimsrc_bitsets.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_bitsets.c -o c_code\1_2\nimsrc_bitsets.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\importer.c -o c_code\1_2\importer.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\importer.c -o c_code\1_2\importer.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_importer.c -o c_code\1_2\nimsrc_importer.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_importer.c -o c_code\1_2\nimsrc_importer.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lookups.c -o c_code\1_2\lookups.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lookups.c -o c_code\1_2\lookups.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lookups.c -o c_code\1_2\nimsrc_lookups.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lookups.c -o c_code\1_2\nimsrc_lookups.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semdata.c -o c_code\1_2\semdata.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semdata.c -o c_code\1_2\semdata.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semdata.c -o c_code\1_2\nimsrc_semdata.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semdata.c -o c_code\1_2\nimsrc_semdata.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\treetab.c -o c_code\1_2\treetab.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\treetab.c -o c_code\1_2\treetab.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_treetab.c -o c_code\1_2\nimsrc_treetab.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_treetab.c -o c_code\1_2\nimsrc_treetab.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\vmdef.c -o c_code\1_2\vmdef.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\vmdef.c -o c_code\1_2\vmdef.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vmdef.c -o c_code\1_2\nimsrc_vmdef.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vmdef.c -o c_code\1_2\nimsrc_vmdef.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\prettybase.c -o c_code\1_2\prettybase.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\prettybase.c -o c_code\1_2\prettybase.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_prettybase.c -o c_code\1_2\nimsrc_prettybase.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_prettybase.c -o c_code\1_2\nimsrc_prettybase.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_lexbase.c -o c_code\1_2\stdlib_lexbase.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_lexbase.c -o c_code\1_2\stdlib_lexbase.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\sem.c -o c_code\1_2\sem.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\sem.c -o c_code\1_2\sem.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_sem.c -o c_code\1_2\nimsrc_sem.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_sem.c -o c_code\1_2\nimsrc_sem.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semfold.c -o c_code\1_2\semfold.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semfold.c -o c_code\1_2\semfold.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semfold.c -o c_code\1_2\nimsrc_semfold.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semfold.c -o c_code\1_2\nimsrc_semfold.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\saturate.c -o c_code\1_2\saturate.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\saturate.c -o c_code\1_2\saturate.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_saturate.c -o c_code\1_2\nimsrc_saturate.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_saturate.c -o c_code\1_2\nimsrc_saturate.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\procfind.c -o c_code\1_2\procfind.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\procfind.c -o c_code\1_2\procfind.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_procfind.c -o c_code\1_2\nimsrc_procfind.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_procfind.c -o c_code\1_2\nimsrc_procfind.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\pragmas.c -o c_code\1_2\pragmas.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\pragmas.c -o c_code\1_2\pragmas.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_pragmas.c -o c_code\1_2\nimsrc_pragmas.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_pragmas.c -o c_code\1_2\nimsrc_pragmas.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semtypinst.c -o c_code\1_2\semtypinst.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semtypinst.c -o c_code\1_2\semtypinst.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semtypinst.c -o c_code\1_2\nimsrc_semtypinst.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semtypinst.c -o c_code\1_2\nimsrc_semtypinst.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\sigmatch.c -o c_code\1_2\sigmatch.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\sigmatch.c -o c_code\1_2\sigmatch.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_sigmatch.c -o c_code\1_2\nimsrc_sigmatch.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_sigmatch.c -o c_code\1_2\nimsrc_sigmatch.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\parampatterns.c -o c_code\1_2\parampatterns.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\parampatterns.c -o c_code\1_2\parampatterns.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_parampatterns.c -o c_code\1_2\nimsrc_parampatterns.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_parampatterns.c -o c_code\1_2\nimsrc_parampatterns.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\pretty.c -o c_code\1_2\pretty.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\pretty.c -o c_code\1_2\pretty.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_pretty.c -o c_code\1_2\nimsrc_pretty.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_pretty.c -o c_code\1_2\nimsrc_pretty.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\docgen.c -o c_code\1_2\docgen.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\docgen.c -o c_code\1_2\docgen.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_docgen.c -o c_code\1_2\nimsrc_docgen.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_docgen.c -o c_code\1_2\nimsrc_docgen.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\docutils_rstast.c -o c_code\1_2\docutils_rstast.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\docutils_rstast.c -o c_code\1_2\docutils_rstast.o
@@ -242,6 +236,9 @@ ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_json.c -o c_code\1_2\stdlib
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_unicode.c -o c_code\1_2\stdlib_unicode.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_unicode.c -o c_code\1_2\stdlib_unicode.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_macros.c -o c_code\1_2\stdlib_macros.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_macros.c -o c_code\1_2\stdlib_macros.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\docutils_rst.c -o c_code\1_2\docutils_rst.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\docutils_rst.c -o c_code\1_2\docutils_rst.o
@@ -258,17 +255,14 @@ IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_algorithm.c -o c_code\1_2\stdlib_algorithm.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_algorithm.c -o c_code\1_2\stdlib_algorithm.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\sempass2.c -o c_code\1_2\sempass2.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\sempass2.c -o c_code\1_2\sempass2.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_sempass2.c -o c_code\1_2\nimsrc_sempass2.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_sempass2.c -o c_code\1_2\nimsrc_sempass2.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\guards.c -o c_code\1_2\guards.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\guards.c -o c_code\1_2\guards.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_guards.c -o c_code\1_2\nimsrc_guards.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_guards.c -o c_code\1_2\nimsrc_guards.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_xmltree.c -o c_code\1_2\stdlib_xmltree.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_xmltree.c -o c_code\1_2\stdlib_xmltree.o
-IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_macros.c -o c_code\1_2\stdlib_macros.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_macros.c -o c_code\1_2\stdlib_macros.o
 IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_cgi.c -o c_code\1_2\stdlib_cgi.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_cgi.c -o c_code\1_2\stdlib_cgi.o
@@ -276,78 +270,102 @@ IF ERRORLEVEL 1 (GOTO:END)
 ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_cookies.c -o c_code\1_2\stdlib_cookies.o
 %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_cookies.c -o c_code\1_2\stdlib_cookies.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\typesrenderer.c -o c_code\1_2\typesrenderer.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\typesrenderer.c -o c_code\1_2\typesrenderer.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_typesrenderer.c -o c_code\1_2\nimsrc_typesrenderer.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_typesrenderer.c -o c_code\1_2\nimsrc_typesrenderer.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\transf.c -o c_code\1_2\transf.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\transf.c -o c_code\1_2\transf.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_transf.c -o c_code\1_2\nimsrc_transf.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_transf.c -o c_code\1_2\nimsrc_transf.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\cgmeth.c -o c_code\1_2\cgmeth.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\cgmeth.c -o c_code\1_2\cgmeth.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_cgmeth.c -o c_code\1_2\nimsrc_cgmeth.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_cgmeth.c -o c_code\1_2\nimsrc_cgmeth.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lambdalifting.c -o c_code\1_2\lambdalifting.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lambdalifting.c -o c_code\1_2\lambdalifting.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lambdalifting.c -o c_code\1_2\nimsrc_lambdalifting.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lambdalifting.c -o c_code\1_2\nimsrc_lambdalifting.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lowerings.c -o c_code\1_2\lowerings.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\lowerings.c -o c_code\1_2\lowerings.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lowerings.c -o c_code\1_2\nimsrc_lowerings.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_lowerings.c -o c_code\1_2\nimsrc_lowerings.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\vm.c -o c_code\1_2\vm.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\vm.c -o c_code\1_2\vm.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vm.c -o c_code\1_2\nimsrc_vm.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vm.c -o c_code\1_2\nimsrc_vm.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\vmgen.c -o c_code\1_2\vmgen.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\vmgen.c -o c_code\1_2\vmgen.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vmgen.c -o c_code\1_2\nimsrc_vmgen.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vmgen.c -o c_code\1_2\nimsrc_vmgen.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\vmdeps.c -o c_code\1_2\vmdeps.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\vmdeps.c -o c_code\1_2\vmdeps.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_unsigned.c -o c_code\1_2\stdlib_unsigned.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_unsigned.c -o c_code\1_2\stdlib_unsigned.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\evaltempl.c -o c_code\1_2\evaltempl.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\evaltempl.c -o c_code\1_2\evaltempl.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vmdeps.c -o c_code\1_2\nimsrc_vmdeps.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vmdeps.c -o c_code\1_2\nimsrc_vmdeps.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\aliases.c -o c_code\1_2\aliases.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\aliases.c -o c_code\1_2\aliases.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vmmarshal.c -o c_code\1_2\nimsrc_vmmarshal.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_vmmarshal.c -o c_code\1_2\nimsrc_vmmarshal.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\patterns.c -o c_code\1_2\patterns.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\patterns.c -o c_code\1_2\patterns.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_evaltempl.c -o c_code\1_2\nimsrc_evaltempl.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_evaltempl.c -o c_code\1_2\nimsrc_evaltempl.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semmacrosanity.c -o c_code\1_2\semmacrosanity.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semmacrosanity.c -o c_code\1_2\semmacrosanity.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_aliases.c -o c_code\1_2\nimsrc_aliases.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_aliases.c -o c_code\1_2\nimsrc_aliases.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semparallel.c -o c_code\1_2\semparallel.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\semparallel.c -o c_code\1_2\semparallel.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_patterns.c -o c_code\1_2\nimsrc_patterns.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_patterns.c -o c_code\1_2\nimsrc_patterns.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\cgen.c -o c_code\1_2\cgen.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\cgen.c -o c_code\1_2\cgen.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semmacrosanity.c -o c_code\1_2\nimsrc_semmacrosanity.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semmacrosanity.c -o c_code\1_2\nimsrc_semmacrosanity.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\ccgutils.c -o c_code\1_2\ccgutils.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\ccgutils.c -o c_code\1_2\ccgutils.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semparallel.c -o c_code\1_2\nimsrc_semparallel.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_semparallel.c -o c_code\1_2\nimsrc_semparallel.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\cgendata.c -o c_code\1_2\cgendata.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\cgendata.c -o c_code\1_2\cgendata.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_plugins.c -o c_code\1_2\nimsrc_plugins.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_plugins.c -o c_code\1_2\nimsrc_plugins.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\ccgmerge.c -o c_code\1_2\ccgmerge.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\ccgmerge.c -o c_code\1_2\ccgmerge.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_active.c -o c_code\1_2\nimsrc_active.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_active.c -o c_code\1_2\nimsrc_active.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\jsgen.c -o c_code\1_2\jsgen.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\jsgen.c -o c_code\1_2\jsgen.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_locals.c -o c_code\1_2\nimsrc_locals.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_locals.c -o c_code\1_2\nimsrc_locals.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\passaux.c -o c_code\1_2\passaux.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\passaux.c -o c_code\1_2\passaux.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_cgen.c -o c_code\1_2\nimsrc_cgen.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_cgen.c -o c_code\1_2\nimsrc_cgen.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\depends.c -o c_code\1_2\depends.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\depends.c -o c_code\1_2\depends.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_ccgutils.c -o c_code\1_2\nimsrc_ccgutils.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_ccgutils.c -o c_code\1_2\nimsrc_ccgutils.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\docgen2.c -o c_code\1_2\docgen2.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\docgen2.c -o c_code\1_2\docgen2.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_cgendata.c -o c_code\1_2\nimsrc_cgendata.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_cgendata.c -o c_code\1_2\nimsrc_cgendata.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\service.c -o c_code\1_2\service.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\service.c -o c_code\1_2\service.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_ccgmerge.c -o c_code\1_2\nimsrc_ccgmerge.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_ccgmerge.c -o c_code\1_2\nimsrc_ccgmerge.o
 IF ERRORLEVEL 1 (GOTO:END)
-ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\modules.c -o c_code\1_2\modules.o
-%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\modules.c -o c_code\1_2\modules.o
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_jsgen.c -o c_code\1_2\nimsrc_jsgen.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_jsgen.c -o c_code\1_2\nimsrc_jsgen.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_passaux.c -o c_code\1_2\nimsrc_passaux.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_passaux.c -o c_code\1_2\nimsrc_passaux.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_depends.c -o c_code\1_2\nimsrc_depends.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_depends.c -o c_code\1_2\nimsrc_depends.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_docgen2.c -o c_code\1_2\nimsrc_docgen2.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_docgen2.c -o c_code\1_2\nimsrc_docgen2.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_service.c -o c_code\1_2\nimsrc_service.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_service.c -o c_code\1_2\nimsrc_service.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_net.c -o c_code\1_2\stdlib_net.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_net.c -o c_code\1_2\stdlib_net.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_rawsockets.c -o c_code\1_2\stdlib_rawsockets.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\stdlib_rawsockets.c -o c_code\1_2\stdlib_rawsockets.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_modules.c -o c_code\1_2\nimsrc_modules.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_modules.c -o c_code\1_2\nimsrc_modules.o
+IF ERRORLEVEL 1 (GOTO:END)
+ECHO %CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nodejs.c -o c_code\1_2\nimsrc_nodejs.o
+%CC% %COMP_FLAGS% -Ic_code -c c_code\1_2\nimsrc_nodejs.c -o c_code\1_2\nimsrc_nodejs.o
 IF ERRORLEVEL 1 (GOTO:END)
 
-ECHO %LINKER% -o %BIN_DIR%\nim.exe  c_code\1_2\nim.o c_code\1_2\stdlib_system.o c_code\1_2\testability.o c_code\1_2\commands.o c_code\1_2\stdlib_os.o c_code\1_2\stdlib_strutils.o c_code\1_2\stdlib_parseutils.o c_code\1_2\stdlib_times.o c_code\1_2\stdlib_winlean.o c_code\1_2\msgs.o c_code\1_2\options.o c_code\1_2\lists.o c_code\1_2\stdlib_strtabs.o c_code\1_2\stdlib_hashes.o c_code\1_2\stdlib_osproc.o c_code\1_2\stdlib_streams.o c_code\1_2\stdlib_cpuinfo.o c_code\1_2\stdlib_sets.o c_code\1_2\stdlib_math.o c_code\1_2\stdlib_tables.o c_code\1_2\ropes.o c_code\1_2\platform.o c_code\1_2\crc.o c_code\1_2\stdlib_sockets.o c_code\1_2\stdlib_unsigned.o c_code\1_2\nversion.o c_code\1_2\condsyms.o c_code\1_2\idents.o c_code\1_2\extccomp.o c_code\1_2\wordrecg.o c_code\1_2\nimblecmd.o c_code\1_2\stdlib_parseopt.o c_code\1_2\lexer.o c_code\1_2\nimlexbase.o c_code\1_2\llstream.o c_code\1_2\nimconf.o c_code\1_2\main.o c_code\1_2\ast.o c_code\1_2\stdlib_intsets.o c_code\1_2\idgen.o c_code\1_2\astalgo.o c_code\1_2\rodutils.o c_code\1_2\syntaxes.o c_code\1_2\parser.o c_code\1_2\pbraces.o c_code\1_2\filters.o c_code\1_2\renderer.o c_code\1_2\filter_tmpl.o c_code\1_2\rodread.o c_code\1_2\types.o c_code\1_2\trees.o c_code\1_2\stdlib_memfiles.o c_code\1_2\rodwrite.o c_code\1_2\passes.o c_code\1_2\magicsys.o c_code\1_2\nimsets.o c_code\1_2\bitsets.o c_code\1_2\importer.o c_code\1_2\lookups.o c_code\1_2\semdata.o c_code\1_2\treetab.o c_code\1_2\vmdef.o c_code\1_2\prettybase.o c_code\1_2\stdlib_lexbase.o c_code\1_2\sem.o c_code\1_2\semfold.o c_code\1_2\saturate.o c_code\1_2\procfind.o c_code\1_2\pragmas.o c_code\1_2\semtypinst.o c_code\1_2\sigmatch.o c_code\1_2\parampatterns.o c_code\1_2\pretty.o c_code\1_2\docgen.o c_code\1_2\docutils_rstast.o c_code\1_2\stdlib_json.o c_code\1_2\stdlib_unicode.o c_code\1_2\docutils_rst.o c_code\1_2\docutils_rstgen.o c_code\1_2\docutils_highlite.o c_code\1_2\stdlib_sequtils.o c_code\1_2\stdlib_algorithm.o c_code\1_2\sempass2.o c_code\1_2\guards.o c_code\1_2\stdlib_xmltree.o c_code\1_2\stdlib_macros.o c_code\1_2\stdlib_cgi.o c_code\1_2\stdlib_cookies.o c_code\1_2\typesrenderer.o c_code\1_2\transf.o c_code\1_2\cgmeth.o c_code\1_2\lambdalifting.o c_code\1_2\lowerings.o c_code\1_2\vm.o c_code\1_2\vmgen.o c_code\1_2\vmdeps.o c_code\1_2\evaltempl.o c_code\1_2\aliases.o c_code\1_2\patterns.o c_code\1_2\semmacrosanity.o c_code\1_2\semparallel.o c_code\1_2\cgen.o c_code\1_2\ccgutils.o c_code\1_2\cgendata.o c_code\1_2\ccgmerge.o c_code\1_2\jsgen.o c_code\1_2\passaux.o c_code\1_2\depends.o c_code\1_2\docgen2.o c_code\1_2\service.o c_code\1_2\modules.o %LINK_FLAGS%
-%LINKER% -o %BIN_DIR%\nim.exe  c_code\1_2\nim.o c_code\1_2\stdlib_system.o c_code\1_2\testability.o c_code\1_2\commands.o c_code\1_2\stdlib_os.o c_code\1_2\stdlib_strutils.o c_code\1_2\stdlib_parseutils.o c_code\1_2\stdlib_times.o c_code\1_2\stdlib_winlean.o c_code\1_2\msgs.o c_code\1_2\options.o c_code\1_2\lists.o c_code\1_2\stdlib_strtabs.o c_code\1_2\stdlib_hashes.o c_code\1_2\stdlib_osproc.o c_code\1_2\stdlib_streams.o c_code\1_2\stdlib_cpuinfo.o c_code\1_2\stdlib_sets.o c_code\1_2\stdlib_math.o c_code\1_2\stdlib_tables.o c_code\1_2\ropes.o c_code\1_2\platform.o c_code\1_2\crc.o c_code\1_2\stdlib_sockets.o c_code\1_2\stdlib_unsigned.o c_code\1_2\nversion.o c_code\1_2\condsyms.o c_code\1_2\idents.o c_code\1_2\extccomp.o c_code\1_2\wordrecg.o c_code\1_2\nimblecmd.o c_code\1_2\stdlib_parseopt.o c_code\1_2\lexer.o c_code\1_2\nimlexbase.o c_code\1_2\llstream.o c_code\1_2\nimconf.o c_code\1_2\main.o c_code\1_2\ast.o c_code\1_2\stdlib_intsets.o c_code\1_2\idgen.o c_code\1_2\astalgo.o c_code\1_2\rodutils.o c_code\1_2\syntaxes.o c_code\1_2\parser.o c_code\1_2\pbraces.o c_code\1_2\filters.o c_code\1_2\renderer.o c_code\1_2\filter_tmpl.o c_code\1_2\rodread.o c_code\1_2\types.o c_code\1_2\trees.o c_code\1_2\stdlib_memfiles.o c_code\1_2\rodwrite.o c_code\1_2\passes.o c_code\1_2\magicsys.o c_code\1_2\nimsets.o c_code\1_2\bitsets.o c_code\1_2\importer.o c_code\1_2\lookups.o c_code\1_2\semdata.o c_code\1_2\treetab.o c_code\1_2\vmdef.o c_code\1_2\prettybase.o c_code\1_2\stdlib_lexbase.o c_code\1_2\sem.o c_code\1_2\semfold.o c_code\1_2\saturate.o c_code\1_2\procfind.o c_code\1_2\pragmas.o c_code\1_2\semtypinst.o c_code\1_2\sigmatch.o c_code\1_2\parampatterns.o c_code\1_2\pretty.o c_code\1_2\docgen.o c_code\1_2\docutils_rstast.o c_code\1_2\stdlib_json.o c_code\1_2\stdlib_unicode.o c_code\1_2\docutils_rst.o c_code\1_2\docutils_rstgen.o c_code\1_2\docutils_highlite.o c_code\1_2\stdlib_sequtils.o c_code\1_2\stdlib_algorithm.o c_code\1_2\sempass2.o c_code\1_2\guards.o c_code\1_2\stdlib_xmltree.o c_code\1_2\stdlib_macros.o c_code\1_2\stdlib_cgi.o c_code\1_2\stdlib_cookies.o c_code\1_2\typesrenderer.o c_code\1_2\transf.o c_code\1_2\cgmeth.o c_code\1_2\lambdalifting.o c_code\1_2\lowerings.o c_code\1_2\vm.o c_code\1_2\vmgen.o c_code\1_2\vmdeps.o c_code\1_2\evaltempl.o c_code\1_2\aliases.o c_code\1_2\patterns.o c_code\1_2\semmacrosanity.o c_code\1_2\semparallel.o c_code\1_2\cgen.o c_code\1_2\ccgutils.o c_code\1_2\cgendata.o c_code\1_2\ccgmerge.o c_code\1_2\jsgen.o c_code\1_2\passaux.o c_code\1_2\depends.o c_code\1_2\docgen2.o c_code\1_2\service.o c_code\1_2\modules.o %LINK_FLAGS%
+ECHO %LINKER% -o %BIN_DIR%\nim.exe  c_code\1_2\nimsrc_nim.o c_code\1_2\stdlib_system.o c_code\1_2\nimsrc_testability.o c_code\1_2\nimsrc_commands.o c_code\1_2\stdlib_os.o c_code\1_2\stdlib_strutils.o c_code\1_2\stdlib_parseutils.o c_code\1_2\stdlib_times.o c_code\1_2\stdlib_winlean.o c_code\1_2\nimsrc_msgs.o c_code\1_2\nimsrc_options.o c_code\1_2\nimsrc_lists.o c_code\1_2\stdlib_strtabs.o c_code\1_2\stdlib_hashes.o c_code\1_2\stdlib_osproc.o c_code\1_2\stdlib_streams.o c_code\1_2\stdlib_cpuinfo.o c_code\1_2\stdlib_sets.o c_code\1_2\stdlib_math.o c_code\1_2\stdlib_tables.o c_code\1_2\nimsrc_ropes.o c_code\1_2\nimsrc_platform.o c_code\1_2\nimsrc_nversion.o c_code\1_2\nimsrc_condsyms.o c_code\1_2\nimsrc_idents.o c_code\1_2\nimsrc_extccomp.o c_code\1_2\nimsrc_crc.o c_code\1_2\nimsrc_wordrecg.o c_code\1_2\nimsrc_nimblecmd.o c_code\1_2\stdlib_parseopt.o c_code\1_2\nimsrc_lexer.o c_code\1_2\nimsrc_nimlexbase.o c_code\1_2\nimsrc_llstream.o c_code\1_2\nimsrc_nimconf.o c_code\1_2\nimsrc_main.o c_code\1_2\nimsrc_ast.o c_code\1_2\stdlib_intsets.o c_code\1_2\nimsrc_idgen.o c_code\1_2\nimsrc_astalgo.o c_code\1_2\nimsrc_rodutils.o c_code\1_2\nimsrc_syntaxes.o c_code\1_2\nimsrc_parser.o c_code\1_2\nimsrc_pbraces.o c_code\1_2\nimsrc_filters.o c_code\1_2\nimsrc_renderer.o c_code\1_2\nimsrc_filter_tmpl.o c_code\1_2\nimsrc_rodread.o c_code\1_2\nimsrc_types.o c_code\1_2\nimsrc_trees.o c_code\1_2\stdlib_memfiles.o c_code\1_2\nimsrc_rodwrite.o c_code\1_2\nimsrc_passes.o c_code\1_2\nimsrc_magicsys.o c_code\1_2\nimsrc_nimsets.o c_code\1_2\nimsrc_bitsets.o c_code\1_2\nimsrc_importer.o c_code\1_2\nimsrc_lookups.o c_code\1_2\nimsrc_semdata.o c_code\1_2\nimsrc_treetab.o c_code\1_2\nimsrc_vmdef.o c_code\1_2\nimsrc_prettybase.o c_code\1_2\stdlib_lexbase.o c_code\1_2\nimsrc_sem.o c_code\1_2\nimsrc_semfold.o c_code\1_2\nimsrc_saturate.o c_code\1_2\nimsrc_procfind.o c_code\1_2\nimsrc_pragmas.o c_code\1_2\nimsrc_semtypinst.o c_code\1_2\nimsrc_sigmatch.o c_code\1_2\nimsrc_parampatterns.o c_code\1_2\nimsrc_pretty.o c_code\1_2\nimsrc_docgen.o c_code\1_2\docutils_rstast.o c_code\1_2\stdlib_json.o c_code\1_2\stdlib_unicode.o c_code\1_2\stdlib_macros.o c_code\1_2\docutils_rst.o c_code\1_2\docutils_rstgen.o c_code\1_2\docutils_highlite.o c_code\1_2\stdlib_sequtils.o c_code\1_2\stdlib_algorithm.o c_code\1_2\nimsrc_sempass2.o c_code\1_2\nimsrc_guards.o c_code\1_2\stdlib_xmltree.o c_code\1_2\stdlib_cgi.o c_code\1_2\stdlib_cookies.o c_code\1_2\nimsrc_typesrenderer.o c_code\1_2\nimsrc_transf.o c_code\1_2\nimsrc_cgmeth.o c_code\1_2\nimsrc_lambdalifting.o c_code\1_2\nimsrc_lowerings.o c_code\1_2\nimsrc_vm.o c_code\1_2\nimsrc_vmgen.o c_code\1_2\stdlib_unsigned.o c_code\1_2\nimsrc_vmdeps.o c_code\1_2\nimsrc_vmmarshal.o c_code\1_2\nimsrc_evaltempl.o c_code\1_2\nimsrc_aliases.o c_code\1_2\nimsrc_patterns.o c_code\1_2\nimsrc_semmacrosanity.o c_code\1_2\nimsrc_semparallel.o c_code\1_2\nimsrc_plugins.o c_code\1_2\nimsrc_active.o c_code\1_2\nimsrc_locals.o c_code\1_2\nimsrc_cgen.o c_code\1_2\nimsrc_ccgutils.o c_code\1_2\nimsrc_cgendata.o c_code\1_2\nimsrc_ccgmerge.o c_code\1_2\nimsrc_jsgen.o c_code\1_2\nimsrc_passaux.o c_code\1_2\nimsrc_depends.o c_code\1_2\nimsrc_docgen2.o c_code\1_2\nimsrc_service.o c_code\1_2\stdlib_net.o c_code\1_2\stdlib_rawsockets.o c_code\1_2\nimsrc_modules.o c_code\1_2\nimsrc_nodejs.o %LINK_FLAGS%
+%LINKER% -o %BIN_DIR%\nim.exe  c_code\1_2\nimsrc_nim.o c_code\1_2\stdlib_system.o c_code\1_2\nimsrc_testability.o c_code\1_2\nimsrc_commands.o c_code\1_2\stdlib_os.o c_code\1_2\stdlib_strutils.o c_code\1_2\stdlib_parseutils.o c_code\1_2\stdlib_times.o c_code\1_2\stdlib_winlean.o c_code\1_2\nimsrc_msgs.o c_code\1_2\nimsrc_options.o c_code\1_2\nimsrc_lists.o c_code\1_2\stdlib_strtabs.o c_code\1_2\stdlib_hashes.o c_code\1_2\stdlib_osproc.o c_code\1_2\stdlib_streams.o c_code\1_2\stdlib_cpuinfo.o c_code\1_2\stdlib_sets.o c_code\1_2\stdlib_math.o c_code\1_2\stdlib_tables.o c_code\1_2\nimsrc_ropes.o c_code\1_2\nimsrc_platform.o c_code\1_2\nimsrc_nversion.o c_code\1_2\nimsrc_condsyms.o c_code\1_2\nimsrc_idents.o c_code\1_2\nimsrc_extccomp.o c_code\1_2\nimsrc_crc.o c_code\1_2\nimsrc_wordrecg.o c_code\1_2\nimsrc_nimblecmd.o c_code\1_2\stdlib_parseopt.o c_code\1_2\nimsrc_lexer.o c_code\1_2\nimsrc_nimlexbase.o c_code\1_2\nimsrc_llstream.o c_code\1_2\nimsrc_nimconf.o c_code\1_2\nimsrc_main.o c_code\1_2\nimsrc_ast.o c_code\1_2\stdlib_intsets.o c_code\1_2\nimsrc_idgen.o c_code\1_2\nimsrc_astalgo.o c_code\1_2\nimsrc_rodutils.o c_code\1_2\nimsrc_syntaxes.o c_code\1_2\nimsrc_parser.o c_code\1_2\nimsrc_pbraces.o c_code\1_2\nimsrc_filters.o c_code\1_2\nimsrc_renderer.o c_code\1_2\nimsrc_filter_tmpl.o c_code\1_2\nimsrc_rodread.o c_code\1_2\nimsrc_types.o c_code\1_2\nimsrc_trees.o c_code\1_2\stdlib_memfiles.o c_code\1_2\nimsrc_rodwrite.o c_code\1_2\nimsrc_passes.o c_code\1_2\nimsrc_magicsys.o c_code\1_2\nimsrc_nimsets.o c_code\1_2\nimsrc_bitsets.o c_code\1_2\nimsrc_importer.o c_code\1_2\nimsrc_lookups.o c_code\1_2\nimsrc_semdata.o c_code\1_2\nimsrc_treetab.o c_code\1_2\nimsrc_vmdef.o c_code\1_2\nimsrc_prettybase.o c_code\1_2\stdlib_lexbase.o c_code\1_2\nimsrc_sem.o c_code\1_2\nimsrc_semfold.o c_code\1_2\nimsrc_saturate.o c_code\1_2\nimsrc_procfind.o c_code\1_2\nimsrc_pragmas.o c_code\1_2\nimsrc_semtypinst.o c_code\1_2\nimsrc_sigmatch.o c_code\1_2\nimsrc_parampatterns.o c_code\1_2\nimsrc_pretty.o c_code\1_2\nimsrc_docgen.o c_code\1_2\docutils_rstast.o c_code\1_2\stdlib_json.o c_code\1_2\stdlib_unicode.o c_code\1_2\stdlib_macros.o c_code\1_2\docutils_rst.o c_code\1_2\docutils_rstgen.o c_code\1_2\docutils_highlite.o c_code\1_2\stdlib_sequtils.o c_code\1_2\stdlib_algorithm.o c_code\1_2\nimsrc_sempass2.o c_code\1_2\nimsrc_guards.o c_code\1_2\stdlib_xmltree.o c_code\1_2\stdlib_cgi.o c_code\1_2\stdlib_cookies.o c_code\1_2\nimsrc_typesrenderer.o c_code\1_2\nimsrc_transf.o c_code\1_2\nimsrc_cgmeth.o c_code\1_2\nimsrc_lambdalifting.o c_code\1_2\nimsrc_lowerings.o c_code\1_2\nimsrc_vm.o c_code\1_2\nimsrc_vmgen.o c_code\1_2\stdlib_unsigned.o c_code\1_2\nimsrc_vmdeps.o c_code\1_2\nimsrc_vmmarshal.o c_code\1_2\nimsrc_evaltempl.o c_code\1_2\nimsrc_aliases.o c_code\1_2\nimsrc_patterns.o c_code\1_2\nimsrc_semmacrosanity.o c_code\1_2\nimsrc_semparallel.o c_code\1_2\nimsrc_plugins.o c_code\1_2\nimsrc_active.o c_code\1_2\nimsrc_locals.o c_code\1_2\nimsrc_cgen.o c_code\1_2\nimsrc_ccgutils.o c_code\1_2\nimsrc_cgendata.o c_code\1_2\nimsrc_ccgmerge.o c_code\1_2\nimsrc_jsgen.o c_code\1_2\nimsrc_passaux.o c_code\1_2\nimsrc_depends.o c_code\1_2\nimsrc_docgen2.o c_code\1_2\nimsrc_service.o c_code\1_2\stdlib_net.o c_code\1_2\stdlib_rawsockets.o c_code\1_2\nimsrc_modules.o c_code\1_2\nimsrc_nodejs.o %LINK_FLAGS%
 
 
 :END

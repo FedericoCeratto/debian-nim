@@ -46,7 +46,7 @@ override_dh_auto_clean:
 		-delete
 
 override_dh_installdocs:
-	dh_installdocs -Xcopying.txt
+	dh_installdocs -Xcopying.txt -A debian/LICENSE.MPL-1.1
 
 override_dh_clean:
 	dh_clean

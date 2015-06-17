@@ -6,7 +6,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/web/community.txt
 +++ b/web/community.txt
-@@ -93,22 +93,6 @@
+@@ -103,22 +103,6 @@
    Contributions of any quantity are greatly appreciated and will contribute to
    making Nim even better!
  
@@ -34,7 +34,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  - Bitcoin address: 1BXfuKM2uvoD6mbx4g5xM3eQhLzkCK77tJ
 --- a/doc/lib.txt
 +++ b/doc/lib.txt
-@@ -613,4 +613,23 @@
+@@ -603,4 +603,23 @@
    nimblepkglist.js or have javascript disabled in your browser.</b></div>
  
    <script type="text/javascript" src="nimblepkglist.js"></script>

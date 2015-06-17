@@ -6,7 +6,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/tools/nimweb.nim
 +++ b/tools/nimweb.nim
-@@ -432,7 +432,8 @@
+@@ -440,7 +440,8 @@
    buildNewsRss(c, "web/upload")
  
  proc main(c: var TConfigData) =

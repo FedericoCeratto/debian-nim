@@ -1,5 +1,5 @@
-nim (0.10.2-1) unstable; urgency=low
+nim (0.11.2-1) UNRELEASED; urgency=low
 
   * Initial release (Closes: #778330)
 
- -- Federico Ceratto <federico.ceratto@gmail.com>  Fri, 13 Feb 2015 16:49:15 +0000
+ -- Ximin Luo <infinity0@pwned.gg>  Thu, 18 Jun 2015 00:06:44 +0200

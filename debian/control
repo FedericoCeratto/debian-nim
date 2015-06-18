@@ -12,19 +12,18 @@ Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/nim.git
 Package: nim
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: The Nim programming language - compiler
+Description: Nim programming language - compiler
  Nim is a statically typed, imperative programming language that generates
- native code via compilation to C. It provides non-tracing GC, high level
- datatypes and local type inference, a non-tracing GC and bindings to a lot
- of C libraries.
+ native code via compilation to C. It provides a non-tracing GC, high level
+ datatypes and local type inference, and bindings to a lot of C libraries.
 
 Package: nim-doc
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Section: doc
-Description: The Nim programming language - documentation
+Description: Nim programming language - documentation
  Nim is a statically typed, imperative programming language that generates
- native code via compilation to C. It provides non-tracing GC, high level
- datatypes and local type inference, a non-tracing GC and bindings to a lot
- of C libraries.
+ native code via compilation to C. It provides a non-tracing GC, high level
+ datatypes and local type inference, and bindings to a lot of C libraries.
+ .
  This is a documentation package.

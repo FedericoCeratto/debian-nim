@@ -1,0 +1,2 @@
+# the first word refers to the language, not the package
+nim binary: description-starts-with-package-name

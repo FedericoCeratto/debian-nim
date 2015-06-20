@@ -1,3 +1,12 @@
+#
+#
+#            Nim's Runtime Library
+#        (c) Copyright 2015 Andreas Rumpf
+#
+#    See the file "copying.txt", included in this
+#    distribution, for details about the copyright.
+#
+
 ## libuv is still fast moving target
 ## This file was last updated against a development HEAD revision of https://github.com/joyent/libuv/
 

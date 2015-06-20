@@ -1,3 +1,12 @@
+#
+#
+#            Nim's Runtime Library
+#        (c) Copyright 2015 Andreas Rumpf
+#
+#    See the file "copying.txt", included in this
+#    distribution, for details about the copyright.
+#
+
 # This module contains the definitions for structures and externs for
 # functions used by frontend postgres applications. It is based on
 # Postgresql's libpq-fe.h.

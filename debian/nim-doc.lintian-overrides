@@ -1,0 +1,3 @@
+# we have checked the exact wording matches modulo the copyright holder which
+# we account for in debian/copyright ("replace [it] with the appropriate")
+nim-doc binary: copyright-refers-to-deprecated-bsd-license-file

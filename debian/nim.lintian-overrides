@@ -1,2 +1,5 @@
 # the first word refers to the language, not the package
 nim binary: description-starts-with-package-name
+# we have checked the exact wording matches modulo the copyright holder which
+# we account for in debian/copyright ("replace [it] with the appropriate")
+nim binary: copyright-refers-to-deprecated-bsd-license-file

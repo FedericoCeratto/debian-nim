@@ -1,4 +1,4 @@
-nim (0.11.2-1) UNRELEASED; urgency=low
+nim (0.11.2+dfsg1-1) UNRELEASED; urgency=low
 
   * Initial release (Closes: #778330)
 

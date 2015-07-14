@@ -1,0 +1,80 @@
+Description: Have docgen use SOURCE_DATE_EPOCH for reproducible documentation
+Author: Ximin Luo <infinity0@pwned.gg>
+Bug: https://github.com/nim-lang/Nim/issues/3113
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/compiler/docgen.nim
++++ b/compiler/docgen.nim
+@@ -574,15 +574,15 @@
+   let bodyname = if d.hasToc: "doc.body_toc" else: "doc.body_no_toc"
+   content = ropeFormatNamedVars(getConfigVar(bodyname), ["title",
+       "tableofcontents", "moduledesc", "date", "time", "content"],
+-      [title.rope, toc, d.modDesc, rope(getDateStr()),
+-      rope(getClockStr()), code])
++      [title.rope, toc, d.modDesc, rope(getSrcDateStr()),
++      rope(getSrcClockStr()), code])
+   if optCompileOnly notin gGlobalOptions:
+     # XXX what is this hack doing here? 'optCompileOnly' means raw output!?
+     code = ropeFormatNamedVars(getConfigVar("doc.file"), ["title",
+         "tableofcontents", "moduledesc", "date", "time",
+         "content", "author", "version", "analytics"],
+-        [title.rope, toc, d.modDesc, rope(getDateStr()),
+-                     rope(getClockStr()), content, d.meta[metaAuthor].rope,
++        [title.rope, toc, d.modDesc, rope(getSrcDateStr()),
++                     rope(getSrcClockStr()), content, d.meta[metaAuthor].rope,
+                      d.meta[metaVersion].rope, d.analytics.rope])
+   else:
+     code = content
+@@ -649,7 +649,7 @@
+   let code = ropeFormatNamedVars(getConfigVar("doc.file"), ["title",
+       "tableofcontents", "moduledesc", "date", "time",
+       "content", "author", "version", "analytics"],
+-      ["Index".rope, nil, nil, rope(getDateStr()),
+-                   rope(getClockStr()), content, nil, nil, nil])
++      ["Index".rope, nil, nil, rope(getSrcDateStr()),
++                   rope(getSrcClockStr()), content, nil, nil, nil])
+   # no analytics because context is not available
+   writeRope(code, getOutFile("theindex", HtmlExt))
+--- a/compiler/options.nim
++++ b/compiler/options.nim
+@@ -8,7 +8,7 @@
+ #
+ 
+ import
+-  os, lists, strutils, strtabs, osproc, sets
++  os, lists, strutils, strtabs, osproc, sets, times
+ 
+ const
+   hasTinyCBackend* = defined(tinyc)
+@@ -395,3 +395,18 @@
+ template pnimdbg*: expr = p.lex.fileIdx == gProjectMainIdx
+ template lnimdbg*: expr = L.fileIdx == gProjectMainIdx
+ 
++proc getSrcTime(): Time =
++  if existsEnv("SOURCE_DATE_EPOCH"):
++    return fromSeconds(parseInt(getEnv("SOURCE_DATE_EPOCH")))
++  else:
++    return getTime()
++
++proc getSrcDateStr*(): string =
++  var ti = getGMTime(getSrcTime())
++  result = $ti.year & '-' & intToStr(ord(ti.month)+1, 2) &
++    '-' & intToStr(ti.monthday, 2)
++
++proc getSrcClockStr*(): string =
++  var ti = getGMTime(getSrcTime())
++  result = intToStr(ti.hour, 2) & ':' & intToStr(ti.minute, 2) &
++    ':' & intToStr(ti.second, 2)
+--- a/compiler/semfold.nim
++++ b/compiler/semfold.nim
+@@ -628,8 +628,8 @@
+     of skConst:
+       case s.magic
+       of mIsMainModule: result = newIntNodeT(ord(sfMainModule in m.flags), n)
+-      of mCompileDate: result = newStrNodeT(times.getDateStr(), n)
+-      of mCompileTime: result = newStrNodeT(times.getClockStr(), n)
++      of mCompileDate: result = newStrNodeT(getSrcDateStr(), n)
++      of mCompileTime: result = newStrNodeT(getSrcClockStr(), n)
+       of mCpuEndian: result = newIntNodeT(ord(CPU[targetCPU].endian), n)
+       of mHostOS: result = newStrNodeT(toLower(platform.OS[targetOS].name), n)
+       of mHostCPU: result = newStrNodeT(platform.CPU[targetCPU].name.toLower, n)

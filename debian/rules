@@ -10,8 +10,12 @@ export SOURCE_DATE_EPOCH = $(shell date -d "$$(dpkg-parsechangelog --count 1 -SD
 
 override_dh_auto_build:
 	$(MAKE) -f makefile
-	# Build docs
 	./bin/nim c koch
+	# Build until convergence; we must do this here, not dh_auto_test, to pick up
+	# any changes in debian/patches. see also https://github.com/nim-lang/csources/issues/12
+	PATH=./bin/:$$PATH ./koch boot -d:release \
+	  $(addprefix --passC:,$(CPPFLAGS)) $(addprefix --passC:,$(CFLAGS)) $(addprefix --passL:,$(LDFLAGS))
+	# Build docs
 	PATH=./bin/:$$PATH ./koch web
 	# Generate manpage
 	help2man --name="Nim Language Compiler" -s1 --version-string="$(DEB_VERSION)" \
@@ -25,11 +29,6 @@ override_dh_auto_install:
 	ln -sf overview.html debian/html/index.html
 
 override_dh_auto_test:
-	# Test that the bootstrapping process converges
-	# TODO: not sure if this also checks that c_code also converges, need to verify this
-	# see also https://github.com/nim-lang/csources/issues/12
-	PATH=./bin/:$$PATH ./koch boot -d:release \
-	  $(addprefix --passC:,$(CPPFLAGS)) $(addprefix --passC:,$(CFLAGS)) $(addprefix --passL:,$(LDFLAGS))
 	cmp ./bin/nim compiler/nim1
 
 override_dh_auto_clean:

@@ -1,5 +1,5 @@
-nim (0.11.2+dfsg1-1) UNRELEASED; urgency=low
+nim (0.11.2+dfsg1-1) unstable; urgency=low
 
   * Initial release (Closes: #778330)
 
- -- Ximin Luo <infinity0@pwned.gg>  Thu, 18 Jun 2015 00:06:44 +0200
+ -- Ximin Luo <infinity0@pwned.gg>  Tue, 14 Jul 2015 14:11:51 +0200

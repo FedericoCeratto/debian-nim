@@ -1,6 +1,4 @@
-Description: Fix build tools to honour standard build flags
- This makes the convergence process take one more iteration, since we don't
- patch c_code in the same way; this would be fixed if upstream merge this patch.
+Description: Fix build scripts to honour standard build flags
 Author: Ximin Luo <infinity0@pwned.gg>
 Bug: https://github.com/nim-lang/Nim/issues/2128
 ---
@@ -18,19 +16,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # platform detection
  ucpu=`uname -m`
  uos=`uname`
---- a/compiler/main.nim
-+++ b/compiler/main.nim
-@@ -237,6 +237,10 @@
-   when SimulateCaasMemReset:
-     gGlobalOptions.incl(optCaasEnabled)
- 
-+  extccomp.addCompileOption(os.getEnv("CPPFLAGS"))
-+  extccomp.addCompileOption(os.getEnv("CFLAGS"))
-+  extccomp.addLinkOption(os.getEnv("LDFLAGS"))
-+
-   # In "nimrod serve" scenario, each command must reset the registered passes
-   clearPasses()
-   gLastCmdTime = epochTime()
 --- a/tools/niminst/buildsh.tmpl
 +++ b/tools/niminst/buildsh.tmpl
 @@ -29,8 +29,8 @@

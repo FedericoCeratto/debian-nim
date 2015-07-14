@@ -29,7 +29,7 @@ override_dh_auto_install:
 	ln -sf overview.html debian/html/index.html
 
 override_dh_auto_test:
-	cmp ./bin/nim compiler/nim1
+	if [ -f compiler/nim2 ]; then cmp ./bin/nim compiler/nim2; else cmp ./bin/nim compiler/nim1; fi
 
 override_dh_auto_clean:
 	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1

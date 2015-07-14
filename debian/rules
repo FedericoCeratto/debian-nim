@@ -1,18 +1,15 @@
 #!/usr/bin/make -f
-export DH_VERBOSE=1
 
-export DEB_BUILD_HARDENING=1
+include /usr/share/dpkg/default.mk
 
 # reproducible documentation, see https://wiki.debian.org/ReproducibleBuilds/TimestampsProposal
 export SOURCE_DATE_EPOCH = $(shell date -d "$$(dpkg-parsechangelog --count 1 -SDate)" +%s)
-
-DEB_VERSION := $(shell dpkg-parsechangelog -S Version)
 
 %:
 	dh $@
 
 override_dh_auto_build:
-	sh build.sh
+	$(MAKE) -f makefile
 	# Build docs
 	./bin/nim c koch
 	PATH=./bin/:$$PATH ./koch web
@@ -32,10 +29,11 @@ override_dh_auto_test:
 	# TODO: not sure if this also checks that c_code also converges, need to verify this
 	# see also https://github.com/nim-lang/csources/issues/12
 	PATH=./bin/:$$PATH ./koch boot -d:release
-	cmp ./bin/nim compiler/nim1
+	# TODO: can bump back down to nim1 when use-standard-flags-in-build-sh.patch is merged upstream
+	cmp ./bin/nim compiler/nim2
 
 override_dh_auto_clean:
-	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1
+	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1 compiler/nim2
 	rm -rf bin/ web/upload/
 	rm -rf ./nimcache tools/nimcache tools/niminst/nimcache compiler/nimcache
 	find . -name '*.o' \

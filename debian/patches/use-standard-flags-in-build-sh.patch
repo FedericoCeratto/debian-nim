@@ -1,0 +1,72 @@
+Description: Fix build tools to honour standard build flags
+ This makes the convergence process take one more iteration, since we don't
+ patch c_code in the same way; this would be fixed if upstream merge this patch.
+Author: Ximin Luo <infinity0@pwned.gg>
+Bug: https://github.com/nim-lang/Nim/issues/2128
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/build.sh
++++ b/build.sh
+@@ -28,8 +28,8 @@
+ 
+ CC="gcc"
+ LINKER="gcc"
+-COMP_FLAGS="-w -O3 -fno-strict-aliasing$extraBuildArgs"
+-LINK_FLAGS=""
++COMP_FLAGS="${CPPFLAGS:-} ${CFLAGS:-} -w -O3 -fno-strict-aliasing$extraBuildArgs"
++LINK_FLAGS="${LDFLAGS:-}"
+ # platform detection
+ ucpu=`uname -m`
+ uos=`uname`
+--- a/compiler/main.nim
++++ b/compiler/main.nim
+@@ -237,6 +237,10 @@
+   when SimulateCaasMemReset:
+     gGlobalOptions.incl(optCaasEnabled)
+ 
++  extccomp.addCompileOption(os.getEnv("CPPFLAGS"))
++  extccomp.addCompileOption(os.getEnv("CFLAGS"))
++  extccomp.addLinkOption(os.getEnv("LDFLAGS"))
++
+   # In "nimrod serve" scenario, each command must reset the registered passes
+   clearPasses()
+   gLastCmdTime = epochTime()
+--- a/tools/niminst/buildsh.tmpl
++++ b/tools/niminst/buildsh.tmpl
+@@ -29,8 +29,8 @@
+ 
+ CC="gcc"
+ LINKER="gcc"
+-COMP_FLAGS="?{c.ccompiler.flags}$extraBuildArgs"
+-LINK_FLAGS="?{c.linker.flags}"
++COMP_FLAGS="${CPPFLAGS:-} ${CFLAGS:-} ?{c.ccompiler.flags}$extraBuildArgs"
++LINK_FLAGS="${LDFLAGS:-} ?{c.linker.flags}"
+ #  add(result, "# platform detection\n")
+ ucpu=`uname -m`
+ uos=`uname`
+--- a/makefile
++++ b/makefile
+@@ -4,8 +4,8 @@
+ 
+ CC = gcc
+ LINKER = gcc
+-COMP_FLAGS = -w -O3 -fno-strict-aliasing
+-LINK_FLAGS = 
++COMP_FLAGS = $(CPPFLAGS) $(CFLAGS) -w -O3 -fno-strict-aliasing
++LINK_FLAGS = $(LDFLAGS)
+ binDir = bin
+ 
+ koch := $(shell sh -c 'test -s ../koch.nim && echo "yes"')
+--- a/tools/niminst/makefile.tmpl
++++ b/tools/niminst/makefile.tmpl
+@@ -6,8 +6,8 @@
+ 
+ CC = gcc
+ LINKER = gcc
+-COMP_FLAGS = ?{c.ccompiler.flags}
+-LINK_FLAGS = ?{c.linker.flags}
++COMP_FLAGS = $(CPPFLAGS) $(CFLAGS) ?{c.ccompiler.flags}
++LINK_FLAGS = $(LDFLAGS) ?{c.linker.flags}
+ binDir = ?{firstBinPath(c).toUnix}
+ 
+ koch := $(shell sh -c 'test -s ../koch.nim && echo "yes"')

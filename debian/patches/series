@@ -2,3 +2,4 @@ fix-runtime-privacy-breach.patch
 dont-build-remote-website.patch
 rm-obsolete-module.patch
 use-version-specific-source-url.patch
+use-standard-flags-in-build-sh.patch

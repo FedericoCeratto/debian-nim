@@ -1,3 +1,9 @@
+nim (0.11.2+dfsg1-2) UNRELEASED; urgency=medium
+
+  * Fix build for architectures other than i386, amd64.
+
+ -- Ximin Luo <infinity0@pwned.gg>  Thu, 30 Jul 2015 01:53:44 +0200
+
 nim (0.11.2+dfsg1-1) unstable; urgency=low
 
   * Initial release (Closes: #778330)

@@ -1,0 +1,18 @@
+# upstream does not use standard platform detection code, so best to translate manually
+# see lib/system/platforms.nim and compiler/platform.nim for details
+
+# DEB_HOST_ARCH_OS nim-os
+linux	linux
+kfreebsd	freebsd
+
+# DEB_HOST_ARCH_CPU nim-cpu
+i386	i386
+m68k	m68k
+alpha	alpha
+powerpc	powerpc
+ppc64	powerpc64
+sparc	sparc
+ia64	ia64
+amd64	amd64
+mips	mips
+arm	arm

@@ -1,0 +1,57 @@
+Description: Fix Makefile syntax for unsupported architectures
+Author: Ximin Luo <infinity0@pwned.gg>
+Bug: https://github.com/nim-lang/Nim/pull/3115
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/makefile
++++ b/makefile
+@@ -318,6 +318,7 @@
+ 	endif
+ endif
+ 
++.check-arch:
+ ifeq ($(strip $(oFiles)),)
+ 	@echo "Error: no C code generated for: [$(myos): $(mycpu)]"
+ 	@exit 1
+@@ -326,12 +327,12 @@
+ %.o: %.c
+ 	$(CC) $(COMP_FLAGS) -Ic_code -c $< -o $@
+ 
+-$(binDir)/nim: $(oFiles)
++$(binDir)/nim: .check-arch $(oFiles)
+ 	@mkdir -p $(binDir)
+-	$(LINKER) -o $@ $^ $(LINK_FLAGS)
++	$(LINKER) -o $@ $(oFiles) $(LINK_FLAGS)
+ 	@echo "SUCCESS"
+ 
+-.PHONY: clean
++.PHONY: clean .check-arch
+ 
+ clean:
+ 	rm -f $(oFiles) $(binDir)/nim
+--- a/tools/niminst/makefile.tmpl
++++ b/tools/niminst/makefile.tmpl
+@@ -149,6 +149,7 @@
+ endif
+ # end for
+ 
++.check-arch:
+ ifeq ($(strip $(oFiles)),)
+ 	@echo "Error: no C code generated for: [$(myos): $(mycpu)]"
+ 	@exit 1
+@@ -157,12 +158,12 @@
+ %.o: %.c
+ 	$(CC) $(COMP_FLAGS) -Ic_code -c $< -o $@
+ 
+-?{"$(binDir)/" & toLower(c.name)}: $(oFiles)
++?{"$(binDir)/" & toLower(c.name)}: .check-arch $(oFiles)
+ 	@mkdir -p $(binDir)
+-	$(LINKER) -o $@ $^ $(LINK_FLAGS)
++	$(LINKER) -o $@ $(oFiles) $(LINK_FLAGS)
+ 	@echo "SUCCESS"
+ 
+-.PHONY: clean
++.PHONY: clean .check-arch
+ 
+ clean:
+ 	rm -f $(oFiles) ?{"$(binDir)/" & toLower(c.name)}

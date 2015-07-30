@@ -4,3 +4,4 @@ rm-obsolete-module.patch
 use-version-specific-source-url.patch
 use-standard-flags-in-build-sh.patch
 use-source-date-epoch.patch
+fix-makefile-unsupported-arch.patch

@@ -11,7 +11,8 @@ platform_tr = $(shell { grep ^$(1) debian/platforms.table || echo '	unsupported:
 	dh $@
 
 override_dh_auto_build:
-	$(MAKE) -f makefile myos=$(call platform_tr,$(DEB_HOST_ARCH_OS)) mycpu=$(call platform_tr,$(DEB_HOST_ARCH_CPU))
+	$(MAKE) -f makefile LDFLAGS="-ldl -lm" \
+	  myos=$(call platform_tr,$(DEB_HOST_ARCH_OS)) mycpu=$(call platform_tr,$(DEB_HOST_ARCH_CPU))
 	./bin/nim c koch
 	# Build until convergence; we must do this here, not dh_auto_test, to pick up
 	# any changes in debian/patches. see also https://github.com/nim-lang/csources/issues/12

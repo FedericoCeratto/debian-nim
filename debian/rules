@@ -23,7 +23,7 @@ override_dh_auto_build:
 	# any changes in debian/patches. see also https://github.com/nim-lang/csources/issues/12
 	PATH=./bin/:$$PATH ./koch boot -d:release $(NIMFLAGS)
 	PATH=./bin/:$$PATH ./koch web
-	help2man --name="Nim Language Compiler" -s1 --version-string="$(DEB_VERSION)" \
+	help2man --name="Nim Language Compiler" -s1 -N --version-string="$(DEB_VERSION)" \
 		-i debian/nim.h2m -o debian/nim.1 ./bin/nim
 
 override_dh_auto_install:
@@ -37,7 +37,7 @@ override_dh_auto_test:
 	if [ -f compiler/nim2 ]; then cmp ./bin/nim compiler/nim2; else cmp ./bin/nim compiler/nim1; fi
 
 override_dh_auto_clean:
-	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1
+	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1 compiler/nim2
 	rm -rf bin/ web/upload/
 	rm -rf ./nimcache tools/nimcache tools/niminst/nimcache compiler/nimcache
 	find . -name '*.o' \

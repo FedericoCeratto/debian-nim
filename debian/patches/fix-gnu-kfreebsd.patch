@@ -1,5 +1,5 @@
 Description: Fix build for Debian GNU/kFreeBSD
- Don't use clang by default, and use GNU standard library linking flags
+ Don't use clang by default, then we can unconditionally pass -ldl -lm to GCC
 Author: Ximin Luo <infinity0@pwned.gg>
 Forwarded: not-needed
 ---
@@ -34,3 +34,141 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    cc = clang
    tlsEmulation:on
    gcc.options.always = "-w"
+--- a/makefile
++++ b/makefile
+@@ -5,7 +5,7 @@
+ CC = gcc
+ LINKER = gcc
+ COMP_FLAGS = $(CPPFLAGS) $(CFLAGS) -w -O3 -fno-strict-aliasing
+-LINK_FLAGS = $(LDFLAGS)
++LINK_FLAGS = $(LDFLAGS) -ldl -lm
+ binDir = bin
+ 
+ koch := $(shell sh -c 'test -s ../koch.nim && echo "yes"')
+@@ -13,126 +13,6 @@
+ 	binDir = ../bin
+ endif
+ 
+-ucpu := $(shell sh -c 'uname -m | tr "[:upper:]" "[:lower:]"')
+-uos := $(shell sh -c 'uname | tr "[:upper:]" "[:lower:]"')
+-
+-ifeq ($(uos),linux)
+-	myos = linux
+-	LINK_FLAGS += -ldl -lm
+-endif
+-ifeq ($(uos),dragonfly)
+-	myos = freebsd
+-	LINK_FLAGS += -lm
+-endif
+-ifeq ($(uos),freebsd)
+-	myos= freebsd
+-	CC = clang
+-	LINKER = clang
+-	LINK_FLAGS += -lm
+-endif
+-ifeq ($(uos),openbsd)
+-	myos = openbsd
+-	LINK_FLAGS += -lm
+-endif
+-ifeq ($(uos),netbsd)
+-	myos = netbsd
+-	LINK_FLAGS += -lm
+-endif
+-ifeq ($(uos),darwin)
+-	myos = macosx
+-	CC = clang
+-	LINKER = clang
+-	LINK_FLAGS += -ldl -lm
+-	ifeq ($HOSTTYPE,x86_64)
+-		ucpu = amd64
+-	endif
+-endif
+-ifeq ($(uos),aix)
+-	myos = aix
+-	LINK_FLAGS += -dl -lm
+-endif
+-ifeq ($(uos),solaris)
+-	myos = solaris
+-	LINK_FLAGS += -ldl -lm -lsocket -lnsl
+-endif
+-ifeq ($(uos),sun)
+-	myos = solaris
+-	LINK_FLAGS += -ldl -lm -lsocket -lnsl
+-endif
+-ifeq ($(uos),haiku)
+-	myos = haiku
+-endif
+-ifndef uos
+-	@echo "Error: unknown operating system: $(uos)"
+-	@exit 1
+-endif
+-
+-ifeq ($(ucpu),i386)
+-	mycpu = i386
+-endif
+-ifeq ($(ucpu),i486)
+-	mycpu = i386
+-endif
+-ifeq ($(ucpu),i586)
+-	mycpu = i386
+-endif
+-ifeq ($(ucpu),i686)
+-	mycpu = i386
+-endif
+-ifeq ($(ucpu),bepc)
+-	mycpu = i386
+-endif
+-ifeq ($(ucpu),i86pc)
+-	mycpu = i386
+-endif
+-ifeq ($(ucpu),amd64)
+-	mycpu = amd64
+-endif
+-ifeq ($(ucpu),x86-64)
+-	mycpu = amd64
+-endif
+-ifeq ($(ucpu),x86_64)
+-	mycpu = amd64
+-endif
+-ifeq ($(ucpu),sparc)
+-	mycpu = sparc
+-endif
+-ifeq ($(ucpu),sun)
+-	mycpu = sparc
+-endif
+-ifeq ($(ucpu),ppc64)
+-	mycpu = powerpc64
+-	ifeq ($(myos),linux)
+-		COMP_FLAGS += -m64
+-		LINK_FLAGS += -m64
+-	endif
+-endif
+-ifeq ($(ucpu),powerpc)
+-	mycpu = powerpc
+-endif
+-ifeq ($(ucpu),ppc)
+-	mycpu = ppc
+-endif
+-ifeq ($(ucpu),mips)
+-	mycpu = mips
+-endif
+-ifeq ($(ucpu),arm)
+-	mycpu = arm
+-endif
+-ifeq ($(ucpu),armeb)
+-	mycpu = arm
+-endif
+-ifeq ($(ucpu),armel)
+-	mycpu = arm
+-endif
+-ifeq ($(ucpu),armv6l)
+-	mycpu = arm
+-endif
+-ifndef ucpu
+-	@echo "Error: unknown processor : $(ucpu)"
+-	@exit 1
+-endif
+-
+ ifeq ($(myos),windows)
+ 	ifeq ($(mycpu),i386)
+ 		oFiles = c_code/1_1/nimsrc_nim.o c_code/1_1/stdlib_system.o c_code/1_1/nimsrc_testability.o c_code/1_1/nimsrc_commands.o c_code/1_1/stdlib_os.o c_code/1_1/stdlib_strutils.o c_code/1_1/stdlib_parseutils.o c_code/1_1/stdlib_times.o c_code/1_1/stdlib_winlean.o c_code/1_1/nimsrc_msgs.o c_code/1_1/nimsrc_options.o c_code/1_1/nimsrc_lists.o c_code/1_1/stdlib_strtabs.o c_code/1_1/stdlib_hashes.o c_code/1_1/stdlib_osproc.o c_code/1_1/stdlib_streams.o c_code/1_1/stdlib_cpuinfo.o c_code/1_1/stdlib_sets.o c_code/1_1/stdlib_math.o c_code/1_1/stdlib_tables.o c_code/1_1/nimsrc_ropes.o c_code/1_1/nimsrc_platform.o c_code/1_1/nimsrc_nversion.o c_code/1_1/nimsrc_condsyms.o c_code/1_1/nimsrc_idents.o c_code/1_1/nimsrc_extccomp.o c_code/1_1/nimsrc_crc.o c_code/1_1/nimsrc_wordrecg.o c_code/1_1/nimsrc_nimblecmd.o c_code/1_1/stdlib_parseopt.o c_code/1_1/nimsrc_lexer.o c_code/1_1/nimsrc_nimlexbase.o c_code/1_1/nimsrc_llstream.o c_code/1_1/nimsrc_nimconf.o c_code/1_1/nimsrc_main.o c_code/1_1/nimsrc_ast.o c_code/1_1/stdlib_intsets.o c_code/1_1/nimsrc_idgen.o c_code/1_1/nimsrc_astalgo.o c_code/1_1/nimsrc_rodutils.o c_code/1_1/nimsrc_syntaxes.o c_code/1_1/nimsrc_parser.o c_code/1_1/nimsrc_pbraces.o c_code/1_1/nimsrc_filters.o c_code/1_1/nimsrc_renderer.o c_code/1_1/nimsrc_filter_tmpl.o c_code/1_1/nimsrc_rodread.o c_code/1_1/nimsrc_types.o c_code/1_1/nimsrc_trees.o c_code/1_1/stdlib_memfiles.o c_code/1_1/nimsrc_rodwrite.o c_code/1_1/nimsrc_passes.o c_code/1_1/nimsrc_magicsys.o c_code/1_1/nimsrc_nimsets.o c_code/1_1/nimsrc_bitsets.o c_code/1_1/nimsrc_importer.o c_code/1_1/nimsrc_lookups.o c_code/1_1/nimsrc_semdata.o c_code/1_1/nimsrc_treetab.o c_code/1_1/nimsrc_vmdef.o c_code/1_1/nimsrc_prettybase.o c_code/1_1/stdlib_lexbase.o c_code/1_1/nimsrc_sem.o c_code/1_1/nimsrc_semfold.o c_code/1_1/nimsrc_saturate.o c_code/1_1/nimsrc_procfind.o c_code/1_1/nimsrc_pragmas.o c_code/1_1/nimsrc_semtypinst.o c_code/1_1/nimsrc_sigmatch.o c_code/1_1/nimsrc_parampatterns.o c_code/1_1/nimsrc_pretty.o c_code/1_1/nimsrc_docgen.o c_code/1_1/docutils_rstast.o c_code/1_1/stdlib_json.o c_code/1_1/stdlib_unicode.o c_code/1_1/stdlib_macros.o c_code/1_1/docutils_rst.o c_code/1_1/docutils_rstgen.o c_code/1_1/docutils_highlite.o c_code/1_1/stdlib_sequtils.o c_code/1_1/stdlib_algorithm.o c_code/1_1/nimsrc_sempass2.o c_code/1_1/nimsrc_guards.o c_code/1_1/stdlib_xmltree.o c_code/1_1/stdlib_cgi.o c_code/1_1/stdlib_cookies.o c_code/1_1/nimsrc_typesrenderer.o c_code/1_1/nimsrc_transf.o c_code/1_1/nimsrc_cgmeth.o c_code/1_1/nimsrc_lambdalifting.o c_code/1_1/nimsrc_lowerings.o c_code/1_1/nimsrc_vm.o c_code/1_1/nimsrc_vmgen.o c_code/1_1/stdlib_unsigned.o c_code/1_1/nimsrc_vmdeps.o c_code/1_1/nimsrc_vmmarshal.o c_code/1_1/nimsrc_evaltempl.o c_code/1_1/nimsrc_aliases.o c_code/1_1/nimsrc_patterns.o c_code/1_1/nimsrc_semmacrosanity.o c_code/1_1/nimsrc_semparallel.o c_code/1_1/nimsrc_plugins.o c_code/1_1/nimsrc_active.o c_code/1_1/nimsrc_locals.o c_code/1_1/nimsrc_cgen.o c_code/1_1/nimsrc_ccgutils.o c_code/1_1/nimsrc_cgendata.o c_code/1_1/nimsrc_ccgmerge.o c_code/1_1/nimsrc_jsgen.o c_code/1_1/nimsrc_passaux.o c_code/1_1/nimsrc_depends.o c_code/1_1/nimsrc_docgen2.o c_code/1_1/nimsrc_service.o c_code/1_1/stdlib_net.o c_code/1_1/stdlib_rawsockets.o c_code/1_1/nimsrc_modules.o c_code/1_1/nimsrc_nodejs.o

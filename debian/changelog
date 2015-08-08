@@ -1,8 +1,8 @@
-nim (0.11.2+dfsg1-3) UNRELEASED; urgency=medium
+nim (0.11.2+dfsg1-3) unstable; urgency=medium
 
   * Fix build for kfreebsd-*
 
- -- Ximin Luo <infinity0@pwned.gg>  Sat, 01 Aug 2015 11:50:37 +0200
+ -- Ximin Luo <infinity0@pwned.gg>  Sat, 08 Aug 2015 17:52:07 +0200
 
 nim (0.11.2+dfsg1-2) unstable; urgency=medium
 

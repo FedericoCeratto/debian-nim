@@ -1,5 +1,10 @@
 #!/usr/bin/make -f
 
+# You probably want to export DEB_BUILD_OPTIONS=nocheck when working here -
+# Tests take ages (>10 min) to run and arguably currently are pointless, since
+# the testing tool (testament) doesn't exit with failure if tests fail. We'll
+# leave it in here for now in case the situation changes, though.
+
 include /usr/share/dpkg/default.mk
 
 # reproducible documentation, see https://wiki.debian.org/ReproducibleBuilds/TimestampsProposal
@@ -35,15 +40,19 @@ override_dh_auto_install:
 
 override_dh_auto_test:
 	if [ -f compiler/nim2 ]; then cmp ./bin/nim compiler/nim2; else cmp ./bin/nim compiler/nim1; fi
+	PATH=./bin:$$PATH ./koch test
 
 override_dh_auto_clean:
 	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1 compiler/nim2
 	rm -rf bin/ web/upload/
-	rm -rf ./nimcache tools/nimcache tools/niminst/nimcache compiler/nimcache
+	find . -name nimcache -execdir rm -rf . \;
 	find . -name '*.o' \
 		-delete
 	find doc \( -name '*.idx' -o -name '*.html' \) \
 		-delete
+	find examples lib tests -type f -executable \
+		-delete
+	rm -f testament.db testresults.*
 
 override_dh_installdocs:
 	dh_installdocs -Xcopying.txt

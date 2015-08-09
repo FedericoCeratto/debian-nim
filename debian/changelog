@@ -1,8 +1,8 @@
-nim (0.11.2+dfsg1-4) UNRELEASED; urgency=medium
+nim (0.11.2+dfsg1-4) unstable; urgency=medium
 
   * Disable tests that cause FTBFS.
 
- -- Ximin Luo <infinity0@pwned.gg>  Sun, 09 Aug 2015 10:05:32 +0200
+ -- Ximin Luo <infinity0@pwned.gg>  Sun, 09 Aug 2015 11:09:32 +0200
 
 nim (0.11.2+dfsg1-3) unstable; urgency=medium
 

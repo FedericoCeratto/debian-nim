@@ -31,7 +31,7 @@ License: BSD-3-clause
 
 Files: debian/*
 Copyright: 2015 Federico Ceratto <federico.ceratto@gmail.com>
-           2015 Ximin Luo <infinity0@pwned.gg>
+           2015 Ximin Luo <infinity0@debian.org>
 License: Expat
 
 License: Apache-2.0

@@ -1,6 +1,6 @@
 Description: Fix build for Debian GNU/kFreeBSD
  Don't use clang by default, then we can unconditionally pass -ldl -lm to GCC
-Author: Ximin Luo <infinity0@pwned.gg>
+Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

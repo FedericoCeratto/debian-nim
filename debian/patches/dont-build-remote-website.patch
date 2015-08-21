@@ -1,6 +1,6 @@
 Description: Don't build nim-lang.org website
  This is unnecessary to install on users' machines.
-Author: Ximin Luo <infinity0@pwned.gg>
+Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

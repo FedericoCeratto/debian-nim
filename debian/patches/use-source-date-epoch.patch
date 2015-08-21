@@ -1,5 +1,5 @@
 Description: Have docgen use SOURCE_DATE_EPOCH for reproducible documentation
-Author: Ximin Luo <infinity0@pwned.gg>
+Author: Ximin Luo <infinity0@debian.org>
 Bug: https://github.com/nim-lang/Nim/issues/3113
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

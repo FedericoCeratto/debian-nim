@@ -1,5 +1,6 @@
 discard """
-  output: "Mapper2"
+  errormsg: "invalid declaration order; cannot attach 'step' to method defined here: tests/method/tmapper.nim(22,7)"
+  line: 25
 """
 
 # bug #2590
@@ -18,10 +19,10 @@ proc newMapper2*: Mapper2 =
 proc newMapper*: Mapper =
   result = newMapper2()
 
-method step*(m: Mapper2) =
+method step*(m: Mapper2) {.base.} =
   echo "Mapper2"
 
-method step*(m: Mapper) =
+method step*(m: Mapper) {.base.} =
   echo "Mapper"
 
 var console = Console()

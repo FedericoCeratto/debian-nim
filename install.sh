@@ -60,14 +60,15 @@ if [ $# -eq 1 ] ; then
   mkdir -p $libdir/pure/concurrency
   mkdir -p $libdir/pure/unidecode
   mkdir -p $libdir/impure
+  mkdir -p $libdir/impure/nre/private
   mkdir -p $libdir/wrappers
-  mkdir -p $libdir/wrappers/readline
-  mkdir -p $libdir/wrappers/sdl
-  mkdir -p $libdir/wrappers/zip
+  mkdir -p $libdir/wrappers/linenoise
   mkdir -p $libdir/windows
   mkdir -p $libdir/posix
   mkdir -p $libdir/js
   mkdir -p $libdir/packages/docutils
+  mkdir -p $libdir/deprecated/core
+  mkdir -p $libdir/deprecated/pure
 
   cp bin/nim $bindir/nim
   chmod 755 $bindir/nim
@@ -87,8 +88,6 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/nimrtl.nim
   cp lib/prelude.nim $libdir/prelude.nim
   chmod 644 $libdir/prelude.nim
-  cp lib/stdlib.nimble $libdir/stdlib.nimble
-  chmod 644 $libdir/stdlib.nimble
   cp lib/system.nim $libdir/system.nim
   chmod 644 $libdir/system.nim
   cp lib/nimrtl.nim.cfg $libdir/nimrtl.nim.cfg
@@ -129,6 +128,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/system/gc.nim
   cp lib/system/gc2.nim $libdir/system/gc2.nim
   chmod 644 $libdir/system/gc2.nim
+  cp lib/system/gc_common.nim $libdir/system/gc_common.nim
+  chmod 644 $libdir/system/gc_common.nim
   cp lib/system/gc_ms.nim $libdir/system/gc_ms.nim
   chmod 644 $libdir/system/gc_ms.nim
   cp lib/system/hti.nim $libdir/system/hti.nim
@@ -139,6 +140,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/system/jssys.nim
   cp lib/system/mmdisp.nim $libdir/system/mmdisp.nim
   chmod 644 $libdir/system/mmdisp.nim
+  cp lib/system/nimscript.nim $libdir/system/nimscript.nim
+  chmod 644 $libdir/system/nimscript.nim
   cp lib/system/platforms.nim $libdir/system/platforms.nim
   chmod 644 $libdir/system/platforms.nim
   cp lib/system/profiler.nim $libdir/system/profiler.nim
@@ -169,10 +172,6 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/core/macros.nim
   cp lib/core/typeinfo.nim $libdir/core/typeinfo.nim
   chmod 644 $libdir/core/typeinfo.nim
-  cp lib/core/unsigned.nim $libdir/core/unsigned.nim
-  chmod 644 $libdir/core/unsigned.nim
-  cp lib/pure/actors.nim $libdir/pure/actors.nim
-  chmod 644 $libdir/pure/actors.nim
   cp lib/pure/algorithm.nim $libdir/pure/algorithm.nim
   chmod 644 $libdir/pure/algorithm.nim
   cp lib/pure/asyncdispatch.nim $libdir/pure/asyncdispatch.nim
@@ -183,8 +182,6 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/asyncftpclient.nim
   cp lib/pure/asynchttpserver.nim $libdir/pure/asynchttpserver.nim
   chmod 644 $libdir/pure/asynchttpserver.nim
-  cp lib/pure/asyncio.nim $libdir/pure/asyncio.nim
-  chmod 644 $libdir/pure/asyncio.nim
   cp lib/pure/asyncnet.nim $libdir/pure/asyncnet.nim
   chmod 644 $libdir/pure/asyncnet.nim
   cp lib/pure/base64.nim $libdir/pure/base64.nim
@@ -203,20 +200,22 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/complex.nim
   cp lib/pure/cookies.nim $libdir/pure/cookies.nim
   chmod 644 $libdir/pure/cookies.nim
+  cp lib/pure/coro.nim $libdir/pure/coro.nim
+  chmod 644 $libdir/pure/coro.nim
   cp lib/pure/dynlib.nim $libdir/pure/dynlib.nim
   chmod 644 $libdir/pure/dynlib.nim
   cp lib/pure/encodings.nim $libdir/pure/encodings.nim
   chmod 644 $libdir/pure/encodings.nim
   cp lib/pure/endians.nim $libdir/pure/endians.nim
   chmod 644 $libdir/pure/endians.nim
+  cp lib/pure/etcpriv.nim $libdir/pure/etcpriv.nim
+  chmod 644 $libdir/pure/etcpriv.nim
   cp lib/pure/events.nim $libdir/pure/events.nim
   chmod 644 $libdir/pure/events.nim
   cp lib/pure/fenv.nim $libdir/pure/fenv.nim
   chmod 644 $libdir/pure/fenv.nim
   cp lib/pure/fsmonitor.nim $libdir/pure/fsmonitor.nim
   chmod 644 $libdir/pure/fsmonitor.nim
-  cp lib/pure/ftpclient.nim $libdir/pure/ftpclient.nim
-  chmod 644 $libdir/pure/ftpclient.nim
   cp lib/pure/future.nim $libdir/pure/future.nim
   chmod 644 $libdir/pure/future.nim
   cp lib/pure/gentabs.nim $libdir/pure/gentabs.nim
@@ -251,6 +250,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/mersenne.nim
   cp lib/pure/mimetypes.nim $libdir/pure/mimetypes.nim
   chmod 644 $libdir/pure/mimetypes.nim
+  cp lib/pure/nativesockets.nim $libdir/pure/nativesockets.nim
+  chmod 644 $libdir/pure/nativesockets.nim
   cp lib/pure/net.nim $libdir/pure/net.nim
   chmod 644 $libdir/pure/net.nim
   cp lib/pure/nimprof.nim $libdir/pure/nimprof.nim
@@ -259,8 +260,12 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/numeric.nim
   cp lib/pure/oids.nim $libdir/pure/oids.nim
   chmod 644 $libdir/pure/oids.nim
+  cp lib/pure/options.nim $libdir/pure/options.nim
+  chmod 644 $libdir/pure/options.nim
   cp lib/pure/os.nim $libdir/pure/os.nim
   chmod 644 $libdir/pure/os.nim
+  cp lib/pure/ospaths.nim $libdir/pure/ospaths.nim
+  chmod 644 $libdir/pure/ospaths.nim
   cp lib/pure/osproc.nim $libdir/pure/osproc.nim
   chmod 644 $libdir/pure/osproc.nim
   cp lib/pure/parsecfg.nim $libdir/pure/parsecfg.nim
@@ -273,8 +278,6 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/parseopt2.nim
   cp lib/pure/parsesql.nim $libdir/pure/parsesql.nim
   chmod 644 $libdir/pure/parsesql.nim
-  cp lib/pure/parseurl.nim $libdir/pure/parseurl.nim
-  chmod 644 $libdir/pure/parseurl.nim
   cp lib/pure/parseutils.nim $libdir/pure/parseutils.nim
   chmod 644 $libdir/pure/parseutils.nim
   cp lib/pure/parsexml.nim $libdir/pure/parsexml.nim
@@ -285,8 +288,6 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/poly.nim
   cp lib/pure/rationals.nim $libdir/pure/rationals.nim
   chmod 644 $libdir/pure/rationals.nim
-  cp lib/pure/rawsockets.nim $libdir/pure/rawsockets.nim
-  chmod 644 $libdir/pure/rawsockets.nim
   cp lib/pure/redis.nim $libdir/pure/redis.nim
   chmod 644 $libdir/pure/redis.nim
   cp lib/pure/romans.nim $libdir/pure/romans.nim
@@ -295,12 +296,12 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/ropes.nim
   cp lib/pure/scgi.nim $libdir/pure/scgi.nim
   chmod 644 $libdir/pure/scgi.nim
+  cp lib/pure/securehash.nim $libdir/pure/securehash.nim
+  chmod 644 $libdir/pure/securehash.nim
   cp lib/pure/selectors.nim $libdir/pure/selectors.nim
   chmod 644 $libdir/pure/selectors.nim
   cp lib/pure/smtp.nim $libdir/pure/smtp.nim
   chmod 644 $libdir/pure/smtp.nim
-  cp lib/pure/sockets.nim $libdir/pure/sockets.nim
-  chmod 644 $libdir/pure/sockets.nim
   cp lib/pure/streams.nim $libdir/pure/streams.nim
   chmod 644 $libdir/pure/streams.nim
   cp lib/pure/strtabs.nim $libdir/pure/strtabs.nim
@@ -329,24 +330,20 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/xmlparser.nim
   cp lib/pure/xmltree.nim $libdir/pure/xmltree.nim
   chmod 644 $libdir/pure/xmltree.nim
-  cp lib/pure/actors.nim.cfg $libdir/pure/actors.nim.cfg
-  chmod 644 $libdir/pure/actors.nim.cfg
   cp lib/pure/asyncdispatch.nim.cfg $libdir/pure/asyncdispatch.nim.cfg
   chmod 644 $libdir/pure/asyncdispatch.nim.cfg
   cp lib/pure/nimprof.nim.cfg $libdir/pure/nimprof.nim.cfg
   chmod 644 $libdir/pure/nimprof.nim.cfg
   cp lib/pure/smtp.nim.cfg $libdir/pure/smtp.nim.cfg
   chmod 644 $libdir/pure/smtp.nim.cfg
-  cp lib/pure/collections/conc_tables.nim $libdir/pure/collections/conc_tables.nim
-  chmod 644 $libdir/pure/collections/conc_tables.nim
+  cp lib/pure/collections/LockFreeHash.nim $libdir/pure/collections/LockFreeHash.nim
+  chmod 644 $libdir/pure/collections/LockFreeHash.nim
   cp lib/pure/collections/critbits.nim $libdir/pure/collections/critbits.nim
   chmod 644 $libdir/pure/collections/critbits.nim
   cp lib/pure/collections/intsets.nim $libdir/pure/collections/intsets.nim
   chmod 644 $libdir/pure/collections/intsets.nim
   cp lib/pure/collections/lists.nim $libdir/pure/collections/lists.nim
   chmod 644 $libdir/pure/collections/lists.nim
-  cp lib/pure/collections/LockFreeHash.nim $libdir/pure/collections/LockFreeHash.nim
-  chmod 644 $libdir/pure/collections/LockFreeHash.nim
   cp lib/pure/collections/queues.nim $libdir/pure/collections/queues.nim
   chmod 644 $libdir/pure/collections/queues.nim
   cp lib/pure/collections/rtarrays.nim $libdir/pure/collections/rtarrays.nim
@@ -355,10 +352,14 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/collections/sequtils.nim
   cp lib/pure/collections/sets.nim $libdir/pure/collections/sets.nim
   chmod 644 $libdir/pure/collections/sets.nim
+  cp lib/pure/collections/sharedstrings.nim $libdir/pure/collections/sharedstrings.nim
+  chmod 644 $libdir/pure/collections/sharedstrings.nim
+  cp lib/pure/collections/sharedtables.nim $libdir/pure/collections/sharedtables.nim
+  chmod 644 $libdir/pure/collections/sharedtables.nim
+  cp lib/pure/collections/tableimpl.nim $libdir/pure/collections/tableimpl.nim
+  chmod 644 $libdir/pure/collections/tableimpl.nim
   cp lib/pure/collections/tables.nim $libdir/pure/collections/tables.nim
   chmod 644 $libdir/pure/collections/tables.nim
-  cp lib/pure/concurrency/chans.nim $libdir/pure/concurrency/chans.nim
-  chmod 644 $libdir/pure/concurrency/chans.nim
   cp lib/pure/concurrency/cpuinfo.nim $libdir/pure/concurrency/cpuinfo.nim
   chmod 644 $libdir/pure/concurrency/cpuinfo.nim
   cp lib/pure/concurrency/cpuload.nim $libdir/pure/concurrency/cpuload.nim
@@ -375,10 +376,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/impure/db_postgres.nim
   cp lib/impure/db_sqlite.nim $libdir/impure/db_sqlite.nim
   chmod 644 $libdir/impure/db_sqlite.nim
-  cp lib/impure/dialogs.nim $libdir/impure/dialogs.nim
-  chmod 644 $libdir/impure/dialogs.nim
-  cp lib/impure/graphics.nim $libdir/impure/graphics.nim
-  chmod 644 $libdir/impure/graphics.nim
+  cp lib/impure/nre.nim $libdir/impure/nre.nim
+  chmod 644 $libdir/impure/nre.nim
   cp lib/impure/osinfo_posix.nim $libdir/impure/osinfo_posix.nim
   chmod 644 $libdir/impure/osinfo_posix.nim
   cp lib/impure/osinfo_win.nim $libdir/impure/osinfo_win.nim
@@ -389,18 +388,12 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/impure/re.nim
   cp lib/impure/ssl.nim $libdir/impure/ssl.nim
   chmod 644 $libdir/impure/ssl.nim
-  cp lib/impure/zipfiles.nim $libdir/impure/zipfiles.nim
-  chmod 644 $libdir/impure/zipfiles.nim
-  cp lib/wrappers/claro.nim $libdir/wrappers/claro.nim
-  chmod 644 $libdir/wrappers/claro.nim
-  cp lib/wrappers/expat.nim $libdir/wrappers/expat.nim
-  chmod 644 $libdir/wrappers/expat.nim
+  cp lib/impure/nre/private/util.nim $libdir/impure/nre/private/util.nim
+  chmod 644 $libdir/impure/nre/private/util.nim
   cp lib/wrappers/iup.nim $libdir/wrappers/iup.nim
   chmod 644 $libdir/wrappers/iup.nim
   cp lib/wrappers/joyent_http_parser.nim $libdir/wrappers/joyent_http_parser.nim
   chmod 644 $libdir/wrappers/joyent_http_parser.nim
-  cp lib/wrappers/libcurl.nim $libdir/wrappers/libcurl.nim
-  chmod 644 $libdir/wrappers/libcurl.nim
   cp lib/wrappers/libsvm.nim $libdir/wrappers/libsvm.nim
   chmod 644 $libdir/wrappers/libsvm.nim
   cp lib/wrappers/libuv.nim $libdir/wrappers/libuv.nim
@@ -417,62 +410,24 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/wrappers/pdcurses.nim
   cp lib/wrappers/postgres.nim $libdir/wrappers/postgres.nim
   chmod 644 $libdir/wrappers/postgres.nim
-  cp lib/wrappers/sphinx.nim $libdir/wrappers/sphinx.nim
-  chmod 644 $libdir/wrappers/sphinx.nim
   cp lib/wrappers/sqlite3.nim $libdir/wrappers/sqlite3.nim
   chmod 644 $libdir/wrappers/sqlite3.nim
   cp lib/wrappers/tinyc.nim $libdir/wrappers/tinyc.nim
   chmod 644 $libdir/wrappers/tinyc.nim
-  cp lib/wrappers/tre.nim $libdir/wrappers/tre.nim
-  chmod 644 $libdir/wrappers/tre.nim
-  cp lib/wrappers/readline/history.nim $libdir/wrappers/readline/history.nim
-  chmod 644 $libdir/wrappers/readline/history.nim
-  cp lib/wrappers/readline/readline.nim $libdir/wrappers/readline/readline.nim
-  chmod 644 $libdir/wrappers/readline/readline.nim
-  cp lib/wrappers/readline/rltypedefs.nim $libdir/wrappers/readline/rltypedefs.nim
-  chmod 644 $libdir/wrappers/readline/rltypedefs.nim
-  cp lib/wrappers/sdl/sdl.nim $libdir/wrappers/sdl/sdl.nim
-  chmod 644 $libdir/wrappers/sdl/sdl.nim
-  cp lib/wrappers/sdl/sdl_gfx.nim $libdir/wrappers/sdl/sdl_gfx.nim
-  chmod 644 $libdir/wrappers/sdl/sdl_gfx.nim
-  cp lib/wrappers/sdl/sdl_image.nim $libdir/wrappers/sdl/sdl_image.nim
-  chmod 644 $libdir/wrappers/sdl/sdl_image.nim
-  cp lib/wrappers/sdl/sdl_mixer.nim $libdir/wrappers/sdl/sdl_mixer.nim
-  chmod 644 $libdir/wrappers/sdl/sdl_mixer.nim
-  cp lib/wrappers/sdl/sdl_mixer_nosmpeg.nim $libdir/wrappers/sdl/sdl_mixer_nosmpeg.nim
-  chmod 644 $libdir/wrappers/sdl/sdl_mixer_nosmpeg.nim
-  cp lib/wrappers/sdl/sdl_net.nim $libdir/wrappers/sdl/sdl_net.nim
-  chmod 644 $libdir/wrappers/sdl/sdl_net.nim
-  cp lib/wrappers/sdl/sdl_ttf.nim $libdir/wrappers/sdl/sdl_ttf.nim
-  chmod 644 $libdir/wrappers/sdl/sdl_ttf.nim
-  cp lib/wrappers/sdl/smpeg.nim $libdir/wrappers/sdl/smpeg.nim
-  chmod 644 $libdir/wrappers/sdl/smpeg.nim
-  cp lib/wrappers/zip/libzip.nim $libdir/wrappers/zip/libzip.nim
-  chmod 644 $libdir/wrappers/zip/libzip.nim
-  cp lib/wrappers/zip/zlib.nim $libdir/wrappers/zip/zlib.nim
-  chmod 644 $libdir/wrappers/zip/zlib.nim
-  cp lib/wrappers/zip/zzip.nim $libdir/wrappers/zip/zzip.nim
-  chmod 644 $libdir/wrappers/zip/zzip.nim
-  cp lib/wrappers/zip/libzip_all.c $libdir/wrappers/zip/libzip_all.c
-  chmod 644 $libdir/wrappers/zip/libzip_all.c
-  cp lib/windows/mmsystem.nim $libdir/windows/mmsystem.nim
-  chmod 644 $libdir/windows/mmsystem.nim
-  cp lib/windows/nb30.nim $libdir/windows/nb30.nim
-  chmod 644 $libdir/windows/nb30.nim
-  cp lib/windows/psapi.nim $libdir/windows/psapi.nim
-  chmod 644 $libdir/windows/psapi.nim
-  cp lib/windows/shellapi.nim $libdir/windows/shellapi.nim
-  chmod 644 $libdir/windows/shellapi.nim
-  cp lib/windows/shfolder.nim $libdir/windows/shfolder.nim
-  chmod 644 $libdir/windows/shfolder.nim
-  cp lib/windows/windows.nim $libdir/windows/windows.nim
-  chmod 644 $libdir/windows/windows.nim
+  cp lib/wrappers/linenoise/linenoise.nim $libdir/wrappers/linenoise/linenoise.nim
+  chmod 644 $libdir/wrappers/linenoise/linenoise.nim
+  cp lib/wrappers/linenoise/clinenoise.c $libdir/wrappers/linenoise/clinenoise.c
+  chmod 644 $libdir/wrappers/linenoise/clinenoise.c
+  cp lib/wrappers/linenoise/clinenoise.h $libdir/wrappers/linenoise/clinenoise.h
+  chmod 644 $libdir/wrappers/linenoise/clinenoise.h
   cp lib/windows/winlean.nim $libdir/windows/winlean.nim
   chmod 644 $libdir/windows/winlean.nim
   cp lib/posix/epoll.nim $libdir/posix/epoll.nim
   chmod 644 $libdir/posix/epoll.nim
   cp lib/posix/inotify.nim $libdir/posix/inotify.nim
   chmod 644 $libdir/posix/inotify.nim
+  cp lib/posix/kqueue.nim $libdir/posix/kqueue.nim
+  chmod 644 $libdir/posix/kqueue.nim
   cp lib/posix/linux.nim $libdir/posix/linux.nim
   chmod 644 $libdir/posix/linux.nim
   cp lib/posix/posix.nim $libdir/posix/posix.nim
@@ -489,6 +444,22 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/packages/docutils/rstast.nim
   cp lib/packages/docutils/rstgen.nim $libdir/packages/docutils/rstgen.nim
   chmod 644 $libdir/packages/docutils/rstgen.nim
+  cp lib/deprecated/core/unsigned.nim $libdir/deprecated/core/unsigned.nim
+  chmod 644 $libdir/deprecated/core/unsigned.nim
+  cp lib/deprecated/pure/actors.nim $libdir/deprecated/pure/actors.nim
+  chmod 644 $libdir/deprecated/pure/actors.nim
+  cp lib/deprecated/pure/asyncio.nim $libdir/deprecated/pure/asyncio.nim
+  chmod 644 $libdir/deprecated/pure/asyncio.nim
+  cp lib/deprecated/pure/ftpclient.nim $libdir/deprecated/pure/ftpclient.nim
+  chmod 644 $libdir/deprecated/pure/ftpclient.nim
+  cp lib/deprecated/pure/parseurl.nim $libdir/deprecated/pure/parseurl.nim
+  chmod 644 $libdir/deprecated/pure/parseurl.nim
+  cp lib/deprecated/pure/rawsockets.nim $libdir/deprecated/pure/rawsockets.nim
+  chmod 644 $libdir/deprecated/pure/rawsockets.nim
+  cp lib/deprecated/pure/sockets.nim $libdir/deprecated/pure/sockets.nim
+  chmod 644 $libdir/deprecated/pure/sockets.nim
+  cp lib/deprecated/pure/actors.nim.cfg $libdir/deprecated/pure/actors.nim.cfg
+  chmod 644 $libdir/deprecated/pure/actors.nim.cfg
   
   echo "installation successful"
 else

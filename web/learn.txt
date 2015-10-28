@@ -8,10 +8,10 @@ Learning Nim
 
   .. container:: tutorials
 
-    - | `Tutorial (part I) <0.11.2/tut1.html>`_
+    - | `Tutorial (part I) <docs/tut1.html>`_
       | Learn the basics of Nim's types, variables, procedures, control flow, etc...
 
-    - | `Tutorial (part II) <0.11.2/tut2.html>`_
+    - | `Tutorial (part II) <docs/tut2.html>`_
       | Learn Nim's more advanced features such as OOP, generics, macros, etc...
 
 
@@ -28,7 +28,7 @@ Learning Nim
     - | `Nim on Rosetta Code <http://rosettacode.org/wiki/Category:Nimrod>`_
       | Many different Nim code examples comparable to other languages for reference.
 
-    - | `Nim for C/C++ Programmers <https://github.com/Araq/Nim/wiki/Nim-for-C-programmers>`_
+    - | `Nim for C/C++ Programmers <https://github.com/nim-lang/Nim/wiki/Nim-for-C-programmers>`_
       | A useful cheat-sheet for those most familiar with C/C++ languages.
 
 
@@ -40,8 +40,8 @@ Learning Nim
   .. container:: articles
 
     - `How I Start: Nim <http://howistart.org/posts/nim/1>`_
-    - `Getting Started With Nim <https://akehrer.github.io/nim/2015/01/05/getting-started-with-nim.html>`_
-    - `Getting Started With Nim - Part 2 <https://akehrer.github.io/nim/2015/01/14/getting-started-with-nim-pt2.html>`_
+    - `Getting Started With Nim <https://akehrer.github.io/posts/getting-started-with-nim>`_
+    - `Getting Started With Nim - Part 2 <https://akehrer.github.io/posts/getting-started-with-nim-2>`_
     - `What is special about Nim? <http://hookrace.net/blog/what-is-special-about-nim>`_
     - `What makes Nim practical? <http://hookrace.net/blog/what-makes-nim-practical>`_
     - `Learn Nim in minutes <http://learnxinyminutes.com/docs/nim>`_
@@ -52,5 +52,5 @@ Learning Nim
 Documentation
 -------------
 
-More examples of Nim code can be found in the `Nim Language Documentation <0.11.2/manual.html>`_.
+More examples of Nim code can be found in the `Nim Language Documentation <docs/manual.html>`_.
 

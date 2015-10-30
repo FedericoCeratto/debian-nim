@@ -6,7 +6,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/web/community.txt
 +++ b/web/community.txt
-@@ -103,22 +103,6 @@
+@@ -110,22 +110,6 @@
    Contributions of any quantity are greatly appreciated and will contribute to
    making Nim even better!
  
@@ -14,7 +14,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -    .. raw:: html
 -
 -      <iframe style="border: 0; margin: 0; padding: 0;"
--               src="https://www.gittip.com/Araq/widget.html"
+-               src="https://www.gittip.com/nim-lang/widget.html"
 -               width="64pt" height="22pt"></iframe>
 -
 -  Paypal
@@ -34,7 +34,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  - Bitcoin address: 1BXfuKM2uvoD6mbx4g5xM3eQhLzkCK77tJ
 --- a/doc/lib.txt
 +++ b/doc/lib.txt
-@@ -541,4 +541,23 @@
+@@ -549,4 +549,23 @@
    nimblepkglist.js or have javascript disabled in your browser.</b></div>
  
    <script type="text/javascript" src="nimblepkglist.js"></script>

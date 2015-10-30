@@ -1,7 +1,5 @@
 fix-runtime-privacy-breach.patch
 dont-build-remote-website.patch
-rm-obsolete-module.patch
-update-repo-url.patch
 use-version-specific-source-url.patch
 use-standard-flags-in-build-sh.patch
 use-source-date-epoch.patch

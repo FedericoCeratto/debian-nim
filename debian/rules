@@ -44,13 +44,15 @@ override_dh_auto_test:
 override_dh_auto_clean:
 	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1 compiler/nim2
 	rm -rf bin/ web/upload/
+	# TODO: use this instead when https://github.com/nim-lang/Nim/issues/2127 is fixed
+	#PATH=./bin:$$PATH ./koch clean
 	find . -name nimcache \
 		-prune -execdir rm -rf nimcache \;
 	find . -name '*.o' \
 		-delete
 	find doc \( -name '*.idx' -o -name '*.html' \) \
 		-delete
-	find examples lib tests -type f -executable \
+	find examples lib tests -type f -executable -and -not -name '*.nim' \
 		-delete
 	rm -f testament.db testresults.*
 

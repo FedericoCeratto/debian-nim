@@ -1,2 +1,0 @@
-# the dfsg repack patch is already applied in newer versions
-nim source: debian-watch-file-should-mangle-version line 3

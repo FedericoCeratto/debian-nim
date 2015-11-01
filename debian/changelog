@@ -5,6 +5,7 @@ nim (0.12.0-1) UNRELEASED; urgency=low
 
   [ Ximin Luo ]
   * Work around upstream build bugs.
+  * Add newly-supported archs: arm64, mipsel, ppc64el (Closes: #794273)
 
  -- Ximin Luo <infinity0@debian.org>  Sun, 01 Nov 2015 14:25:12 +0100
 

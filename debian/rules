@@ -2,9 +2,6 @@
 
 include /usr/share/dpkg/default.mk
 
-# reproducible documentation, see https://wiki.debian.org/ReproducibleBuilds/TimestampsProposal
-export SOURCE_DATE_EPOCH = $(shell date -d "$$(dpkg-parsechangelog --count 1 -SDate)" +%s)
-
 platform_tr = $(shell { grep ^$(1) debian/platforms.table || echo '	unsupported:$(1)'; } | cut -f2)
 
 NIMFLAGS = $(addprefix --passC:,$(CPPFLAGS)) $(addprefix --passC:,$(CFLAGS)) $(addprefix --passL:,$(LDFLAGS))

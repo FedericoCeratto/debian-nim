@@ -13,6 +13,9 @@ ifeq ($(DEB_HOST_ARCH_OS),kfreebsd)
 	NIMFLAGS += --parallelBuild:1
 endif
 
+# TODO: remove this when https://github.com/nim-lang/Nim/issues/3506 is fixed
+EXTRA_KOCHFLAGS = -p:. -p:lib/packages/docutils
+
 %:
 	dh $@
 
@@ -21,7 +24,7 @@ override_dh_auto_build:
 	./bin/nim c $(NIMFLAGS) koch
 	# Build until convergence; we must do this here, not dh_auto_test, to pick up
 	# any changes in debian/patches. see also https://github.com/nim-lang/csources/issues/12
-	PATH=./bin/:$$PATH ./koch boot -d:release $(NIMFLAGS)
+	PATH=./bin/:$$PATH ./koch boot -d:release $(EXTRA_KOCHFLAGS) $(NIMFLAGS)
 	PATH=./bin/:$$PATH ./koch web
 	help2man --name="Nim Language Compiler" -s1 -N --version-string="$(DEB_VERSION)" \
 		-i debian/nim.h2m -o debian/nim.1 ./bin/nim

@@ -2,7 +2,7 @@
 
 include /usr/share/dpkg/default.mk
 
-platform_tr = $(shell { grep ^$(1) debian/platforms.table || echo '	unsupported:$(1)'; } | cut -f2)
+platform_tr = $(shell { grep '^$(1)\b' debian/platforms.table || echo '	unsupported:$(1)'; } | cut -f2)
 
 NIMFLAGS = $(addprefix --passC:,$(CPPFLAGS)) $(addprefix --passC:,$(CFLAGS)) $(addprefix --passL:,$(LDFLAGS))
 ifeq ($(DEB_HOST_ARCH_OS),kfreebsd)

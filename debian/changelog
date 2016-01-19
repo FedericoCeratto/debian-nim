@@ -1,8 +1,12 @@
-nim (0.12.0-3) UNRELEASED; urgency=medium
+nim (0.13.0-1) UNRELEASED; urgency=low
 
+  [ Ximin Luo ]
   * Use secure links for Vcs-* fields.
 
- -- Ximin Luo <infinity0@debian.org>  Tue, 05 Jan 2016 17:25:19 +0100
+  [ Federico Ceratto ]
+  * New upstream release
+
+ -- Federico Ceratto <federico@debian.org>  Tue, 19 Jan 2016 22:02:50 +0000
 
 nim (0.12.0-2) unstable; urgency=medium
 

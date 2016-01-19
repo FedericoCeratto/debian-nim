@@ -86,7 +86,8 @@ type                          # please make sure we have under 32 options
     gcNone, gcBoehm, gcGo, gcMarkAndSweep, gcRefc, gcV2, gcGenerational
 
   IdeCmd* = enum
-    ideNone, ideSug, ideCon, ideDef, ideUse, ideDus
+    ideNone, ideSug, ideCon, ideDef, ideUse, ideDus, ideChk, ideMod,
+    ideHighlight, ideOutline
 
 var
   gIdeCmd*: IdeCmd
@@ -201,6 +202,17 @@ proc setDefaultLibpath*() =
       elif prefix == "/usr/local": libpath = "/usr/local/lib/nim"
       else: libpath = joinPath(prefix, "lib")
     else: libpath = joinPath(prefix, "lib")
+
+    # Special rule to support other tools (nimble) which import the compiler
+    # modules and make use of them.
+    let realNimPath = # Make sure we expand the symlink
+      if symlinkExists(findExe("nim")): expandSymlink(findExe("nim"))
+      else: findExe("nim")
+    # Find out if $nim/../../lib/system.nim exists.
+    let parentNimLibPath = realNimPath.parentDir().parentDir() / "lib"
+    if not fileExists(libpath / "system.nim") and
+        fileExists(parentNimlibPath / "system.nim"):
+      libpath = parentNimLibPath
 
 proc canonicalizePath*(path: string): string =
   when not FileSystemCaseSensitive: result = path.expandFilename.toLower
@@ -422,6 +434,10 @@ proc parseIdeCmd*(s: string): IdeCmd =
   of "def": ideDef
   of "use": ideUse
   of "dus": ideDus
+  of "chk": ideChk
+  of "mod": ideMod
+  of "highlight": ideHighlight
+  of "outline": ideOutline
   else: ideNone
 
 proc `$`*(c: IdeCmd): string =
@@ -431,4 +447,8 @@ proc `$`*(c: IdeCmd): string =
   of ideDef: "def"
   of ideUse: "use"
   of ideDus: "dus"
+  of ideChk: "chk"
+  of ideMod: "mod"
   of ideNone: "none"
+  of ideHighlight: "highlight"
+  of ideOutline: "outline"

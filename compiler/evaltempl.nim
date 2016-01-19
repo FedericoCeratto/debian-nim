@@ -38,7 +38,8 @@ proc evalTemplateAux(templ, actual: PNode, c: var TemplCtx, result: PNode) =
     if s.owner.id == c.owner.id:
       if s.kind == skParam and sfGenSym notin s.flags:
         handleParam actual.sons[s.position]
-      elif s.kind == skGenericParam:
+      elif s.kind == skGenericParam or
+           s.kind == skType and s.typ != nil and s.typ.kind == tyGenericParam:
         handleParam actual.sons[s.owner.typ.len + s.position - 1]
       else:
         internalAssert sfGenSym in s.flags
@@ -66,7 +67,7 @@ proc evalTemplateArgs(n: PNode, s: PSym): PNode =
     else: 0
 
   var
-    # XXX: Since immediate templates are not subjected to the
+    # XXX: Since immediate templates are not subject to the
     # standard sigmatching algorithm, they will have a number
     # of deficiencies when it comes to generic params:
     # Type dependencies between the parameters won't be honoured
@@ -126,9 +127,9 @@ proc evalTemplate*(n: PNode, tmpl, genSymOwner: PSym): PNode =
                   renderTree(result, {renderNoComments}))
   else:
     result = copyNode(body)
-    ctx.instLines = body.kind notin {nkStmtList, nkStmtListExpr,
-                                     nkBlockStmt, nkBlockExpr}
-    if ctx.instLines: result.info = n.info
+    #ctx.instLines = body.kind notin {nkStmtList, nkStmtListExpr,
+    #                                 nkBlockStmt, nkBlockExpr}
+    #if ctx.instLines: result.info = n.info
     for i in countup(0, safeLen(body) - 1):
       evalTemplateAux(body.sons[i], args, ctx, result)
 

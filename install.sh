@@ -92,6 +92,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/system.nim
   cp lib/nimrtl.nim.cfg $libdir/nimrtl.nim.cfg
   chmod 644 $libdir/nimrtl.nim.cfg
+  cp lib/stdlib.nimble $libdir/stdlib.nimble
+  chmod 644 $libdir/stdlib.nimble
   cp lib/system/alloc.nim $libdir/system/alloc.nim
   chmod 644 $libdir/system/alloc.nim
   cp lib/system/ansi_c.nim $libdir/system/ansi_c.nim
@@ -202,6 +204,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/cookies.nim
   cp lib/pure/coro.nim $libdir/pure/coro.nim
   chmod 644 $libdir/pure/coro.nim
+  cp lib/pure/db_common.nim $libdir/pure/db_common.nim
+  chmod 644 $libdir/pure/db_common.nim
   cp lib/pure/dynlib.nim $libdir/pure/dynlib.nim
   chmod 644 $libdir/pure/dynlib.nim
   cp lib/pure/encodings.nim $libdir/pure/encodings.nim
@@ -268,6 +272,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/ospaths.nim
   cp lib/pure/osproc.nim $libdir/pure/osproc.nim
   chmod 644 $libdir/pure/osproc.nim
+  cp lib/pure/oswalkdir.nim $libdir/pure/oswalkdir.nim
+  chmod 644 $libdir/pure/oswalkdir.nim
   cp lib/pure/parsecfg.nim $libdir/pure/parsecfg.nim
   chmod 644 $libdir/pure/parsecfg.nim
   cp lib/pure/parsecsv.nim $libdir/pure/parsecsv.nim
@@ -288,8 +294,6 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/poly.nim
   cp lib/pure/rationals.nim $libdir/pure/rationals.nim
   chmod 644 $libdir/pure/rationals.nim
-  cp lib/pure/redis.nim $libdir/pure/redis.nim
-  chmod 644 $libdir/pure/redis.nim
   cp lib/pure/romans.nim $libdir/pure/romans.nim
   chmod 644 $libdir/pure/romans.nim
   cp lib/pure/ropes.nim $libdir/pure/ropes.nim
@@ -302,6 +306,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/selectors.nim
   cp lib/pure/smtp.nim $libdir/pure/smtp.nim
   chmod 644 $libdir/pure/smtp.nim
+  cp lib/pure/stats.nim $libdir/pure/stats.nim
+  chmod 644 $libdir/pure/stats.nim
   cp lib/pure/streams.nim $libdir/pure/streams.nim
   chmod 644 $libdir/pure/streams.nim
   cp lib/pure/strtabs.nim $libdir/pure/strtabs.nim
@@ -352,6 +358,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/collections/sequtils.nim
   cp lib/pure/collections/sets.nim $libdir/pure/collections/sets.nim
   chmod 644 $libdir/pure/collections/sets.nim
+  cp lib/pure/collections/sharedlist.nim $libdir/pure/collections/sharedlist.nim
+  chmod 644 $libdir/pure/collections/sharedlist.nim
   cp lib/pure/collections/sharedstrings.nim $libdir/pure/collections/sharedstrings.nim
   chmod 644 $libdir/pure/collections/sharedstrings.nim
   cp lib/pure/collections/sharedtables.nim $libdir/pure/collections/sharedtables.nim
@@ -372,6 +380,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/pure/concurrency/threadpool.nim.cfg
   cp lib/impure/db_mysql.nim $libdir/impure/db_mysql.nim
   chmod 644 $libdir/impure/db_mysql.nim
+  cp lib/impure/db_odbc.nim $libdir/impure/db_odbc.nim
+  chmod 644 $libdir/impure/db_odbc.nim
   cp lib/impure/db_postgres.nim $libdir/impure/db_postgres.nim
   chmod 644 $libdir/impure/db_postgres.nim
   cp lib/impure/db_sqlite.nim $libdir/impure/db_sqlite.nim

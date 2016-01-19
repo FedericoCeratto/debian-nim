@@ -163,7 +163,7 @@ proc mvFile*(`from`, to: string) {.raises: [OSError].} =
 
 proc cpFile*(`from`, to: string) {.raises: [OSError].} =
   ## Copies the file `from` to `to`.
-  log "mvFile: " & `from` & ", " & to:
+  log "cpFile: " & `from` & ", " & to:
     copyFile `from`, to
     checkOsError()
 
@@ -242,7 +242,7 @@ template task*(name: untyped; description: string; body: untyped): untyped =
   ## .. code-block:: nim
   ##  task build, "default build is via the C backend":
   ##    setCommand "c"
-  proc `name Task`() = body
+  proc `name Task`*() = body
 
   let cmd = getCommand()
   if cmd.len == 0 or cmd ==? "help":

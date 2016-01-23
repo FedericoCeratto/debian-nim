@@ -3,32 +3,6 @@ Author: Ximin Luo <infinity0@pwned.gg>
 Bug: https://github.com/nim-lang/Nim/issues/2128
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/build.sh
-+++ b/build.sh
-@@ -28,8 +28,8 @@
- 
- CC="gcc"
- LINKER="gcc"
--COMP_FLAGS="-w -O3 -fno-strict-aliasing$extraBuildArgs"
--LINK_FLAGS=""
-+COMP_FLAGS="${CPPFLAGS:-} ${CFLAGS:-} -w -O3 -fno-strict-aliasing$extraBuildArgs"
-+LINK_FLAGS="${LDFLAGS:-}"
- # platform detection
- ucpu=`uname -m`
- uos=`uname`
---- a/tools/niminst/buildsh.tmpl
-+++ b/tools/niminst/buildsh.tmpl
-@@ -29,8 +29,8 @@
- 
- CC="gcc"
- LINKER="gcc"
--COMP_FLAGS="?{c.ccompiler.flags}$extraBuildArgs"
--LINK_FLAGS="?{c.linker.flags}"
-+COMP_FLAGS="${CPPFLAGS:-} ${CFLAGS:-} ?{c.ccompiler.flags}$extraBuildArgs"
-+LINK_FLAGS="${LDFLAGS:-} ?{c.linker.flags}"
- #  add(result, "# platform detection\n")
- ucpu=`uname -m`
- uos=`uname`
 --- a/makefile
 +++ b/makefile
 @@ -4,8 +4,8 @@
@@ -55,3 +29,29 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  binDir = ?{firstBinPath(c).toUnix}
  
  koch := $(shell sh -c 'test -s ../koch.nim && echo "yes"')
+--- a/build.sh
++++ b/build.sh
+@@ -28,8 +28,8 @@
+ 
+ CC="gcc"
+ LINKER="gcc"
+-COMP_FLAGS="-w -O3 -fno-strict-aliasing$extraBuildArgs"
+-LINK_FLAGS=""
++COMP_FLAGS="${CPPFLAGS:-} ${CFLAGS:-} -w -O3 -fno-strict-aliasing$extraBuildArgs"
++LINK_FLAGS="${LDFLAGS:-}"
+ PS4=""
+ # platform detection
+ ucpu=`uname -m`
+--- a/tools/niminst/buildsh.tmpl
++++ b/tools/niminst/buildsh.tmpl
+@@ -29,8 +29,8 @@
+ 
+ CC="gcc"
+ LINKER="gcc"
+-COMP_FLAGS="?{c.ccompiler.flags}$extraBuildArgs"
+-LINK_FLAGS="?{c.linker.flags}"
++COMP_FLAGS="${CPPFLAGS:-} ${CFLAGS:-} ?{c.ccompiler.flags}$extraBuildArgs"
++LINK_FLAGS="${LDFLAGS:-} ?{c.linker.flags}"
+ PS4=""
+ #  add(result, "# platform detection\n")
+ ucpu=`uname -m`

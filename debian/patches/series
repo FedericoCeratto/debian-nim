@@ -5,3 +5,4 @@ use-standard-flags-in-build-sh.patch
 use-source-date-epoch.patch
 fix-makefile-unsupported-arch.patch
 fix-gnu-kfreebsd.patch
+ignore-coro.patch

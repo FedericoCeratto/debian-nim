@@ -25,7 +25,7 @@ proc raiseNewValidationError(msg: string, warnInstalled: bool) =
     # TODO: We warn everywhere for now. Raise the error in the next version.
     echo("WARNING: ", msg, ". Will be an error in next version!")
   else:
-    raiseNewValidationError(msg, warnInstalled)
+    raise newValidationError(msg, warnInstalled)
 
 proc validatePackageName*(name: string) =
   ## Raises an error if specified package name contains invalid characters.
@@ -118,6 +118,7 @@ proc readPackageInfoFromNimble(path: string; result: var PackageInfo) =
   if fs != nil:
     var p: CfgParser
     open(p, fs, path)
+    defer: close(p)
     var currentSection = ""
     while true:
       var ev = next(p)
@@ -172,7 +173,6 @@ proc readPackageInfoFromNimble(path: string; result: var PackageInfo) =
             "Invalid package info, should not contain --" & ev.value)
       of cfgError:
         raise newException(NimbleError, "Error parsing .nimble file: " & ev.msg)
-    close(p)
   else:
     raise newException(ValueError, "Cannot open package info: " & path)
 

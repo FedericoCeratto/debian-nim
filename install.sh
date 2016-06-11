@@ -5,7 +5,7 @@ set -e
 
 if [ $# -eq 1 ] ; then
   if test -f bin/nim
-  then 
+  then
     echo "Nim build detected"
   else
     echo "Please build Nim before installing it"
@@ -19,7 +19,7 @@ if [ $# -eq 1 ] ; then
       echo "  /usr/bin"
       echo "  /usr/local/bin"
       echo "  /opt"
-      echo "  <some other dir> (treated like '/opt')"
+      echo "  <some other dir> (treated similar to '/opt')"
       echo "To deinstall, use the command:"
       echo "sh deinstall.sh DIR"
       exit 1
@@ -30,6 +30,7 @@ if [ $# -eq 1 ] ; then
       libdir=/usr/lib/nim
       docdir=/usr/share/nim/doc
       datadir=/usr/share/nim/data
+      nimbleDir="/opt/nimble/pkgs/compiler-0.14.2"
       ;;
     "/usr/local/bin")
       bindir=/usr/local/bin
@@ -37,6 +38,18 @@ if [ $# -eq 1 ] ; then
       libdir=/usr/local/lib/nim
       docdir=/usr/local/share/nim/doc
       datadir=/usr/local/share/nim/data
+      nimbleDir="/opt/nimble/pkgs/compiler-0.14.2"
+      ;;
+    "/opt")
+      bindir="/opt/nim/bin"
+      configdir="/opt/nim/config"
+      libdir="/opt/nim/lib"
+      docdir="/opt/nim/doc"
+      datadir="/opt/nim/data"
+      nimbleDir="/opt/nimble/pkgs/compiler-0.14.2"
+      mkdir -p /opt/nim
+      mkdir -p $bindir
+      mkdir -p $configdir
       ;;
     *)
       bindir="$1/nim/bin"
@@ -44,31 +57,43 @@ if [ $# -eq 1 ] ; then
       libdir="$1/nim/lib"
       docdir="$1/nim/doc"
       datadir="$1/nim/data"
-      
+      nimbleDir="$1/nim"
       mkdir -p $1/nim
       mkdir -p $bindir
       mkdir -p $configdir
       ;;
   esac
+
   mkdir -p $libdir
   mkdir -p $docdir
+  mkdir -p $nimbleDir/
   echo "copying files..."
-  mkdir -p $libdir/system
+  mkdir -p $configdir/
+  mkdir -p $docdir/
+  mkdir -p $libdir/arch
   mkdir -p $libdir/core
+  mkdir -p $libdir/
+  mkdir -p $libdir/deprecated/core
+  mkdir -p $libdir/deprecated/pure
+  mkdir -p $libdir/impure
+  mkdir -p $libdir/impure/nre/private
+  mkdir -p $libdir/js
+  mkdir -p $libdir/packages/docutils
+  mkdir -p $libdir/posix
   mkdir -p $libdir/pure
   mkdir -p $libdir/pure/collections
   mkdir -p $libdir/pure/concurrency
   mkdir -p $libdir/pure/unidecode
-  mkdir -p $libdir/impure
-  mkdir -p $libdir/impure/nre/private
+  mkdir -p $libdir/system
+  mkdir -p $libdir/windows
   mkdir -p $libdir/wrappers
   mkdir -p $libdir/wrappers/linenoise
-  mkdir -p $libdir/windows
-  mkdir -p $libdir/posix
-  mkdir -p $libdir/js
-  mkdir -p $libdir/packages/docutils
-  mkdir -p $libdir/deprecated/core
-  mkdir -p $libdir/deprecated/pure
+  mkdir -p $nimbleDir/compiler
+  mkdir -p $nimbleDir/compiler/nimfix
+  mkdir -p $nimbleDir/compiler/nimsuggest
+  mkdir -p $nimbleDir/compiler/plugins
+  mkdir -p $nimbleDir/compiler/plugins/locals
+  mkdir -p $nimbleDir/doc
 
   cp bin/nim $bindir/nim
   chmod 755 $bindir/nim
@@ -82,16 +107,322 @@ if [ $# -eq 1 ] ; then
     cp doc/overview.html $docdir/overview.html
     chmod 644 $docdir/overview.html
   fi
+  cp lib/arch/arch.nim $libdir/arch/arch.nim
+  chmod 644 $libdir/arch/arch.nim
+  cp lib/arch/i386.asm $libdir/arch/i386.asm
+  chmod 644 $libdir/arch/i386.asm
+  cp lib/arch/ms_amd64.asm $libdir/arch/ms_amd64.asm
+  chmod 644 $libdir/arch/ms_amd64.asm
+  cp lib/arch/ms_i386.asm $libdir/arch/ms_i386.asm
+  chmod 644 $libdir/arch/ms_i386.asm
+  cp lib/arch/unix_amd64.asm $libdir/arch/unix_amd64.asm
+  chmod 644 $libdir/arch/unix_amd64.asm
+  cp lib/arch/unix_i386.asm $libdir/arch/unix_i386.asm
+  chmod 644 $libdir/arch/unix_i386.asm
+  cp lib/core/locks.nim $libdir/core/locks.nim
+  chmod 644 $libdir/core/locks.nim
+  cp lib/core/macros.nim $libdir/core/macros.nim
+  chmod 644 $libdir/core/macros.nim
+  cp lib/core/rlocks.nim $libdir/core/rlocks.nim
+  chmod 644 $libdir/core/rlocks.nim
+  cp lib/core/typeinfo.nim $libdir/core/typeinfo.nim
+  chmod 644 $libdir/core/typeinfo.nim
+  cp lib/cycle.h $libdir/cycle.h
+  chmod 644 $libdir/cycle.h
+  cp lib/deprecated/core/unsigned.nim $libdir/deprecated/core/unsigned.nim
+  chmod 644 $libdir/deprecated/core/unsigned.nim
+  cp lib/deprecated/pure/actors.nim $libdir/deprecated/pure/actors.nim
+  chmod 644 $libdir/deprecated/pure/actors.nim
+  cp lib/deprecated/pure/actors.nim.cfg $libdir/deprecated/pure/actors.nim.cfg
+  chmod 644 $libdir/deprecated/pure/actors.nim.cfg
+  cp lib/deprecated/pure/asyncio.nim $libdir/deprecated/pure/asyncio.nim
+  chmod 644 $libdir/deprecated/pure/asyncio.nim
+  cp lib/deprecated/pure/ftpclient.nim $libdir/deprecated/pure/ftpclient.nim
+  chmod 644 $libdir/deprecated/pure/ftpclient.nim
+  cp lib/deprecated/pure/parseurl.nim $libdir/deprecated/pure/parseurl.nim
+  chmod 644 $libdir/deprecated/pure/parseurl.nim
+  cp lib/deprecated/pure/rawsockets.nim $libdir/deprecated/pure/rawsockets.nim
+  chmod 644 $libdir/deprecated/pure/rawsockets.nim
+  cp lib/deprecated/pure/sockets.nim $libdir/deprecated/pure/sockets.nim
+  chmod 644 $libdir/deprecated/pure/sockets.nim
+  cp lib/impure/db_mysql.nim $libdir/impure/db_mysql.nim
+  chmod 644 $libdir/impure/db_mysql.nim
+  cp lib/impure/db_odbc.nim $libdir/impure/db_odbc.nim
+  chmod 644 $libdir/impure/db_odbc.nim
+  cp lib/impure/db_postgres.nim $libdir/impure/db_postgres.nim
+  chmod 644 $libdir/impure/db_postgres.nim
+  cp lib/impure/db_sqlite.nim $libdir/impure/db_sqlite.nim
+  chmod 644 $libdir/impure/db_sqlite.nim
+  cp lib/impure/nre/private/util.nim $libdir/impure/nre/private/util.nim
+  chmod 644 $libdir/impure/nre/private/util.nim
+  cp lib/impure/nre.nim $libdir/impure/nre.nim
+  chmod 644 $libdir/impure/nre.nim
+  cp lib/impure/osinfo_posix.nim $libdir/impure/osinfo_posix.nim
+  chmod 644 $libdir/impure/osinfo_posix.nim
+  cp lib/impure/osinfo_win.nim $libdir/impure/osinfo_win.nim
+  chmod 644 $libdir/impure/osinfo_win.nim
+  cp lib/impure/rdstdin.nim $libdir/impure/rdstdin.nim
+  chmod 644 $libdir/impure/rdstdin.nim
+  cp lib/impure/re.nim $libdir/impure/re.nim
+  chmod 644 $libdir/impure/re.nim
+  cp lib/impure/ssl.nim $libdir/impure/ssl.nim
+  chmod 644 $libdir/impure/ssl.nim
+  cp lib/js/dom.nim $libdir/js/dom.nim
+  chmod 644 $libdir/js/dom.nim
+  cp lib/libnimrtl.dylib $libdir/libnimrtl.dylib
+  chmod 644 $libdir/libnimrtl.dylib
   cp lib/nimbase.h $libdir/nimbase.h
   chmod 644 $libdir/nimbase.h
   cp lib/nimrtl.nim $libdir/nimrtl.nim
   chmod 644 $libdir/nimrtl.nim
-  cp lib/prelude.nim $libdir/prelude.nim
-  chmod 644 $libdir/prelude.nim
-  cp lib/system.nim $libdir/system.nim
-  chmod 644 $libdir/system.nim
   cp lib/nimrtl.nim.cfg $libdir/nimrtl.nim.cfg
   chmod 644 $libdir/nimrtl.nim.cfg
+  cp lib/packages/docutils/docutils.babel $libdir/packages/docutils/docutils.babel
+  chmod 644 $libdir/packages/docutils/docutils.babel
+  cp lib/packages/docutils/highlite.nim $libdir/packages/docutils/highlite.nim
+  chmod 644 $libdir/packages/docutils/highlite.nim
+  cp lib/packages/docutils/rst.nim $libdir/packages/docutils/rst.nim
+  chmod 644 $libdir/packages/docutils/rst.nim
+  cp lib/packages/docutils/rstast.nim $libdir/packages/docutils/rstast.nim
+  chmod 644 $libdir/packages/docutils/rstast.nim
+  cp lib/packages/docutils/rstgen.nim $libdir/packages/docutils/rstgen.nim
+  chmod 644 $libdir/packages/docutils/rstgen.nim
+  cp lib/posix/epoll.nim $libdir/posix/epoll.nim
+  chmod 644 $libdir/posix/epoll.nim
+  cp lib/posix/inotify.nim $libdir/posix/inotify.nim
+  chmod 644 $libdir/posix/inotify.nim
+  cp lib/posix/kqueue.nim $libdir/posix/kqueue.nim
+  chmod 644 $libdir/posix/kqueue.nim
+  cp lib/posix/linux.nim $libdir/posix/linux.nim
+  chmod 644 $libdir/posix/linux.nim
+  cp lib/posix/posix.nim $libdir/posix/posix.nim
+  chmod 644 $libdir/posix/posix.nim
+  cp lib/posix/termios.nim $libdir/posix/termios.nim
+  chmod 644 $libdir/posix/termios.nim
+  cp lib/prelude.nim $libdir/prelude.nim
+  chmod 644 $libdir/prelude.nim
+  cp lib/pure/algorithm.nim $libdir/pure/algorithm.nim
+  chmod 644 $libdir/pure/algorithm.nim
+  cp lib/pure/asyncdispatch.nim $libdir/pure/asyncdispatch.nim
+  chmod 644 $libdir/pure/asyncdispatch.nim
+  cp lib/pure/asyncdispatch.nim.cfg $libdir/pure/asyncdispatch.nim.cfg
+  chmod 644 $libdir/pure/asyncdispatch.nim.cfg
+  cp lib/pure/asyncfile.nim $libdir/pure/asyncfile.nim
+  chmod 644 $libdir/pure/asyncfile.nim
+  cp lib/pure/asyncftpclient.nim $libdir/pure/asyncftpclient.nim
+  chmod 644 $libdir/pure/asyncftpclient.nim
+  cp lib/pure/asynchttpserver.nim $libdir/pure/asynchttpserver.nim
+  chmod 644 $libdir/pure/asynchttpserver.nim
+  cp lib/pure/asyncnet.nim $libdir/pure/asyncnet.nim
+  chmod 644 $libdir/pure/asyncnet.nim
+  cp lib/pure/base64.nim $libdir/pure/base64.nim
+  chmod 644 $libdir/pure/base64.nim
+  cp lib/pure/basic2d.nim $libdir/pure/basic2d.nim
+  chmod 644 $libdir/pure/basic2d.nim
+  cp lib/pure/basic3d.nim $libdir/pure/basic3d.nim
+  chmod 644 $libdir/pure/basic3d.nim
+  cp lib/pure/browsers.nim $libdir/pure/browsers.nim
+  chmod 644 $libdir/pure/browsers.nim
+  cp lib/pure/cgi.nim $libdir/pure/cgi.nim
+  chmod 644 $libdir/pure/cgi.nim
+  cp lib/pure/collections/chains.nim $libdir/pure/collections/chains.nim
+  chmod 644 $libdir/pure/collections/chains.nim
+  cp lib/pure/collections/critbits.nim $libdir/pure/collections/critbits.nim
+  chmod 644 $libdir/pure/collections/critbits.nim
+  cp lib/pure/collections/heapqueue.nim $libdir/pure/collections/heapqueue.nim
+  chmod 644 $libdir/pure/collections/heapqueue.nim
+  cp lib/pure/collections/intsets.nim $libdir/pure/collections/intsets.nim
+  chmod 644 $libdir/pure/collections/intsets.nim
+  cp lib/pure/collections/lists.nim $libdir/pure/collections/lists.nim
+  chmod 644 $libdir/pure/collections/lists.nim
+  cp lib/pure/collections/LockFreeHash.nim $libdir/pure/collections/LockFreeHash.nim
+  chmod 644 $libdir/pure/collections/LockFreeHash.nim
+  cp lib/pure/collections/queues.nim $libdir/pure/collections/queues.nim
+  chmod 644 $libdir/pure/collections/queues.nim
+  cp lib/pure/collections/rtarrays.nim $libdir/pure/collections/rtarrays.nim
+  chmod 644 $libdir/pure/collections/rtarrays.nim
+  cp lib/pure/collections/sequtils.nim $libdir/pure/collections/sequtils.nim
+  chmod 644 $libdir/pure/collections/sequtils.nim
+  cp lib/pure/collections/sets.nim $libdir/pure/collections/sets.nim
+  chmod 644 $libdir/pure/collections/sets.nim
+  cp lib/pure/collections/sharedlist.nim $libdir/pure/collections/sharedlist.nim
+  chmod 644 $libdir/pure/collections/sharedlist.nim
+  cp lib/pure/collections/sharedstrings.nim $libdir/pure/collections/sharedstrings.nim
+  chmod 644 $libdir/pure/collections/sharedstrings.nim
+  cp lib/pure/collections/sharedtables.nim $libdir/pure/collections/sharedtables.nim
+  chmod 644 $libdir/pure/collections/sharedtables.nim
+  cp lib/pure/collections/tableimpl.nim $libdir/pure/collections/tableimpl.nim
+  chmod 644 $libdir/pure/collections/tableimpl.nim
+  cp lib/pure/collections/tables.nim $libdir/pure/collections/tables.nim
+  chmod 644 $libdir/pure/collections/tables.nim
+  cp lib/pure/colors.nim $libdir/pure/colors.nim
+  chmod 644 $libdir/pure/colors.nim
+  cp lib/pure/complex.nim $libdir/pure/complex.nim
+  chmod 644 $libdir/pure/complex.nim
+  cp lib/pure/concurrency/cpuinfo.nim $libdir/pure/concurrency/cpuinfo.nim
+  chmod 644 $libdir/pure/concurrency/cpuinfo.nim
+  cp lib/pure/concurrency/cpuload.nim $libdir/pure/concurrency/cpuload.nim
+  chmod 644 $libdir/pure/concurrency/cpuload.nim
+  cp lib/pure/concurrency/threadpool.nim $libdir/pure/concurrency/threadpool.nim
+  chmod 644 $libdir/pure/concurrency/threadpool.nim
+  cp lib/pure/concurrency/threadpool.nim.cfg $libdir/pure/concurrency/threadpool.nim.cfg
+  chmod 644 $libdir/pure/concurrency/threadpool.nim.cfg
+  cp lib/pure/cookies.nim $libdir/pure/cookies.nim
+  chmod 644 $libdir/pure/cookies.nim
+  cp lib/pure/coro.nim $libdir/pure/coro.nim
+  chmod 644 $libdir/pure/coro.nim
+  cp lib/pure/coro.nimcfg $libdir/pure/coro.nimcfg
+  chmod 644 $libdir/pure/coro.nimcfg
+  cp lib/pure/db_common.nim $libdir/pure/db_common.nim
+  chmod 644 $libdir/pure/db_common.nim
+  cp lib/pure/dynlib.nim $libdir/pure/dynlib.nim
+  chmod 644 $libdir/pure/dynlib.nim
+  cp lib/pure/encodings.nim $libdir/pure/encodings.nim
+  chmod 644 $libdir/pure/encodings.nim
+  cp lib/pure/endians.nim $libdir/pure/endians.nim
+  chmod 644 $libdir/pure/endians.nim
+  cp lib/pure/etcpriv.nim $libdir/pure/etcpriv.nim
+  chmod 644 $libdir/pure/etcpriv.nim
+  cp lib/pure/events.nim $libdir/pure/events.nim
+  chmod 644 $libdir/pure/events.nim
+  cp lib/pure/fenv.nim $libdir/pure/fenv.nim
+  chmod 644 $libdir/pure/fenv.nim
+  cp lib/pure/fsmonitor.nim $libdir/pure/fsmonitor.nim
+  chmod 644 $libdir/pure/fsmonitor.nim
+  cp lib/pure/future.nim $libdir/pure/future.nim
+  chmod 644 $libdir/pure/future.nim
+  cp lib/pure/gentabs.nim $libdir/pure/gentabs.nim
+  chmod 644 $libdir/pure/gentabs.nim
+  cp lib/pure/hashes.nim $libdir/pure/hashes.nim
+  chmod 644 $libdir/pure/hashes.nim
+  cp lib/pure/htmlgen.nim $libdir/pure/htmlgen.nim
+  chmod 644 $libdir/pure/htmlgen.nim
+  cp lib/pure/htmlparser.nim $libdir/pure/htmlparser.nim
+  chmod 644 $libdir/pure/htmlparser.nim
+  cp lib/pure/httpclient.nim $libdir/pure/httpclient.nim
+  chmod 644 $libdir/pure/httpclient.nim
+  cp lib/pure/httpcore.nim $libdir/pure/httpcore.nim
+  chmod 644 $libdir/pure/httpcore.nim
+  cp lib/pure/httpserver.nim $libdir/pure/httpserver.nim
+  chmod 644 $libdir/pure/httpserver.nim
+  cp lib/pure/json.nim $libdir/pure/json.nim
+  chmod 644 $libdir/pure/json.nim
+  cp lib/pure/lexbase.nim $libdir/pure/lexbase.nim
+  chmod 644 $libdir/pure/lexbase.nim
+  cp lib/pure/logging.nim $libdir/pure/logging.nim
+  chmod 644 $libdir/pure/logging.nim
+  cp lib/pure/marshal.nim $libdir/pure/marshal.nim
+  chmod 644 $libdir/pure/marshal.nim
+  cp lib/pure/matchers.nim $libdir/pure/matchers.nim
+  chmod 644 $libdir/pure/matchers.nim
+  cp lib/pure/math.nim $libdir/pure/math.nim
+  chmod 644 $libdir/pure/math.nim
+  cp lib/pure/md5.nim $libdir/pure/md5.nim
+  chmod 644 $libdir/pure/md5.nim
+  cp lib/pure/memfiles.nim $libdir/pure/memfiles.nim
+  chmod 644 $libdir/pure/memfiles.nim
+  cp lib/pure/mersenne.nim $libdir/pure/mersenne.nim
+  chmod 644 $libdir/pure/mersenne.nim
+  cp lib/pure/mimetypes.nim $libdir/pure/mimetypes.nim
+  chmod 644 $libdir/pure/mimetypes.nim
+  cp lib/pure/nativesockets.nim $libdir/pure/nativesockets.nim
+  chmod 644 $libdir/pure/nativesockets.nim
+  cp lib/pure/net.nim $libdir/pure/net.nim
+  chmod 644 $libdir/pure/net.nim
+  cp lib/pure/nimprof.nim $libdir/pure/nimprof.nim
+  chmod 644 $libdir/pure/nimprof.nim
+  cp lib/pure/nimprof.nim.cfg $libdir/pure/nimprof.nim.cfg
+  chmod 644 $libdir/pure/nimprof.nim.cfg
+  cp lib/pure/numeric.nim $libdir/pure/numeric.nim
+  chmod 644 $libdir/pure/numeric.nim
+  cp lib/pure/oids.nim $libdir/pure/oids.nim
+  chmod 644 $libdir/pure/oids.nim
+  cp lib/pure/options.nim $libdir/pure/options.nim
+  chmod 644 $libdir/pure/options.nim
+  cp lib/pure/os.nim $libdir/pure/os.nim
+  chmod 644 $libdir/pure/os.nim
+  cp lib/pure/ospaths.nim $libdir/pure/ospaths.nim
+  chmod 644 $libdir/pure/ospaths.nim
+  cp lib/pure/osproc.nim $libdir/pure/osproc.nim
+  chmod 644 $libdir/pure/osproc.nim
+  cp lib/pure/oswalkdir.nim $libdir/pure/oswalkdir.nim
+  chmod 644 $libdir/pure/oswalkdir.nim
+  cp lib/pure/parsecfg.nim $libdir/pure/parsecfg.nim
+  chmod 644 $libdir/pure/parsecfg.nim
+  cp lib/pure/parsecsv.nim $libdir/pure/parsecsv.nim
+  chmod 644 $libdir/pure/parsecsv.nim
+  cp lib/pure/parseopt.nim $libdir/pure/parseopt.nim
+  chmod 644 $libdir/pure/parseopt.nim
+  cp lib/pure/parseopt2.nim $libdir/pure/parseopt2.nim
+  chmod 644 $libdir/pure/parseopt2.nim
+  cp lib/pure/parsesql.nim $libdir/pure/parsesql.nim
+  chmod 644 $libdir/pure/parsesql.nim
+  cp lib/pure/parseutils.nim $libdir/pure/parseutils.nim
+  chmod 644 $libdir/pure/parseutils.nim
+  cp lib/pure/parsexml.nim $libdir/pure/parsexml.nim
+  chmod 644 $libdir/pure/parsexml.nim
+  cp lib/pure/pegs.nim $libdir/pure/pegs.nim
+  chmod 644 $libdir/pure/pegs.nim
+  cp lib/pure/poly.nim $libdir/pure/poly.nim
+  chmod 644 $libdir/pure/poly.nim
+  cp lib/pure/punycode.nim $libdir/pure/punycode.nim
+  chmod 644 $libdir/pure/punycode.nim
+  cp lib/pure/random.nim $libdir/pure/random.nim
+  chmod 644 $libdir/pure/random.nim
+  cp lib/pure/rationals.nim $libdir/pure/rationals.nim
+  chmod 644 $libdir/pure/rationals.nim
+  cp lib/pure/romans.nim $libdir/pure/romans.nim
+  chmod 644 $libdir/pure/romans.nim
+  cp lib/pure/ropes.nim $libdir/pure/ropes.nim
+  chmod 644 $libdir/pure/ropes.nim
+  cp lib/pure/scgi.nim $libdir/pure/scgi.nim
+  chmod 644 $libdir/pure/scgi.nim
+  cp lib/pure/securehash.nim $libdir/pure/securehash.nim
+  chmod 644 $libdir/pure/securehash.nim
+  cp lib/pure/selectors.nim $libdir/pure/selectors.nim
+  chmod 644 $libdir/pure/selectors.nim
+  cp lib/pure/smtp.nim $libdir/pure/smtp.nim
+  chmod 644 $libdir/pure/smtp.nim
+  cp lib/pure/smtp.nim.cfg $libdir/pure/smtp.nim.cfg
+  chmod 644 $libdir/pure/smtp.nim.cfg
+  cp lib/pure/stats.nim $libdir/pure/stats.nim
+  chmod 644 $libdir/pure/stats.nim
+  cp lib/pure/streams.nim $libdir/pure/streams.nim
+  chmod 644 $libdir/pure/streams.nim
+  cp lib/pure/strscans.nim $libdir/pure/strscans.nim
+  chmod 644 $libdir/pure/strscans.nim
+  cp lib/pure/strtabs.nim $libdir/pure/strtabs.nim
+  chmod 644 $libdir/pure/strtabs.nim
+  cp lib/pure/strutils.nim $libdir/pure/strutils.nim
+  chmod 644 $libdir/pure/strutils.nim
+  cp lib/pure/subexes.nim $libdir/pure/subexes.nim
+  chmod 644 $libdir/pure/subexes.nim
+  cp lib/pure/terminal.nim $libdir/pure/terminal.nim
+  chmod 644 $libdir/pure/terminal.nim
+  cp lib/pure/times.nim $libdir/pure/times.nim
+  chmod 644 $libdir/pure/times.nim
+  cp lib/pure/typetraits.nim $libdir/pure/typetraits.nim
+  chmod 644 $libdir/pure/typetraits.nim
+  cp lib/pure/unicode.nim $libdir/pure/unicode.nim
+  chmod 644 $libdir/pure/unicode.nim
+  cp lib/pure/unidecode/gen.py $libdir/pure/unidecode/gen.py
+  chmod 644 $libdir/pure/unidecode/gen.py
+  cp lib/pure/unidecode/unidecode.dat $libdir/pure/unidecode/unidecode.dat
+  chmod 644 $libdir/pure/unidecode/unidecode.dat
+  cp lib/pure/unidecode/unidecode.nim $libdir/pure/unidecode/unidecode.nim
+  chmod 644 $libdir/pure/unidecode/unidecode.nim
+  cp lib/pure/unittest.nim $libdir/pure/unittest.nim
+  chmod 644 $libdir/pure/unittest.nim
+  cp lib/pure/uri.nim $libdir/pure/uri.nim
+  chmod 644 $libdir/pure/uri.nim
+  cp lib/pure/xmldom.nim $libdir/pure/xmldom.nim
+  chmod 644 $libdir/pure/xmldom.nim
+  cp lib/pure/xmldomparser.nim $libdir/pure/xmldomparser.nim
+  chmod 644 $libdir/pure/xmldomparser.nim
+  cp lib/pure/xmlparser.nim $libdir/pure/xmlparser.nim
+  chmod 644 $libdir/pure/xmlparser.nim
+  cp lib/pure/xmltree.nim $libdir/pure/xmltree.nim
+  chmod 644 $libdir/pure/xmltree.nim
   cp lib/stdlib.nimble $libdir/stdlib.nimble
   chmod 644 $libdir/stdlib.nimble
   cp lib/system/alloc.nim $libdir/system/alloc.nim
@@ -134,6 +465,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/system/gc_common.nim
   cp lib/system/gc_ms.nim $libdir/system/gc_ms.nim
   chmod 644 $libdir/system/gc_ms.nim
+  cp lib/system/gc_stack.nim $libdir/system/gc_stack.nim
+  chmod 644 $libdir/system/gc_stack.nim
   cp lib/system/hti.nim $libdir/system/hti.nim
   chmod 644 $libdir/system/hti.nim
   cp lib/system/inclrtl.nim $libdir/system/inclrtl.nim
@@ -144,6 +477,8 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/system/mmdisp.nim
   cp lib/system/nimscript.nim $libdir/system/nimscript.nim
   chmod 644 $libdir/system/nimscript.nim
+  cp lib/system/osalloc.nim $libdir/system/osalloc.nim
+  chmod 644 $libdir/system/osalloc.nim
   cp lib/system/platforms.nim $libdir/system/platforms.nim
   chmod 644 $libdir/system/platforms.nim
   cp lib/system/profiler.nim $libdir/system/profiler.nim
@@ -168,238 +503,10 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/system/timers.nim
   cp lib/system/widestrs.nim $libdir/system/widestrs.nim
   chmod 644 $libdir/system/widestrs.nim
-  cp lib/core/locks.nim $libdir/core/locks.nim
-  chmod 644 $libdir/core/locks.nim
-  cp lib/core/macros.nim $libdir/core/macros.nim
-  chmod 644 $libdir/core/macros.nim
-  cp lib/core/typeinfo.nim $libdir/core/typeinfo.nim
-  chmod 644 $libdir/core/typeinfo.nim
-  cp lib/pure/algorithm.nim $libdir/pure/algorithm.nim
-  chmod 644 $libdir/pure/algorithm.nim
-  cp lib/pure/asyncdispatch.nim $libdir/pure/asyncdispatch.nim
-  chmod 644 $libdir/pure/asyncdispatch.nim
-  cp lib/pure/asyncfile.nim $libdir/pure/asyncfile.nim
-  chmod 644 $libdir/pure/asyncfile.nim
-  cp lib/pure/asyncftpclient.nim $libdir/pure/asyncftpclient.nim
-  chmod 644 $libdir/pure/asyncftpclient.nim
-  cp lib/pure/asynchttpserver.nim $libdir/pure/asynchttpserver.nim
-  chmod 644 $libdir/pure/asynchttpserver.nim
-  cp lib/pure/asyncnet.nim $libdir/pure/asyncnet.nim
-  chmod 644 $libdir/pure/asyncnet.nim
-  cp lib/pure/base64.nim $libdir/pure/base64.nim
-  chmod 644 $libdir/pure/base64.nim
-  cp lib/pure/basic2d.nim $libdir/pure/basic2d.nim
-  chmod 644 $libdir/pure/basic2d.nim
-  cp lib/pure/basic3d.nim $libdir/pure/basic3d.nim
-  chmod 644 $libdir/pure/basic3d.nim
-  cp lib/pure/browsers.nim $libdir/pure/browsers.nim
-  chmod 644 $libdir/pure/browsers.nim
-  cp lib/pure/cgi.nim $libdir/pure/cgi.nim
-  chmod 644 $libdir/pure/cgi.nim
-  cp lib/pure/colors.nim $libdir/pure/colors.nim
-  chmod 644 $libdir/pure/colors.nim
-  cp lib/pure/complex.nim $libdir/pure/complex.nim
-  chmod 644 $libdir/pure/complex.nim
-  cp lib/pure/cookies.nim $libdir/pure/cookies.nim
-  chmod 644 $libdir/pure/cookies.nim
-  cp lib/pure/coro.nim $libdir/pure/coro.nim
-  chmod 644 $libdir/pure/coro.nim
-  cp lib/pure/db_common.nim $libdir/pure/db_common.nim
-  chmod 644 $libdir/pure/db_common.nim
-  cp lib/pure/dynlib.nim $libdir/pure/dynlib.nim
-  chmod 644 $libdir/pure/dynlib.nim
-  cp lib/pure/encodings.nim $libdir/pure/encodings.nim
-  chmod 644 $libdir/pure/encodings.nim
-  cp lib/pure/endians.nim $libdir/pure/endians.nim
-  chmod 644 $libdir/pure/endians.nim
-  cp lib/pure/etcpriv.nim $libdir/pure/etcpriv.nim
-  chmod 644 $libdir/pure/etcpriv.nim
-  cp lib/pure/events.nim $libdir/pure/events.nim
-  chmod 644 $libdir/pure/events.nim
-  cp lib/pure/fenv.nim $libdir/pure/fenv.nim
-  chmod 644 $libdir/pure/fenv.nim
-  cp lib/pure/fsmonitor.nim $libdir/pure/fsmonitor.nim
-  chmod 644 $libdir/pure/fsmonitor.nim
-  cp lib/pure/future.nim $libdir/pure/future.nim
-  chmod 644 $libdir/pure/future.nim
-  cp lib/pure/gentabs.nim $libdir/pure/gentabs.nim
-  chmod 644 $libdir/pure/gentabs.nim
-  cp lib/pure/hashes.nim $libdir/pure/hashes.nim
-  chmod 644 $libdir/pure/hashes.nim
-  cp lib/pure/htmlgen.nim $libdir/pure/htmlgen.nim
-  chmod 644 $libdir/pure/htmlgen.nim
-  cp lib/pure/htmlparser.nim $libdir/pure/htmlparser.nim
-  chmod 644 $libdir/pure/htmlparser.nim
-  cp lib/pure/httpclient.nim $libdir/pure/httpclient.nim
-  chmod 644 $libdir/pure/httpclient.nim
-  cp lib/pure/httpserver.nim $libdir/pure/httpserver.nim
-  chmod 644 $libdir/pure/httpserver.nim
-  cp lib/pure/json.nim $libdir/pure/json.nim
-  chmod 644 $libdir/pure/json.nim
-  cp lib/pure/lexbase.nim $libdir/pure/lexbase.nim
-  chmod 644 $libdir/pure/lexbase.nim
-  cp lib/pure/logging.nim $libdir/pure/logging.nim
-  chmod 644 $libdir/pure/logging.nim
-  cp lib/pure/marshal.nim $libdir/pure/marshal.nim
-  chmod 644 $libdir/pure/marshal.nim
-  cp lib/pure/matchers.nim $libdir/pure/matchers.nim
-  chmod 644 $libdir/pure/matchers.nim
-  cp lib/pure/math.nim $libdir/pure/math.nim
-  chmod 644 $libdir/pure/math.nim
-  cp lib/pure/md5.nim $libdir/pure/md5.nim
-  chmod 644 $libdir/pure/md5.nim
-  cp lib/pure/memfiles.nim $libdir/pure/memfiles.nim
-  chmod 644 $libdir/pure/memfiles.nim
-  cp lib/pure/mersenne.nim $libdir/pure/mersenne.nim
-  chmod 644 $libdir/pure/mersenne.nim
-  cp lib/pure/mimetypes.nim $libdir/pure/mimetypes.nim
-  chmod 644 $libdir/pure/mimetypes.nim
-  cp lib/pure/nativesockets.nim $libdir/pure/nativesockets.nim
-  chmod 644 $libdir/pure/nativesockets.nim
-  cp lib/pure/net.nim $libdir/pure/net.nim
-  chmod 644 $libdir/pure/net.nim
-  cp lib/pure/nimprof.nim $libdir/pure/nimprof.nim
-  chmod 644 $libdir/pure/nimprof.nim
-  cp lib/pure/numeric.nim $libdir/pure/numeric.nim
-  chmod 644 $libdir/pure/numeric.nim
-  cp lib/pure/oids.nim $libdir/pure/oids.nim
-  chmod 644 $libdir/pure/oids.nim
-  cp lib/pure/options.nim $libdir/pure/options.nim
-  chmod 644 $libdir/pure/options.nim
-  cp lib/pure/os.nim $libdir/pure/os.nim
-  chmod 644 $libdir/pure/os.nim
-  cp lib/pure/ospaths.nim $libdir/pure/ospaths.nim
-  chmod 644 $libdir/pure/ospaths.nim
-  cp lib/pure/osproc.nim $libdir/pure/osproc.nim
-  chmod 644 $libdir/pure/osproc.nim
-  cp lib/pure/oswalkdir.nim $libdir/pure/oswalkdir.nim
-  chmod 644 $libdir/pure/oswalkdir.nim
-  cp lib/pure/parsecfg.nim $libdir/pure/parsecfg.nim
-  chmod 644 $libdir/pure/parsecfg.nim
-  cp lib/pure/parsecsv.nim $libdir/pure/parsecsv.nim
-  chmod 644 $libdir/pure/parsecsv.nim
-  cp lib/pure/parseopt.nim $libdir/pure/parseopt.nim
-  chmod 644 $libdir/pure/parseopt.nim
-  cp lib/pure/parseopt2.nim $libdir/pure/parseopt2.nim
-  chmod 644 $libdir/pure/parseopt2.nim
-  cp lib/pure/parsesql.nim $libdir/pure/parsesql.nim
-  chmod 644 $libdir/pure/parsesql.nim
-  cp lib/pure/parseutils.nim $libdir/pure/parseutils.nim
-  chmod 644 $libdir/pure/parseutils.nim
-  cp lib/pure/parsexml.nim $libdir/pure/parsexml.nim
-  chmod 644 $libdir/pure/parsexml.nim
-  cp lib/pure/pegs.nim $libdir/pure/pegs.nim
-  chmod 644 $libdir/pure/pegs.nim
-  cp lib/pure/poly.nim $libdir/pure/poly.nim
-  chmod 644 $libdir/pure/poly.nim
-  cp lib/pure/rationals.nim $libdir/pure/rationals.nim
-  chmod 644 $libdir/pure/rationals.nim
-  cp lib/pure/romans.nim $libdir/pure/romans.nim
-  chmod 644 $libdir/pure/romans.nim
-  cp lib/pure/ropes.nim $libdir/pure/ropes.nim
-  chmod 644 $libdir/pure/ropes.nim
-  cp lib/pure/scgi.nim $libdir/pure/scgi.nim
-  chmod 644 $libdir/pure/scgi.nim
-  cp lib/pure/securehash.nim $libdir/pure/securehash.nim
-  chmod 644 $libdir/pure/securehash.nim
-  cp lib/pure/selectors.nim $libdir/pure/selectors.nim
-  chmod 644 $libdir/pure/selectors.nim
-  cp lib/pure/smtp.nim $libdir/pure/smtp.nim
-  chmod 644 $libdir/pure/smtp.nim
-  cp lib/pure/stats.nim $libdir/pure/stats.nim
-  chmod 644 $libdir/pure/stats.nim
-  cp lib/pure/streams.nim $libdir/pure/streams.nim
-  chmod 644 $libdir/pure/streams.nim
-  cp lib/pure/strtabs.nim $libdir/pure/strtabs.nim
-  chmod 644 $libdir/pure/strtabs.nim
-  cp lib/pure/strutils.nim $libdir/pure/strutils.nim
-  chmod 644 $libdir/pure/strutils.nim
-  cp lib/pure/subexes.nim $libdir/pure/subexes.nim
-  chmod 644 $libdir/pure/subexes.nim
-  cp lib/pure/terminal.nim $libdir/pure/terminal.nim
-  chmod 644 $libdir/pure/terminal.nim
-  cp lib/pure/times.nim $libdir/pure/times.nim
-  chmod 644 $libdir/pure/times.nim
-  cp lib/pure/typetraits.nim $libdir/pure/typetraits.nim
-  chmod 644 $libdir/pure/typetraits.nim
-  cp lib/pure/unicode.nim $libdir/pure/unicode.nim
-  chmod 644 $libdir/pure/unicode.nim
-  cp lib/pure/unittest.nim $libdir/pure/unittest.nim
-  chmod 644 $libdir/pure/unittest.nim
-  cp lib/pure/uri.nim $libdir/pure/uri.nim
-  chmod 644 $libdir/pure/uri.nim
-  cp lib/pure/xmldom.nim $libdir/pure/xmldom.nim
-  chmod 644 $libdir/pure/xmldom.nim
-  cp lib/pure/xmldomparser.nim $libdir/pure/xmldomparser.nim
-  chmod 644 $libdir/pure/xmldomparser.nim
-  cp lib/pure/xmlparser.nim $libdir/pure/xmlparser.nim
-  chmod 644 $libdir/pure/xmlparser.nim
-  cp lib/pure/xmltree.nim $libdir/pure/xmltree.nim
-  chmod 644 $libdir/pure/xmltree.nim
-  cp lib/pure/asyncdispatch.nim.cfg $libdir/pure/asyncdispatch.nim.cfg
-  chmod 644 $libdir/pure/asyncdispatch.nim.cfg
-  cp lib/pure/nimprof.nim.cfg $libdir/pure/nimprof.nim.cfg
-  chmod 644 $libdir/pure/nimprof.nim.cfg
-  cp lib/pure/smtp.nim.cfg $libdir/pure/smtp.nim.cfg
-  chmod 644 $libdir/pure/smtp.nim.cfg
-  cp lib/pure/collections/LockFreeHash.nim $libdir/pure/collections/LockFreeHash.nim
-  chmod 644 $libdir/pure/collections/LockFreeHash.nim
-  cp lib/pure/collections/critbits.nim $libdir/pure/collections/critbits.nim
-  chmod 644 $libdir/pure/collections/critbits.nim
-  cp lib/pure/collections/intsets.nim $libdir/pure/collections/intsets.nim
-  chmod 644 $libdir/pure/collections/intsets.nim
-  cp lib/pure/collections/lists.nim $libdir/pure/collections/lists.nim
-  chmod 644 $libdir/pure/collections/lists.nim
-  cp lib/pure/collections/queues.nim $libdir/pure/collections/queues.nim
-  chmod 644 $libdir/pure/collections/queues.nim
-  cp lib/pure/collections/rtarrays.nim $libdir/pure/collections/rtarrays.nim
-  chmod 644 $libdir/pure/collections/rtarrays.nim
-  cp lib/pure/collections/sequtils.nim $libdir/pure/collections/sequtils.nim
-  chmod 644 $libdir/pure/collections/sequtils.nim
-  cp lib/pure/collections/sets.nim $libdir/pure/collections/sets.nim
-  chmod 644 $libdir/pure/collections/sets.nim
-  cp lib/pure/collections/sharedlist.nim $libdir/pure/collections/sharedlist.nim
-  chmod 644 $libdir/pure/collections/sharedlist.nim
-  cp lib/pure/collections/sharedstrings.nim $libdir/pure/collections/sharedstrings.nim
-  chmod 644 $libdir/pure/collections/sharedstrings.nim
-  cp lib/pure/collections/sharedtables.nim $libdir/pure/collections/sharedtables.nim
-  chmod 644 $libdir/pure/collections/sharedtables.nim
-  cp lib/pure/collections/tableimpl.nim $libdir/pure/collections/tableimpl.nim
-  chmod 644 $libdir/pure/collections/tableimpl.nim
-  cp lib/pure/collections/tables.nim $libdir/pure/collections/tables.nim
-  chmod 644 $libdir/pure/collections/tables.nim
-  cp lib/pure/concurrency/cpuinfo.nim $libdir/pure/concurrency/cpuinfo.nim
-  chmod 644 $libdir/pure/concurrency/cpuinfo.nim
-  cp lib/pure/concurrency/cpuload.nim $libdir/pure/concurrency/cpuload.nim
-  chmod 644 $libdir/pure/concurrency/cpuload.nim
-  cp lib/pure/concurrency/threadpool.nim $libdir/pure/concurrency/threadpool.nim
-  chmod 644 $libdir/pure/concurrency/threadpool.nim
-  cp lib/pure/unidecode/unidecode.nim $libdir/pure/unidecode/unidecode.nim
-  chmod 644 $libdir/pure/unidecode/unidecode.nim
-  cp lib/pure/concurrency/threadpool.nim.cfg $libdir/pure/concurrency/threadpool.nim.cfg
-  chmod 644 $libdir/pure/concurrency/threadpool.nim.cfg
-  cp lib/impure/db_mysql.nim $libdir/impure/db_mysql.nim
-  chmod 644 $libdir/impure/db_mysql.nim
-  cp lib/impure/db_odbc.nim $libdir/impure/db_odbc.nim
-  chmod 644 $libdir/impure/db_odbc.nim
-  cp lib/impure/db_postgres.nim $libdir/impure/db_postgres.nim
-  chmod 644 $libdir/impure/db_postgres.nim
-  cp lib/impure/db_sqlite.nim $libdir/impure/db_sqlite.nim
-  chmod 644 $libdir/impure/db_sqlite.nim
-  cp lib/impure/nre.nim $libdir/impure/nre.nim
-  chmod 644 $libdir/impure/nre.nim
-  cp lib/impure/osinfo_posix.nim $libdir/impure/osinfo_posix.nim
-  chmod 644 $libdir/impure/osinfo_posix.nim
-  cp lib/impure/osinfo_win.nim $libdir/impure/osinfo_win.nim
-  chmod 644 $libdir/impure/osinfo_win.nim
-  cp lib/impure/rdstdin.nim $libdir/impure/rdstdin.nim
-  chmod 644 $libdir/impure/rdstdin.nim
-  cp lib/impure/re.nim $libdir/impure/re.nim
-  chmod 644 $libdir/impure/re.nim
-  cp lib/impure/ssl.nim $libdir/impure/ssl.nim
-  chmod 644 $libdir/impure/ssl.nim
-  cp lib/impure/nre/private/util.nim $libdir/impure/nre/private/util.nim
-  chmod 644 $libdir/impure/nre/private/util.nim
+  cp lib/system.nim $libdir/system.nim
+  chmod 644 $libdir/system.nim
+  cp lib/windows/winlean.nim $libdir/windows/winlean.nim
+  chmod 644 $libdir/windows/winlean.nim
   cp lib/wrappers/iup.nim $libdir/wrappers/iup.nim
   chmod 644 $libdir/wrappers/iup.nim
   cp lib/wrappers/joyent_http_parser.nim $libdir/wrappers/joyent_http_parser.nim
@@ -408,6 +515,16 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/wrappers/libsvm.nim
   cp lib/wrappers/libuv.nim $libdir/wrappers/libuv.nim
   chmod 644 $libdir/wrappers/libuv.nim
+  cp lib/wrappers/linenoise/clinenoise.c $libdir/wrappers/linenoise/clinenoise.c
+  chmod 644 $libdir/wrappers/linenoise/clinenoise.c
+  cp lib/wrappers/linenoise/clinenoise.h $libdir/wrappers/linenoise/clinenoise.h
+  chmod 644 $libdir/wrappers/linenoise/clinenoise.h
+  cp lib/wrappers/linenoise/LICENSE.txt $libdir/wrappers/linenoise/LICENSE.txt
+  chmod 644 $libdir/wrappers/linenoise/LICENSE.txt
+  cp lib/wrappers/linenoise/linenoise.nim $libdir/wrappers/linenoise/linenoise.nim
+  chmod 644 $libdir/wrappers/linenoise/linenoise.nim
+  cp lib/wrappers/linenoise/README.markdown $libdir/wrappers/linenoise/README.markdown
+  chmod 644 $libdir/wrappers/linenoise/README.markdown
   cp lib/wrappers/mysql.nim $libdir/wrappers/mysql.nim
   chmod 644 $libdir/wrappers/mysql.nim
   cp lib/wrappers/odbcsql.nim $libdir/wrappers/odbcsql.nim
@@ -424,53 +541,257 @@ if [ $# -eq 1 ] ; then
   chmod 644 $libdir/wrappers/sqlite3.nim
   cp lib/wrappers/tinyc.nim $libdir/wrappers/tinyc.nim
   chmod 644 $libdir/wrappers/tinyc.nim
-  cp lib/wrappers/linenoise/linenoise.nim $libdir/wrappers/linenoise/linenoise.nim
-  chmod 644 $libdir/wrappers/linenoise/linenoise.nim
-  cp lib/wrappers/linenoise/clinenoise.c $libdir/wrappers/linenoise/clinenoise.c
-  chmod 644 $libdir/wrappers/linenoise/clinenoise.c
-  cp lib/wrappers/linenoise/clinenoise.h $libdir/wrappers/linenoise/clinenoise.h
-  chmod 644 $libdir/wrappers/linenoise/clinenoise.h
-  cp lib/windows/winlean.nim $libdir/windows/winlean.nim
-  chmod 644 $libdir/windows/winlean.nim
-  cp lib/posix/epoll.nim $libdir/posix/epoll.nim
-  chmod 644 $libdir/posix/epoll.nim
-  cp lib/posix/inotify.nim $libdir/posix/inotify.nim
-  chmod 644 $libdir/posix/inotify.nim
-  cp lib/posix/kqueue.nim $libdir/posix/kqueue.nim
-  chmod 644 $libdir/posix/kqueue.nim
-  cp lib/posix/linux.nim $libdir/posix/linux.nim
-  chmod 644 $libdir/posix/linux.nim
-  cp lib/posix/posix.nim $libdir/posix/posix.nim
-  chmod 644 $libdir/posix/posix.nim
-  cp lib/posix/termios.nim $libdir/posix/termios.nim
-  chmod 644 $libdir/posix/termios.nim
-  cp lib/js/dom.nim $libdir/js/dom.nim
-  chmod 644 $libdir/js/dom.nim
-  cp lib/packages/docutils/highlite.nim $libdir/packages/docutils/highlite.nim
-  chmod 644 $libdir/packages/docutils/highlite.nim
-  cp lib/packages/docutils/rst.nim $libdir/packages/docutils/rst.nim
-  chmod 644 $libdir/packages/docutils/rst.nim
-  cp lib/packages/docutils/rstast.nim $libdir/packages/docutils/rstast.nim
-  chmod 644 $libdir/packages/docutils/rstast.nim
-  cp lib/packages/docutils/rstgen.nim $libdir/packages/docutils/rstgen.nim
-  chmod 644 $libdir/packages/docutils/rstgen.nim
-  cp lib/deprecated/core/unsigned.nim $libdir/deprecated/core/unsigned.nim
-  chmod 644 $libdir/deprecated/core/unsigned.nim
-  cp lib/deprecated/pure/actors.nim $libdir/deprecated/pure/actors.nim
-  chmod 644 $libdir/deprecated/pure/actors.nim
-  cp lib/deprecated/pure/asyncio.nim $libdir/deprecated/pure/asyncio.nim
-  chmod 644 $libdir/deprecated/pure/asyncio.nim
-  cp lib/deprecated/pure/ftpclient.nim $libdir/deprecated/pure/ftpclient.nim
-  chmod 644 $libdir/deprecated/pure/ftpclient.nim
-  cp lib/deprecated/pure/parseurl.nim $libdir/deprecated/pure/parseurl.nim
-  chmod 644 $libdir/deprecated/pure/parseurl.nim
-  cp lib/deprecated/pure/rawsockets.nim $libdir/deprecated/pure/rawsockets.nim
-  chmod 644 $libdir/deprecated/pure/rawsockets.nim
-  cp lib/deprecated/pure/sockets.nim $libdir/deprecated/pure/sockets.nim
-  chmod 644 $libdir/deprecated/pure/sockets.nim
-  cp lib/deprecated/pure/actors.nim.cfg $libdir/deprecated/pure/actors.nim.cfg
-  chmod 644 $libdir/deprecated/pure/actors.nim.cfg
-  
+  cp compiler/aliases.nim $nimbleDir/compiler/aliases.nim
+  chmod 644 $nimbleDir/compiler/aliases.nim
+  cp compiler/ast.nim $nimbleDir/compiler/ast.nim
+  chmod 644 $nimbleDir/compiler/ast.nim
+  cp compiler/astalgo.nim $nimbleDir/compiler/astalgo.nim
+  chmod 644 $nimbleDir/compiler/astalgo.nim
+  cp compiler/bitsets.nim $nimbleDir/compiler/bitsets.nim
+  chmod 644 $nimbleDir/compiler/bitsets.nim
+  cp compiler/canonicalizer.nim $nimbleDir/compiler/canonicalizer.nim
+  chmod 644 $nimbleDir/compiler/canonicalizer.nim
+  cp compiler/ccgcalls.nim $nimbleDir/compiler/ccgcalls.nim
+  chmod 644 $nimbleDir/compiler/ccgcalls.nim
+  cp compiler/ccgexprs.nim $nimbleDir/compiler/ccgexprs.nim
+  chmod 644 $nimbleDir/compiler/ccgexprs.nim
+  cp compiler/ccgmerge.nim $nimbleDir/compiler/ccgmerge.nim
+  chmod 644 $nimbleDir/compiler/ccgmerge.nim
+  cp compiler/ccgstmts.nim $nimbleDir/compiler/ccgstmts.nim
+  chmod 644 $nimbleDir/compiler/ccgstmts.nim
+  cp compiler/ccgthreadvars.nim $nimbleDir/compiler/ccgthreadvars.nim
+  chmod 644 $nimbleDir/compiler/ccgthreadvars.nim
+  cp compiler/ccgtrav.nim $nimbleDir/compiler/ccgtrav.nim
+  chmod 644 $nimbleDir/compiler/ccgtrav.nim
+  cp compiler/ccgtypes.nim $nimbleDir/compiler/ccgtypes.nim
+  chmod 644 $nimbleDir/compiler/ccgtypes.nim
+  cp compiler/ccgutils.nim $nimbleDir/compiler/ccgutils.nim
+  chmod 644 $nimbleDir/compiler/ccgutils.nim
+  cp compiler/cgen.nim $nimbleDir/compiler/cgen.nim
+  chmod 644 $nimbleDir/compiler/cgen.nim
+  cp compiler/cgendata.nim $nimbleDir/compiler/cgendata.nim
+  chmod 644 $nimbleDir/compiler/cgendata.nim
+  cp compiler/cgmeth.nim $nimbleDir/compiler/cgmeth.nim
+  chmod 644 $nimbleDir/compiler/cgmeth.nim
+  cp compiler/commands.nim $nimbleDir/compiler/commands.nim
+  chmod 644 $nimbleDir/compiler/commands.nim
+  cp compiler/condsyms.nim $nimbleDir/compiler/condsyms.nim
+  chmod 644 $nimbleDir/compiler/condsyms.nim
+  cp compiler/debuginfo.nim $nimbleDir/compiler/debuginfo.nim
+  chmod 644 $nimbleDir/compiler/debuginfo.nim
+  cp compiler/depends.nim $nimbleDir/compiler/depends.nim
+  chmod 644 $nimbleDir/compiler/depends.nim
+  cp compiler/docgen.nim $nimbleDir/compiler/docgen.nim
+  chmod 644 $nimbleDir/compiler/docgen.nim
+  cp compiler/docgen2.nim $nimbleDir/compiler/docgen2.nim
+  chmod 644 $nimbleDir/compiler/docgen2.nim
+  cp compiler/evalffi.nim $nimbleDir/compiler/evalffi.nim
+  chmod 644 $nimbleDir/compiler/evalffi.nim
+  cp compiler/evaltempl.nim $nimbleDir/compiler/evaltempl.nim
+  chmod 644 $nimbleDir/compiler/evaltempl.nim
+  cp compiler/extccomp.nim $nimbleDir/compiler/extccomp.nim
+  chmod 644 $nimbleDir/compiler/extccomp.nim
+  cp compiler/filter_tmpl.nim $nimbleDir/compiler/filter_tmpl.nim
+  chmod 644 $nimbleDir/compiler/filter_tmpl.nim
+  cp compiler/filters.nim $nimbleDir/compiler/filters.nim
+  chmod 644 $nimbleDir/compiler/filters.nim
+  cp compiler/forloops.nim $nimbleDir/compiler/forloops.nim
+  chmod 644 $nimbleDir/compiler/forloops.nim
+  cp compiler/guards.nim $nimbleDir/compiler/guards.nim
+  chmod 644 $nimbleDir/compiler/guards.nim
+  cp compiler/hlo.nim $nimbleDir/compiler/hlo.nim
+  chmod 644 $nimbleDir/compiler/hlo.nim
+  cp compiler/idents.nim $nimbleDir/compiler/idents.nim
+  chmod 644 $nimbleDir/compiler/idents.nim
+  cp compiler/idgen.nim $nimbleDir/compiler/idgen.nim
+  chmod 644 $nimbleDir/compiler/idgen.nim
+  cp compiler/importer.nim $nimbleDir/compiler/importer.nim
+  chmod 644 $nimbleDir/compiler/importer.nim
+  cp compiler/installer.ini $nimbleDir/compiler/installer.ini
+  chmod 644 $nimbleDir/compiler/installer.ini
+  cp compiler/jsgen.nim $nimbleDir/compiler/jsgen.nim
+  chmod 644 $nimbleDir/compiler/jsgen.nim
+  cp compiler/jstypes.nim $nimbleDir/compiler/jstypes.nim
+  chmod 644 $nimbleDir/compiler/jstypes.nim
+  cp compiler/lambdalifting.nim $nimbleDir/compiler/lambdalifting.nim
+  chmod 644 $nimbleDir/compiler/lambdalifting.nim
+  cp compiler/lexer.nim $nimbleDir/compiler/lexer.nim
+  chmod 644 $nimbleDir/compiler/lexer.nim
+  cp compiler/lists.nim $nimbleDir/compiler/lists.nim
+  chmod 644 $nimbleDir/compiler/lists.nim
+  cp compiler/llstream.nim $nimbleDir/compiler/llstream.nim
+  chmod 644 $nimbleDir/compiler/llstream.nim
+  cp compiler/lookups.nim $nimbleDir/compiler/lookups.nim
+  chmod 644 $nimbleDir/compiler/lookups.nim
+  cp compiler/lowerings.nim $nimbleDir/compiler/lowerings.nim
+  chmod 644 $nimbleDir/compiler/lowerings.nim
+  cp compiler/magicsys.nim $nimbleDir/compiler/magicsys.nim
+  chmod 644 $nimbleDir/compiler/magicsys.nim
+  cp compiler/main.nim $nimbleDir/compiler/main.nim
+  chmod 644 $nimbleDir/compiler/main.nim
+  cp compiler/mapping.txt $nimbleDir/compiler/mapping.txt
+  chmod 644 $nimbleDir/compiler/mapping.txt
+  cp compiler/modules.nim $nimbleDir/compiler/modules.nim
+  chmod 644 $nimbleDir/compiler/modules.nim
+  cp compiler/msgs.nim $nimbleDir/compiler/msgs.nim
+  chmod 644 $nimbleDir/compiler/msgs.nim
+  cp compiler/nim.cfg $nimbleDir/compiler/nim.cfg
+  chmod 644 $nimbleDir/compiler/nim.cfg
+  cp compiler/nim.nim $nimbleDir/compiler/nim.nim
+  chmod 644 $nimbleDir/compiler/nim.nim
+  cp compiler/nimblecmd.nim $nimbleDir/compiler/nimblecmd.nim
+  chmod 644 $nimbleDir/compiler/nimblecmd.nim
+  cp compiler/nimconf.nim $nimbleDir/compiler/nimconf.nim
+  chmod 644 $nimbleDir/compiler/nimconf.nim
+  cp compiler/nimeval.nim $nimbleDir/compiler/nimeval.nim
+  chmod 644 $nimbleDir/compiler/nimeval.nim
+  cp compiler/nimfix/nimfix.nim $nimbleDir/compiler/nimfix/nimfix.nim
+  chmod 644 $nimbleDir/compiler/nimfix/nimfix.nim
+  cp compiler/nimfix/nimfix.nim.cfg $nimbleDir/compiler/nimfix/nimfix.nim.cfg
+  chmod 644 $nimbleDir/compiler/nimfix/nimfix.nim.cfg
+  cp compiler/nimfix/pretty.nim $nimbleDir/compiler/nimfix/pretty.nim
+  chmod 644 $nimbleDir/compiler/nimfix/pretty.nim
+  cp compiler/nimfix/prettybase.nim $nimbleDir/compiler/nimfix/prettybase.nim
+  chmod 644 $nimbleDir/compiler/nimfix/prettybase.nim
+  cp compiler/nimlexbase.nim $nimbleDir/compiler/nimlexbase.nim
+  chmod 644 $nimbleDir/compiler/nimlexbase.nim
+  cp compiler/nimsets.nim $nimbleDir/compiler/nimsets.nim
+  chmod 644 $nimbleDir/compiler/nimsets.nim
+  cp compiler/nimsuggest/nimsuggest.nim $nimbleDir/compiler/nimsuggest/nimsuggest.nim
+  chmod 644 $nimbleDir/compiler/nimsuggest/nimsuggest.nim
+  cp compiler/nodejs.nim $nimbleDir/compiler/nodejs.nim
+  chmod 644 $nimbleDir/compiler/nodejs.nim
+  cp compiler/nversion.nim $nimbleDir/compiler/nversion.nim
+  chmod 644 $nimbleDir/compiler/nversion.nim
+  cp compiler/options.nim $nimbleDir/compiler/options.nim
+  chmod 644 $nimbleDir/compiler/options.nim
+  cp compiler/parampatterns.nim $nimbleDir/compiler/parampatterns.nim
+  chmod 644 $nimbleDir/compiler/parampatterns.nim
+  cp compiler/parser.nim $nimbleDir/compiler/parser.nim
+  chmod 644 $nimbleDir/compiler/parser.nim
+  cp compiler/passaux.nim $nimbleDir/compiler/passaux.nim
+  chmod 644 $nimbleDir/compiler/passaux.nim
+  cp compiler/passes.nim $nimbleDir/compiler/passes.nim
+  chmod 644 $nimbleDir/compiler/passes.nim
+  cp compiler/patterns.nim $nimbleDir/compiler/patterns.nim
+  chmod 644 $nimbleDir/compiler/patterns.nim
+  cp compiler/pbraces.nim $nimbleDir/compiler/pbraces.nim
+  chmod 644 $nimbleDir/compiler/pbraces.nim
+  cp compiler/platform.nim $nimbleDir/compiler/platform.nim
+  chmod 644 $nimbleDir/compiler/platform.nim
+  cp compiler/plugins/active.nim $nimbleDir/compiler/plugins/active.nim
+  chmod 644 $nimbleDir/compiler/plugins/active.nim
+  cp compiler/plugins/itersgen.nim $nimbleDir/compiler/plugins/itersgen.nim
+  chmod 644 $nimbleDir/compiler/plugins/itersgen.nim
+  cp compiler/plugins/locals/locals.nim $nimbleDir/compiler/plugins/locals/locals.nim
+  chmod 644 $nimbleDir/compiler/plugins/locals/locals.nim
+  cp compiler/pluginsupport.nim $nimbleDir/compiler/pluginsupport.nim
+  chmod 644 $nimbleDir/compiler/pluginsupport.nim
+  cp compiler/pragmas.nim $nimbleDir/compiler/pragmas.nim
+  chmod 644 $nimbleDir/compiler/pragmas.nim
+  cp compiler/procfind.nim $nimbleDir/compiler/procfind.nim
+  chmod 644 $nimbleDir/compiler/procfind.nim
+  cp compiler/readme.txt $nimbleDir/compiler/readme.txt
+  chmod 644 $nimbleDir/compiler/readme.txt
+  cp compiler/renderer.nim $nimbleDir/compiler/renderer.nim
+  chmod 644 $nimbleDir/compiler/renderer.nim
+  cp compiler/rodread.nim $nimbleDir/compiler/rodread.nim
+  chmod 644 $nimbleDir/compiler/rodread.nim
+  cp compiler/rodutils.nim $nimbleDir/compiler/rodutils.nim
+  chmod 644 $nimbleDir/compiler/rodutils.nim
+  cp compiler/rodwrite.nim $nimbleDir/compiler/rodwrite.nim
+  chmod 644 $nimbleDir/compiler/rodwrite.nim
+  cp compiler/ropes.nim $nimbleDir/compiler/ropes.nim
+  chmod 644 $nimbleDir/compiler/ropes.nim
+  cp compiler/saturate.nim $nimbleDir/compiler/saturate.nim
+  chmod 644 $nimbleDir/compiler/saturate.nim
+  cp compiler/scriptconfig.nim $nimbleDir/compiler/scriptconfig.nim
+  chmod 644 $nimbleDir/compiler/scriptconfig.nim
+  cp compiler/sem.nim $nimbleDir/compiler/sem.nim
+  chmod 644 $nimbleDir/compiler/sem.nim
+  cp compiler/semasgn.nim $nimbleDir/compiler/semasgn.nim
+  chmod 644 $nimbleDir/compiler/semasgn.nim
+  cp compiler/semcall.nim $nimbleDir/compiler/semcall.nim
+  chmod 644 $nimbleDir/compiler/semcall.nim
+  cp compiler/semdata.nim $nimbleDir/compiler/semdata.nim
+  chmod 644 $nimbleDir/compiler/semdata.nim
+  cp compiler/semdestruct.nim $nimbleDir/compiler/semdestruct.nim
+  chmod 644 $nimbleDir/compiler/semdestruct.nim
+  cp compiler/semexprs.nim $nimbleDir/compiler/semexprs.nim
+  chmod 644 $nimbleDir/compiler/semexprs.nim
+  cp compiler/semfields.nim $nimbleDir/compiler/semfields.nim
+  chmod 644 $nimbleDir/compiler/semfields.nim
+  cp compiler/semfold.nim $nimbleDir/compiler/semfold.nim
+  chmod 644 $nimbleDir/compiler/semfold.nim
+  cp compiler/semgnrc.nim $nimbleDir/compiler/semgnrc.nim
+  chmod 644 $nimbleDir/compiler/semgnrc.nim
+  cp compiler/seminst.nim $nimbleDir/compiler/seminst.nim
+  chmod 644 $nimbleDir/compiler/seminst.nim
+  cp compiler/semmacrosanity.nim $nimbleDir/compiler/semmacrosanity.nim
+  chmod 644 $nimbleDir/compiler/semmacrosanity.nim
+  cp compiler/semmagic.nim $nimbleDir/compiler/semmagic.nim
+  chmod 644 $nimbleDir/compiler/semmagic.nim
+  cp compiler/semparallel.nim $nimbleDir/compiler/semparallel.nim
+  chmod 644 $nimbleDir/compiler/semparallel.nim
+  cp compiler/sempass2.nim $nimbleDir/compiler/sempass2.nim
+  chmod 644 $nimbleDir/compiler/sempass2.nim
+  cp compiler/semprepass.nim $nimbleDir/compiler/semprepass.nim
+  chmod 644 $nimbleDir/compiler/semprepass.nim
+  cp compiler/semstmts.nim $nimbleDir/compiler/semstmts.nim
+  chmod 644 $nimbleDir/compiler/semstmts.nim
+  cp compiler/semtempl.nim $nimbleDir/compiler/semtempl.nim
+  chmod 644 $nimbleDir/compiler/semtempl.nim
+  cp compiler/semtypes.nim $nimbleDir/compiler/semtypes.nim
+  chmod 644 $nimbleDir/compiler/semtypes.nim
+  cp compiler/semtypinst.nim $nimbleDir/compiler/semtypinst.nim
+  chmod 644 $nimbleDir/compiler/semtypinst.nim
+  cp compiler/service.nim $nimbleDir/compiler/service.nim
+  chmod 644 $nimbleDir/compiler/service.nim
+  cp compiler/sigmatch.nim $nimbleDir/compiler/sigmatch.nim
+  chmod 644 $nimbleDir/compiler/sigmatch.nim
+  cp compiler/suggest.nim $nimbleDir/compiler/suggest.nim
+  chmod 644 $nimbleDir/compiler/suggest.nim
+  cp compiler/syntaxes.nim $nimbleDir/compiler/syntaxes.nim
+  chmod 644 $nimbleDir/compiler/syntaxes.nim
+  cp compiler/tccgen.nim $nimbleDir/compiler/tccgen.nim
+  chmod 644 $nimbleDir/compiler/tccgen.nim
+  cp compiler/testability.nim $nimbleDir/compiler/testability.nim
+  chmod 644 $nimbleDir/compiler/testability.nim
+  cp compiler/transf.nim $nimbleDir/compiler/transf.nim
+  chmod 644 $nimbleDir/compiler/transf.nim
+  cp compiler/trees.nim $nimbleDir/compiler/trees.nim
+  chmod 644 $nimbleDir/compiler/trees.nim
+  cp compiler/treetab.nim $nimbleDir/compiler/treetab.nim
+  chmod 644 $nimbleDir/compiler/treetab.nim
+  cp compiler/types.nim $nimbleDir/compiler/types.nim
+  chmod 644 $nimbleDir/compiler/types.nim
+  cp compiler/typesrenderer.nim $nimbleDir/compiler/typesrenderer.nim
+  chmod 644 $nimbleDir/compiler/typesrenderer.nim
+  cp compiler/vm.nim $nimbleDir/compiler/vm.nim
+  chmod 644 $nimbleDir/compiler/vm.nim
+  cp compiler/vmdef.nim $nimbleDir/compiler/vmdef.nim
+  chmod 644 $nimbleDir/compiler/vmdef.nim
+  cp compiler/vmdeps.nim $nimbleDir/compiler/vmdeps.nim
+  chmod 644 $nimbleDir/compiler/vmdeps.nim
+  cp compiler/vmgen.nim $nimbleDir/compiler/vmgen.nim
+  chmod 644 $nimbleDir/compiler/vmgen.nim
+  cp compiler/vmhooks.nim $nimbleDir/compiler/vmhooks.nim
+  chmod 644 $nimbleDir/compiler/vmhooks.nim
+  cp compiler/vmmarshal.nim $nimbleDir/compiler/vmmarshal.nim
+  chmod 644 $nimbleDir/compiler/vmmarshal.nim
+  cp compiler/vmops.nim $nimbleDir/compiler/vmops.nim
+  chmod 644 $nimbleDir/compiler/vmops.nim
+  cp compiler/wordrecg.nim $nimbleDir/compiler/wordrecg.nim
+  chmod 644 $nimbleDir/compiler/wordrecg.nim
+  cp compiler/writetracking.nim $nimbleDir/compiler/writetracking.nim
+  chmod 644 $nimbleDir/compiler/writetracking.nim
+  cp doc/basicopt.txt $nimbleDir/doc/basicopt.txt
+  chmod 644 $nimbleDir/doc/basicopt.txt
+  cp doc/advopt.txt $nimbleDir/doc/advopt.txt
+  chmod 644 $nimbleDir/doc/advopt.txt
+cp compiler.nimble $nimbleDir/compiler.nimble
+chmod 644 $nimbleDir/compiler.nimble
+
   echo "installation successful"
 else
   echo "Nim installation script"
@@ -479,7 +800,7 @@ else
   echo "  /usr/bin"
   echo "  /usr/local/bin"
   echo "  /opt"
-  echo "  <some other dir> (treated like '/opt')"
+  echo "  <some other dir> (treated similar to '/opt')"
   echo "To deinstall, use the command:"
   echo "sh deinstall.sh DIR"
   exit 1

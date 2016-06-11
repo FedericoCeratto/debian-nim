@@ -4,12 +4,12 @@
 import json, strutils, os, parseopt, strtabs, uri, tables
 from httpclient import Proxy, newProxy
 
-import nimblepkg/config, nimblepkg/version,
-       nimblepkg/tools, nimblepkg/nimbletypes
+import config, version, tools, nimbletypes
 
 type
   Options* = object
     forcePrompts*: ForcePrompt
+    depsOnly*: bool
     queryVersions*: bool
     queryInstalled*: bool
     action*: Action
@@ -18,7 +18,7 @@ type
     pkgInfoCache*: TableRef[string, PackageInfo]
 
   ActionType* = enum
-    actionNil, actionUpdate, actionInit, actionDump, actionPublish,
+    actionNil, actionRefresh, actionInit, actionDump, actionPublish,
     actionInstall, actionSearch,
     actionList, actionBuild, actionPath, actionUninstall, actionCompile,
     actionCustom, actionTasks, actionVersion
@@ -27,7 +27,7 @@ type
     case typ*: ActionType
     of actionNil, actionList, actionBuild, actionPublish, actionTasks,
        actionVersion: nil
-    of actionUpdate:
+    of actionRefresh:
       optionalURL*: string # Overrides default package list.
     of actionInstall, actionPath, actionUninstall:
       packages*: seq[PkgTuple] # Optional only for actionInstall.
@@ -83,6 +83,7 @@ Options:
       --ver                       Query remote server for package version
                                   information when searching or listing packages
       --nimbleDir dirname         Set the Nimble directory.
+  -d  --depsOnly                  Install only dependencies.
 
 For more information read the Github readme:
   https://github.com/nim-lang/nimble#readme
@@ -111,7 +112,7 @@ proc parseActionType*(action: string): ActionType =
   of "dump":
     result = actionDump
   of "update", "refresh":
-    result = actionUpdate
+    result = actionRefresh
   of "search":
     result = actionSearch
   of "list":
@@ -141,7 +142,7 @@ proc initAction*(options: var Options, key: string) =
     options.action.projName = ""
   of actionDump:
     options.action.projName = ""
-  of actionUpdate:
+  of actionRefresh:
     options.action.optionalURL = ""
   of actionSearch:
     options.action.search = @[]
@@ -215,7 +216,7 @@ proc parseArgument*(key: string, result: var Options) =
       result.action.packages.add(pkgTup)
     else:
       result.action.packages.add((key, VersionRange(kind: verAny)))
-  of actionUpdate:
+  of actionRefresh:
     result.action.optionalURL = key
   of actionSearch:
     result.action.search.add(key)
@@ -254,6 +255,7 @@ proc parseFlag*(flag, val: string, result: var Options) =
     of "ver": result.queryVersions = true
     of "nimbledir": result.config.nimbleDir = val # overrides option from file
     of "installed", "i": result.queryInstalled = true
+    of "depsOnly", "d": result.depsOnly = true
     else:
       raise newException(NimbleError, "Unknown option: --" & flag)
 

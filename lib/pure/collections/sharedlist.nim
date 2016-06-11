@@ -9,6 +9,8 @@
 
 ## Shared list support.
 
+{.push stackTrace:off.}
+
 import
   locks
 
@@ -23,18 +25,38 @@ type
 
   SharedList*[A] = object ## generic shared list
     head, tail: SharedListNode[A]
-    lock: Lock
+    lock*: Lock
 
 template withLock(t, x: untyped) =
   acquire(t.lock)
   x
   release(t.lock)
 
+proc iterAndMutate*[A](x: var SharedList[A]; action: proc(x: A): bool) =
+  ## iterates over the list. If 'action' returns true, the
+  ## current item is removed from the list.
+  withLock(x):
+    var n = x.head
+    while n != nil:
+      var i = 0
+      while i < n.dataLen:
+        # action can add new items at the end, so release the lock:
+        release(x.lock)
+        if action(n.d[i]):
+          acquire(x.lock)
+          let t = x.tail
+          n.d[i] = t.d[t.dataLen]
+          dec t.dataLen
+        else:
+          acquire(x.lock)
+          inc i
+      n = n.next
+
 iterator items*[A](x: var SharedList[A]): A =
   withLock(x):
     var it = x.head
     while it != nil:
-      for i in 0..<it.dataLen:
+      for i in 0..it.dataLen-1:
         yield it.d[i]
       it = it.next
 
@@ -69,3 +91,5 @@ proc clear*[A](t: var SharedList[A]) =
 proc deinitSharedList*[A](t: var SharedList[A]) =
   clear(t)
   deinitLock t.lock
+
+{.pop.}

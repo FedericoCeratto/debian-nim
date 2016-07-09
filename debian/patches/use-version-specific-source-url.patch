@@ -5,7 +5,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/tools/nimweb.nim
 +++ b/tools/nimweb.nim
-@@ -49,7 +49,7 @@
+@@ -60,7 +60,7 @@
    c.ticker = ""
    c.vars = newStringTable(modeStyleInsensitive)
    c.gitRepo = "https://github.com/nim-lang/Nim/tree"

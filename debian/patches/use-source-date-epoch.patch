@@ -5,7 +5,7 @@ Bug: https://github.com/nim-lang/Nim/issues/3113
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/compiler/docgen.nim
 +++ b/compiler/docgen.nim
-@@ -574,15 +574,15 @@
+@@ -573,15 +573,15 @@
    let bodyname = if d.hasToc: "doc.body_toc" else: "doc.body_no_toc"
    content = ropeFormatNamedVars(getConfigVar(bodyname), ["title",
        "tableofcontents", "moduledesc", "date", "time", "content"],
@@ -25,7 +25,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                       d.meta[metaVersion].rope, d.analytics.rope])
    else:
      code = content
-@@ -649,7 +649,7 @@
+@@ -648,7 +648,7 @@
    let code = ropeFormatNamedVars(getConfigVar("doc.file"), ["title",
        "tableofcontents", "moduledesc", "date", "time",
        "content", "author", "version", "analytics"],
@@ -46,7 +46,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  const
    hasTinyCBackend* = defined(tinyc)
-@@ -160,6 +160,22 @@
+@@ -165,6 +165,22 @@
  
  const oKeepVariableNames* = true
  
@@ -71,7 +71,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    ## which will work on the main project file unless
 --- a/compiler/semfold.nim
 +++ b/compiler/semfold.nim
-@@ -624,8 +624,8 @@
+@@ -631,8 +631,8 @@
      of skConst:
        case s.magic
        of mIsMainModule: result = newIntNodeT(ord(sfMainModule in m.flags), n)

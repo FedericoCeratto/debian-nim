@@ -4,4 +4,3 @@ use-version-specific-source-url.patch
 use-source-date-epoch.patch
 fix-makefile-unsupported-arch.patch
 fix-gnu-kfreebsd.patch
-ignore-coro.patch

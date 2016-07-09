@@ -53,6 +53,7 @@ override_dh_auto_clean:
 	find doc -name '*.html' -not -name 'overview.html' -delete -print
 	find examples lib tests -type f -executable -and -not -name '*.nim' \
 		-delete -print
+	rm -f tests/dll/libnimrtl.dylib
 	rm -f testament.db testresults.*
 
 override_dh_installdocs:

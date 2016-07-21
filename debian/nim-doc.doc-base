@@ -1,8 +1,9 @@
 Document: nim-doc
 Title: Nim Documentation
 Author: Andreas Rumpf
+Abstract: Documentation for the Nim language, compiler, and standard library.
 Section: Programming/Nim
 
 Format: HTML
 Index: /usr/share/doc/nim-doc/html/index.html
-Files: /usr/share/doc/nim-doc/html
+Files: /usr/share/doc/nim-doc/html/*.html

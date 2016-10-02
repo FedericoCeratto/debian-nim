@@ -19,7 +19,7 @@ if [ $# -eq 1 ] ; then
       libdir=/usr/lib/nim
       docdir=/usr/share/nim/doc
       datadir=/usr/share/nim/data
-      nimbleDir="/opt/nimble/pkgs/compiler-0.14.2"
+      nimbleDir="/opt/nimble/pkgs/compiler-0.15.0"
       ;;
     "/usr/local/bin")
       bindir=/usr/local/bin
@@ -27,7 +27,7 @@ if [ $# -eq 1 ] ; then
       libdir=/usr/local/lib/nim
       docdir=/usr/local/share/nim/doc
       datadir=/usr/local/share/nim/data
-      nimbleDir="/opt/nimble/pkgs/compiler-0.14.2"
+      nimbleDir="/opt/nimble/pkgs/compiler-0.15.0"
       ;;
     "/opt")
       bindir="/opt/nim/bin"
@@ -35,7 +35,7 @@ if [ $# -eq 1 ] ; then
       libdir="/opt/nim/lib"
       docdir="/opt/nim/doc"
       datadir="/opt/nim/data"
-      nimbleDir="/opt/nimble/pkgs/compiler-0.14.2"
+      nimbleDir="/opt/nimble/pkgs/compiler-0.15.0"
       ;;
     *)
       bindir="$1/nim/bin"
@@ -118,6 +118,7 @@ if [ $# -eq 1 ] ; then
     rm -f $nimbleDir/compiler/nodejs.nim
     rm -f $nimbleDir/compiler/nversion.nim
     rm -f $nimbleDir/compiler/options.nim
+    rm -f $nimbleDir/compiler/packagehandling.nim
     rm -f $nimbleDir/compiler/parampatterns.nim
     rm -f $nimbleDir/compiler/parser.nim
     rm -f $nimbleDir/compiler/passaux.nim
@@ -133,6 +134,131 @@ if [ $# -eq 1 ] ; then
     rm -f $nimbleDir/compiler/procfind.nim
     rm -f $nimbleDir/compiler/readme.txt
     rm -f $nimbleDir/compiler/renderer.nim
+    rm -f $nimbleDir/compiler/rnimcache/compiler_nim.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_system.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_commands.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_os.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_strutils.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_parseutils.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_math.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_algorithm.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_times.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_posix.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_msgs.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_options.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_lists.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_strtabs.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_hashes.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_etcpriv.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_osproc.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_streams.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_cpuinfo.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_linux.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_sets.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_tables.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_ropes.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_platform.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_terminal.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_macros.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_termios.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_nversion.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_condsyms.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_idents.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_extccomp.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_securehash.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_debuginfo.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_marshal.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_typeinfo.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_json.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_lexbase.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_unicode.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_intsets.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_wordrecg.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_nimblecmd.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_parseopt.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_lexer.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_nimlexbase.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_llstream.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_nimconf.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_main.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_ast.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_idgen.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_astalgo.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_rodutils.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_syntaxes.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_parser.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_pbraces.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_filters.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_renderer.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_filter_tmpl.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_rodread.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_types.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_trees.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_memfiles.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_rodwrite.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_passes.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_magicsys.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_nimsets.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_bitsets.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_importer.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_lookups.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_semdata.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_treetab.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_vmdef.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_prettybase.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_sem.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_semfold.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_saturate.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_procfind.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_pragmas.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_semtypinst.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_sigmatch.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_parampatterns.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_pretty.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_docgen.c
+    rm -f $nimbleDir/compiler/rnimcache/docutils_rstast.c
+    rm -f $nimbleDir/compiler/rnimcache/docutils_rst.c
+    rm -f $nimbleDir/compiler/rnimcache/docutils_rstgen.c
+    rm -f $nimbleDir/compiler/rnimcache/docutils_highlite.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_sequtils.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_sempass2.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_guards.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_writetracking.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_xmltree.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_cgi.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_cookies.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_typesrenderer.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_transf.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_cgmeth.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_lambdalifting.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_lowerings.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_vm.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_vmgen.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_vmdeps.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_vmmarshal.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_evaltempl.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_aliases.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_patterns.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_semmacrosanity.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_semparallel.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_pluginsupport.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_active.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_locals.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_itersgen.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_cgen.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_ccgutils.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_cgendata.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_ccgmerge.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_jsgen.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_passaux.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_depends.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_docgen2.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_service.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_net.c
+    rm -f $nimbleDir/compiler/rnimcache/stdlib_nativesockets.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_modules.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_nodejs.c
+    rm -f $nimbleDir/compiler/rnimcache/compiler_scriptconfig.c
     rm -f $nimbleDir/compiler/rodread.nim
     rm -f $nimbleDir/compiler/rodutils.nim
     rm -f $nimbleDir/compiler/rodwrite.nim
@@ -153,7 +279,6 @@ if [ $# -eq 1 ] ; then
     rm -f $nimbleDir/compiler/semmagic.nim
     rm -f $nimbleDir/compiler/semparallel.nim
     rm -f $nimbleDir/compiler/sempass2.nim
-    rm -f $nimbleDir/compiler/semprepass.nim
     rm -f $nimbleDir/compiler/semstmts.nim
     rm -f $nimbleDir/compiler/semtempl.nim
     rm -f $nimbleDir/compiler/semtypes.nim

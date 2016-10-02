@@ -41,7 +41,7 @@ override_dh_auto_test:
 
 override_dh_auto_clean:
 	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1 compiler/nim2
-	rm -rf bin
+	rm -rf bin rnimcache
 	rm -rf web/upload/
 	# TODO: use this instead when https://github.com/nim-lang/Nim/issues/2127 is fixed
 	#PATH=./bin:$$PATH ./koch clean
@@ -50,7 +50,7 @@ override_dh_auto_clean:
 	find . -name '*.o' -not -name 'koch_icon.o' -and -not -name 'nim_icon.o' \
 		-delete -print
 	find doc -name '*.idx' -delete -print
-	find doc -name '*.html' -not -name 'overview.html' -delete -print
+	find doc -name '*.html' -delete -print
 	find examples lib tests -type f -executable -and -not -name '*.nim' \
 		-delete -print
 	rm -f tests/dll/libnimrtl.dylib

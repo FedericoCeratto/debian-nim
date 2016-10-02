@@ -5,7 +5,7 @@ Bug: https://github.com/nim-lang/Nim/pull/3115
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/makefile
 +++ b/makefile
-@@ -390,6 +390,7 @@
+@@ -414,6 +414,7 @@
  	endif
  endif
  
@@ -13,7 +13,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ifeq ($(strip $(oFiles)),)
  	@echo "Error: no C code generated for: [$(myos): $(mycpu)]"
  	@exit 1
-@@ -398,12 +399,12 @@
+@@ -422,12 +423,12 @@
  %.o: %.c
  	$(CC) $(COMP_FLAGS) -Ic_code -c $< -o $@
  

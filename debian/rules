@@ -41,7 +41,7 @@ override_dh_auto_test:
 
 override_dh_auto_clean:
 	rm -f ./koch tools/nimweb tools/niminst/niminst compiler/nim compiler/nim0 compiler/nim1 compiler/nim2
-	find bin -type f -not -name '*.nim' -and -not -name 'nim.cfg' -delete -print
+	rm -rf bin
 	rm -rf web/upload/
 	# TODO: use this instead when https://github.com/nim-lang/Nim/issues/2127 is fixed
 	#PATH=./bin:$$PATH ./koch clean

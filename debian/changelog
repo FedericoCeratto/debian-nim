@@ -1,3 +1,9 @@
+nim (0.15.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+
+ -- Federico Ceratto <federico@debian.org>  Sun, 02 Oct 2016 18:55:24 +0100
+
 nim (0.14.2-1) unstable; urgency=medium
 
   * New upstream release

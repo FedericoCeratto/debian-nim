@@ -34,6 +34,8 @@ override_dh_auto_build:
 override_dh_auto_install:
 	PATH=./bin/:$$PATH ./koch install debian/tmp
 	for fn in nimble nimsuggest nimgrep; do cp ./bin/$$fn debian/tmp/nim/bin/; done
+	mkdir -p debian/tmp/nim/lib/nimblepkg/
+	cp dist/nimble/src/nimblepkg/nimscriptapi.nim debian/tmp/nim/lib/nimblepkg/nimscriptapi.nim
 	cp -a web/upload debian/html
 	find debian/html -name '*.idx' \
 		-delete

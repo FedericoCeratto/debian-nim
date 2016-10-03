@@ -3,3 +3,4 @@ dont-build-remote-website.patch
 use-source-date-epoch.patch
 fix-makefile-unsupported-arch.patch
 fix-gnu-kfreebsd.patch
+fix-nimscriptapi-path.patch

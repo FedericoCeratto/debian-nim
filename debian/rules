@@ -24,11 +24,16 @@ override_dh_auto_build:
 	# any changes in debian/patches. see also https://github.com/nim-lang/csources/issues/12
 	PATH=./bin/:$$PATH ./koch boot -d:release $(EXTRA_KOCHFLAGS) $(NIMFLAGS)
 	PATH=./bin/:$$PATH ./koch web
-	help2man --name="Nim Language Compiler" -s1 -N --version-string="$(DEB_VERSION)" \
-		-i debian/nim.h2m -o debian/nim.1 ./bin/nim
+	# Build nimble, nimsuggest and nimgrep in ./bin/
+	./bin/nim e install_tools.nims
+	help2man --name="Nim Language Compiler" -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nim.1 ./bin/nim
+	help2man --name="Nim Package Installer" -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nimble.1 ./bin/nimble
+	help2man --name="Nimsuggest"            -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nimsuggest.1 ./bin/nimsuggest
+	help2man --name="Nimgrep"               -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nimgrep.1 ./bin/nimgrep
 
 override_dh_auto_install:
 	PATH=./bin/:$$PATH ./koch install debian/tmp
+	for fn in nimble nimsuggest nimgrep; do cp ./bin/$$fn debian/tmp/nim/bin/; done
 	cp -a web/upload debian/html
 	find debian/html -name '*.idx' \
 		-delete
@@ -61,5 +66,5 @@ override_dh_installdocs:
 
 override_dh_clean:
 	dh_clean
-	rm -f debian/nim.1
+	rm -f debian/nim.1 debian/nimble.1 debian/nimgrep.1 debian/nimsuggest.1
 	rm -rf debian/html

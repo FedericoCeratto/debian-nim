@@ -1,1 +1,4 @@
 debian/nim.1
+debian/nimble.1
+debian/nimgrep.1
+debian/nimsuggest.1

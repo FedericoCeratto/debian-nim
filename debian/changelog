@@ -1,6 +1,7 @@
 nim (0.15.0-1) UNRELEASED; urgency=medium
 
   * New upstream release
+  * Add Suggests: nim-doc (Closes: #828051)
 
  -- Federico Ceratto <federico@debian.org>  Sun, 02 Oct 2016 18:55:24 +0100
 

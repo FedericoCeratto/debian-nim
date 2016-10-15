@@ -27,9 +27,9 @@ override_dh_auto_build:
 	# Build nimble, nimsuggest and nimgrep in ./bin/
 	./bin/nim e install_tools.nims
 	help2man --name="Nim Language Compiler" -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nim.1 ./bin/nim
-	help2man --name="Nim Package Installer" -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nimble.1 ./bin/nimble
 	help2man --name="Nimsuggest"            -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nimsuggest.1 ./bin/nimsuggest
 	help2man --name="Nimgrep"               -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nimgrep.1 ./bin/nimgrep
+	PATH=./bin/:$$PATH help2man --name="Nim Package Installer" -s1 -N --version-string="$(DEB_VERSION)" -i debian/nim.h2m -o debian/nimble.1 ./bin/nimble
 
 override_dh_auto_install:
 	PATH=./bin/:$$PATH ./koch install debian/tmp

@@ -3,7 +3,9 @@ Section: devel
 Priority: optional
 Maintainer: Ximin Luo <infinity0@debian.org>
 Uploaders: Federico Ceratto <federico@debian.org>
-Build-Depends: debhelper (>= 9), help2man (>= 1.47.1)
+Build-Depends: debhelper (>= 9),
+ help2man (>= 1.46.4),
+ libssl1.0.2
 Standards-Version: 3.9.8
 Homepage: http://nim-lang.org/
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/nim.git
